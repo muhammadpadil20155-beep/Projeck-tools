@@ -1,0 +1,1662 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Secretly Tools</title>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800&family=Cinzel+Decorative:wght@700;900&family=Outfit:wght@400;600;800&family=Manrope:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--pink:#ff3d81;--glass:rgba(255,255,255,.08);--line:rgba(255,255,255,.18);--txt:#fff;--mut:rgba(255,255,255,.7)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent}
+html,body{min-height:100%}
+body{font-family:Manrope,system-ui,sans-serif;color:var(--txt);background:#12060a;padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+#bg{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-2}
+.shade{position:fixed;inset:0;background:linear-gradient(#0008,#0004 40%,#000a);z-index:-1}
+svg.i{width:1.15em;height:1.15em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.glass{background:var(--glass);backdrop-filter:blur(14px) saturate(140%);-webkit-backdrop-filter:blur(14px) saturate(140%);border:1px solid var(--line);box-shadow:0 8px 30px #0004}
+nav{position:sticky;top:10px;z-index:10;margin:10px auto 0;width:min(560px,calc(100% - 20px));border-radius:22px;padding:8px;display:flex;align-items:center;gap:6px}
+nav .brand{font:800 1.05rem Outfit;display:flex;gap:8px;align-items:center;padding:0 8px;flex:1;white-space:nowrap}
+.btn{font:600 .9rem Manrope;color:var(--txt);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:7px;padding:10px 14px;border-radius:14px;background:rgba(255,255,255,.06);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--line);text-decoration:none;transition:background .2s,transform .1s}
+.btn:hover,.btn.on{background:rgba(255,61,129,.28);border-color:rgba(255,61,129,.6)}
+.btn:active{transform:scale(.97)}
+.btn:focus-visible,input:focus-visible,textarea:focus-visible{outline:2px solid #fff;outline-offset:2px}
+main{width:min(560px,calc(100% - 20px));margin:0 auto;padding:26px 0 40px}
+.page{display:none}.page.on{display:block}
+h1{font:800 clamp(2.2rem,9vw,3.2rem)/1.05 Outfit;letter-spacing:-.02em;margin:34px 0 12px}
+h1 span{color:var(--pink)}
+.lead{color:var(--mut);line-height:1.6;margin-bottom:22px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{border-radius:18px;padding:16px 8px;text-align:center}
+.stat b{display:block;font:800 1.6rem Outfit}.stat small{color:var(--mut)}
+.tabs{display:flex;gap:8px;overflow-x:auto;padding:4px 2px 12px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}.tabs .btn{white-space:nowrap}
+.card{border-radius:24px;padding:18px}
+.card h2{font:700 1.15rem Outfit;display:flex;gap:8px;align-items:center;margin-bottom:14px}
+.card p.d{color:var(--mut);font-size:.88rem;margin-bottom:12px;line-height:1.5}
+input[type=text],textarea{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);backdrop-filter:blur(8px);color:#fff;font:500 .95rem Manrope;margin-bottom:10px}
+textarea{min-height:130px;resize:vertical;font-family:ui-monospace,Consolas,monospace;font-size:.82rem}
+.row{display:flex;gap:8px}.row .btn{flex:1}
+.go{background:linear-gradient(135deg,#ff3d81cc,#c2185bcc);border-color:#ff7aa8}
+.out{display:none;margin-top:12px;border-radius:16px;padding:12px;background:rgba(0,0,0,.35);border:1px solid var(--line);word-break:break-all;font:.82rem ui-monospace,Consolas,monospace;line-height:1.5;max-height:240px;overflow:auto}
+.out.show{display:block}.out.err{border-color:#ff6b6b;color:#ffb0b0}
+.drop{display:block;text-align:center;padding:26px 10px;border:1.5px dashed var(--line);border-radius:16px;cursor:pointer;margin-bottom:10px;color:var(--mut)}
+.drop input{display:none}.drop .i{width:1.8em;height:1.8em;display:block;margin:0 auto 8px}
+.prev{max-width:100%;max-height:200px;border-radius:14px;margin-bottom:10px;display:none}
+.dev{display:flex;align-items:center;gap:12px;border-radius:18px;padding:14px;margin-bottom:10px;color:#fff;text-decoration:none;transition:background .2s}
+.dev:hover{background:rgba(255,255,255,.14)}
+.dev .logo{width:44px;height:44px;border-radius:13px;display:grid;place-items:center;flex:none}
+.dev .logo svg{width:24px;height:24px;fill:#fff}
+.dev b{display:flex;align-items:center;gap:6px;font-size:1rem}
+.dev small{color:var(--mut)}
+.vb{width:18px;height:18px;flex:none}
+.foot{text-align:center;color:var(--mut);font-size:.8rem;margin-top:26px}
+main{padding-bottom:190px}
+.mp{display:grid;gap:10px}
+.mp .item{border-radius:20px;padding:14px;display:flex;gap:12px;align-items:center}
+.mp .ic{width:46px;height:46px;border-radius:14px;display:grid;place-items:center;background:rgba(255,61,129,.25);flex:none}
+.mp .inf{flex:1;min-width:0}.mp b{display:block;font:700 1rem Outfit}.mp small{color:var(--mut)}
+.mp .btn{padding:10px 12px}
+.tag{display:inline-block;font:700 .75rem Manrope;padding:3px 9px;border-radius:99px;background:rgba(255,255,255,.12);margin-top:5px}
+.srch{margin-bottom:12px}
+.mp .ic img{width:100%;height:100%;object-fit:cover;border-radius:14px}
+.lbl{display:block;font:700 .85rem Manrope;margin:2px 0 6px}
+.req{color:var(--pink)}
+@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* ===== v1.2: dock besar, menu titik tiga, rating, update ===== */
+.dock{position:fixed;top:auto;right:auto;height:auto;width:min(560px,calc(100% - 20px));max-width:none;margin:0;left:50%;bottom:calc(26px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:20;display:flex;align-items:center;gap:7px;padding:12px;border-radius:26px;background:rgba(20,8,12,.38);backdrop-filter:blur(22px) saturate(160%);-webkit-backdrop-filter:blur(22px) saturate(160%);border:1px solid rgba(255,255,255,.28);box-shadow:0 14px 44px #000a}
+.dock .btn{flex:1 1 0;min-width:0;height:62px;padding:0;border-radius:17px;transition:flex-grow .3s cubic-bezier(.3,1.4,.5,1),background .2s}
+.dock .btn .i{width:29px;height:29px}
+.dock .btn.on{flex-grow:1.7;background:rgba(255,61,129,.4);border-color:rgba(255,61,129,.7)}
+.btn{position:relative}
+.btn.sq{padding:10px;width:42px}
+.dotb{display:none;position:absolute;top:5px;right:5px;width:10px;height:10px;border-radius:50%;background:var(--pink);box-shadow:0 0 0 2px rgba(0,0,0,.45)}
+.dotb.show{display:block}
+nav:not(.dock){gap:6px}
+@media(max-width:470px){
+  nav:not(.dock){gap:4px}
+  nav:not(.dock) .brand{padding:0 4px;font-size:.98rem}
+  nav:not(.dock) .btn{padding:10px}
+  nav:not(.dock) .btn.sq{width:40px}
+  nav:not(.dock) .btn:not(.on):not(.sq) .t{display:none}
+}
+#menu-ov{position:fixed;inset:0;z-index:25;display:none}
+#menu-ov.show{display:block}
+#menu{position:fixed;right:10px;z-index:30;width:min(310px,calc(100% - 20px));max-height:calc(100dvh - 250px);overflow-y:auto;border-radius:22px;padding:8px;display:none;background:rgba(20,8,12,.78);transform-origin:top right}
+#menu.show{display:block;animation:pop .16s ease-out}
+@keyframes pop{from{opacity:0;transform:scale(.96) translateY(-4px)}to{opacity:1;transform:none}}
+#menu .gh{font:700 .7rem Manrope;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);padding:10px 12px 4px}
+#menu hr{border:0;border-top:1px solid var(--line);margin:6px 4px}
+.mi{width:100%;display:flex;align-items:center;gap:12px;padding:12px;border:0;background:none;color:#fff;font:600 .95rem Manrope;border-radius:14px;cursor:pointer;text-align:left;text-decoration:none}
+.mi:hover,.mi:active{background:rgba(255,255,255,.12)}
+.mi .i{width:20px;height:20px}
+.mi .nb{margin-left:auto;font:800 .65rem Manrope;background:var(--pink);padding:3px 8px;border-radius:99px;display:none}
+.mi .nb.show{display:inline-block}
+.row.t3 .btn{padding:10px 8px;font-size:.85rem}
+#toast{position:fixed;left:50%;bottom:calc(132px + env(safe-area-inset-bottom));transform:translateX(-50%);z-index:40;background:rgba(20,8,12,.85);border:1px solid var(--line);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);padding:11px 18px;border-radius:99px;font:600 .88rem Manrope;opacity:0;pointer-events:none;transition:opacity .25s;max-width:calc(100% - 30px);text-align:center}
+#toast.show{opacity:1}
+h2.sec{font:700 1.1rem Outfit;margin:24px 0 10px}
+.avg{font:800 3.2rem/1 Outfit}
+.sr{display:inline-flex;gap:3px;color:rgba(255,255,255,.35)}
+.sr .i{width:18px;height:18px}.sr .i.on{fill:#ffc64d;stroke:#ffc64d}
+.sr.big .i{width:26px;height:26px}
+.stars{display:flex;gap:4px;justify-content:center;margin:4px 0 16px}
+.sb{background:none;border:0;padding:5px;color:rgba(255,255,255,.4);cursor:pointer;border-radius:12px}
+.sb .i{width:40px;height:40px}
+.sb.on{color:#ffc64d}.sb.on .i{fill:#ffc64d}
+.sb:focus-visible{outline:2px solid #fff}
+.rv{border-radius:18px;padding:14px}
+.rv .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:6px}
+.rv b{font:700 .95rem Outfit}.rv small{color:var(--mut);margin-left:auto}
+.rv p{color:rgba(255,255,255,.88);line-height:1.55;font-size:.9rem;word-break:break-word}
+.upd .card{margin-bottom:12px}
+.upd .hd{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:8px}
+.upd .hd small{color:var(--mut);margin-left:auto}
+.upd .tag{margin:0}.upd .tag.new{background:var(--pink)}
+.upd h3{font:700 1.05rem Outfit;margin-bottom:8px}
+.upd ul{padding-left:18px;color:var(--mut);line-height:1.65;font-size:.9rem}
+details.card{margin-bottom:10px;padding:14px 16px}
+details summary{cursor:pointer;font:700 .98rem Outfit;list-style:none}
+details summary::-webkit-details-marker{display:none}
+details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
+
+/* ===== v1.7: tools jadi kartu besar 2 kolom; pilih kartu untuk membuka tool ===== */
+#tabs.tabs{display:grid;grid-template-columns:1fr 1fr;gap:12px;overflow:visible;padding:4px 0 14px}
+#tabs .btn{position:relative;display:flex;flex-direction:column;justify-content:flex-end;align-items:flex-start;gap:0;text-align:left;aspect-ratio:1/1;width:auto;height:auto;padding:14px;border-radius:22px;overflow:hidden;white-space:normal;font-size:1rem}
+#tabs .btn::before{content:"";position:absolute;left:0;right:0;top:0;height:6px;background:var(--ac)}
+#tabs .tk{position:absolute;left:14px;top:20px;width:48px;height:48px;border-radius:15px;background:var(--ac);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px #0006}
+#tabs .tk .i{width:26px;height:26px;color:#fff}
+#tabs .bd{position:absolute;right:12px;top:20px;font-size:.6rem;font-weight:800;letter-spacing:.08em;padding:3px 9px;border-radius:999px;border:1px solid rgba(255,255,255,.3);opacity:.85}
+#tabs .nm{font-weight:800;font-size:1.02rem;line-height:1.15}
+#tabs .cs{font-size:.74rem;font-weight:500;opacity:.65;line-height:1.25;margin-top:3px}
+#tools-back{display:none;margin:2px 0 12px}
+#tools:not(.pick) #tools-back{display:inline-flex}
+#tools:not(.pick) #tabs{display:none}
+#tools.pick .tool{display:none!important}
+/* ===== Chat AI dan Katalog Anime ===== */
+#c-log{max-height:52vh;overflow-y:auto;margin-bottom:8px}
+.cmsg{padding:10px 12px;border-radius:14px;margin:8px 0;line-height:1.5;font-size:.9rem;word-break:break-word}
+.cmsg.u{background:rgba(255,61,129,.22);margin-left:28px}.cmsg.a{background:rgba(255,255,255,.07);margin-right:8px}
+.cb{margin:8px 0}.cb pre{max-height:240px;overflow:auto;background:#0009;padding:10px;border-radius:12px;font:12px/1.4 ui-monospace,monospace;white-space:pre}
+.cb .row{margin-top:6px;flex-wrap:wrap}.cb .btn{padding:6px 10px;font-size:.78rem}
+.cprev{position:fixed;inset:0;z-index:60;background:#000c;display:flex;flex-direction:column}.cprev iframe{flex:1;border:0;background:#fff}.cprev .btn{margin:8px}
+.ac{display:flex;gap:10px;padding:10px;margin:8px 0;border-radius:16px;background:rgba(255,255,255,.06);cursor:pointer}
+.ac img{width:64px;height:90px;object-fit:cover;border-radius:10px;flex:none;background:#0006}
+.ac b{display:block;line-height:1.25}.ac small{display:block;opacity:.7;margin-top:3px}.nw{color:#ffd166;opacity:1!important;font-weight:700}
+#a-detail .btn{margin:4px 4px 4px 0;text-decoration:none}#a-detail h3{margin:10px 0 4px}#a-detail p{opacity:.8;font-size:.86rem;line-height:1.5}
+
+/* ===== v1.4: navigasi baru, Stream, Semua Fitur, tools siap jual, beranda ===== */
+[hidden]{display:none!important}
+nav#topnav{border-radius:16px}
+nav:not(.dock) .btn{border-radius:12px}
+nav .brand{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dock{border-radius:18px;padding:8px;gap:4px;bottom:calc(16px + env(safe-area-inset-bottom));background:rgba(16,6,10,.55);border:1px solid rgba(255,255,255,.2)}
+.dock .btn{flex-direction:column;gap:3px;height:58px;border-radius:13px;background:transparent;border-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;color:rgba(255,255,255,.7)}
+.dock .btn:hover{background:rgba(255,255,255,.08);border-color:transparent}
+.dock .btn .i{width:25px;height:25px}
+.dock .btn .lb{display:none;font:700 .62rem/1 Manrope;letter-spacing:.02em}
+.dock .btn.on{flex-grow:1.9;color:#fff;background:linear-gradient(160deg,rgba(255,61,129,.5),rgba(194,24,91,.38));border-color:rgba(255,120,170,.55);box-shadow:0 4px 14px rgba(255,61,129,.25)}
+.dock .btn.on .lb{display:block}
+#acBtn{bottom:calc(100px + env(safe-area-inset-bottom))!important}
+#toast{bottom:calc(112px + env(safe-area-inset-bottom))}
+.sel{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:#fff;font:500 .95rem Manrope;margin-bottom:10px}
+.sel option{color:#000}
+input[type=range]{width:100%;margin:2px 0 12px;accent-color:#ff3d81}
+.seg{display:flex;gap:4px;margin:4px 0 14px;padding:5px;border-radius:14px}
+.seg .btn{flex:1;padding:10px 4px;border-radius:10px;background:transparent;border-color:transparent}
+.seg .btn.on{background:rgba(255,61,129,.35);border-color:rgba(255,61,129,.6)}
+.sp{display:none}.sp.on{display:block}
+.hs{display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:14px;margin-bottom:10px}
+.hs input{flex:1;min-width:0;background:none;border:0;margin:0;padding:14px 0;color:#fff;font:500 .95rem Manrope;outline:0}
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qg .btn{flex-direction:column;padding:14px 4px;border-radius:14px;gap:7px;font-size:.78rem}
+.qg .i{width:26px;height:26px}
+.hz{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.hz::-webkit-scrollbar{display:none}
+.hc{flex:none;width:136px;border-radius:14px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:8px;cursor:pointer;color:#fff;font:inherit}
+.hc .ic,.fi .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--ac)}
+.hc b{font:700 .92rem Outfit}.hc small{color:var(--mut);font-size:.72rem;line-height:1.3}
+.pc{flex:none;width:96px;cursor:pointer;font-size:.74rem;line-height:1.25}
+.pc img{width:96px;height:136px;object-fit:cover;border-radius:12px;display:block;margin-bottom:5px;background:#0006}.pc span{display:block}
+.fi{display:flex;gap:12px;align-items:center;border-radius:14px;padding:12px;margin-bottom:8px}
+.fi .inf{flex:1;min-width:0}.fi b{display:block;font:700 .95rem Outfit}.fi small{color:var(--mut);font-size:.8rem;line-height:1.4;display:block;margin-top:2px}
+.fg{font:700 .74rem Manrope;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:20px 2px 8px}
+.rowi{display:grid;grid-template-columns:2fr 1fr 1.4fr auto;gap:6px;margin-bottom:6px}
+.rowi input{margin:0!important;padding:11px 10px!important}.rowi .btn{padding:0 12px}
+canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
+#q-box{background:#fff;padding:12px;border-radius:12px;display:inline-block;margin-top:12px}#q-box img,#q-box canvas{display:block}
+</style>
+</head>
+<body>
+<!-- Background video: letakkan file bg.mp4 sefolder dengan index.html -->
+<video id="bg" autoplay muted loop playsinline preload="auto"><source src="bg.mp4" type="video/mp4"></video>
+<div class="shade"></div>
+
+<!-- Ikon web (SVG), bukan emoji keyboard -->
+<svg width="0" height="0" style="position:absolute"><defs>
+<symbol id="home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8M5 10v10h5v-6h4v6h5V10"/></symbol>
+<symbol id="tools" viewBox="0 0 24 24"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.2L3 17.8V21h3.2l6.3-6.3a4 4 0 0 0 5.2-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></symbol>
+<symbol id="user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></symbol>
+<symbol id="link" viewBox="0 0 24 24"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></symbol>
+<symbol id="globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></symbol>
+<symbol id="code" viewBox="0 0 24 24"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M14 4l-4 16"/></symbol>
+<symbol id="video" viewBox="0 0 24 24"><rect x="2" y="5" width="14" height="14" rx="3"/><path d="M16 10l6-3v10l-6-3"/></symbol>
+<symbol id="img" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="9" cy="9" r="2"/><path d="M21 16l-5-5-9 9"/></symbol>
+<symbol id="lock" viewBox="0 0 24 24"><rect x="4" y="10" width="16" height="11" rx="3"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></symbol>
+<symbol id="up" viewBox="0 0 24 24"><path d="M12 16V4M6 10l6-6 6 6M4 20h16"/></symbol>
+<symbol id="copy" viewBox="0 0 24 24"><rect x="9" y="9" width="12" height="12" rx="3"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+<symbol id="open" viewBox="0 0 24 24"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></symbol>
+<symbol id="paste" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="3"/><path d="M9 4h6v3H9z"/></symbol>
+<symbol id="arrow" viewBox="0 0 24 24"><path d="M7 17L17 7M8 7h9v9"/></symbol>
+<symbol id="badge" viewBox="0 0 24 24"><path fill="#1d9bf0" stroke="none" d="M22.5 12.5c0-1.6-.9-3-2.3-3.7.4-1.5 0-3.1-1.2-4.2-1.1-1.1-2.7-1.5-4.2-1.2C14 2.1 12.6 1.2 11 1.2S8 2.1 7.2 3.4c-1.5-.4-3.1 0-4.2 1.2C1.900 5.700 1.500 7.300 1.900 8.800.600 9.500-.2 10.900-.2 12.500s.8 3 2.100 3.700c-.4 1.500 0 3.100 1.200 4.200 1.100 1.100 2.700 1.500 4.200 1.200.8 1.300 2.100 2.100 3.700 2.100s3-.8 3.700-2.100c1.500.4 3.100 0 4.200-1.200 1.100-1.100 1.500-2.700 1.200-4.200 1.300-.7 2.100-2.100 2.100-3.700z" transform="translate(1 -.5)"/><path fill="none" stroke="#fff" stroke-width="2.4" d="M7.500 12.300l3 3 6-6.300"/></symbol>
+<symbol id="dl" viewBox="0 0 24 24"><path d="M12 4v12M6 11l6 6 6-6M4 20h16"/></symbol>
+<symbol id="gift" viewBox="0 0 24 24"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M5 12v9h14v-9M12 8v13M12 8c-3 0-5-1-5-3s3-2 5 3c2-5 5-5 5-3s-2 3-5 3"/></symbol>
+<symbol id="cart" viewBox="0 0 24 24"><path d="M3 4h3l2.500 11h10L21 7H7"/><circle cx="9" cy="20" r="1.500"/><circle cx="18" cy="20" r="1.500"/></symbol>
+<symbol id="key" viewBox="0 0 24 24"><circle cx="8" cy="15" r="4"/><path d="M11 12l9-9M16 7l3 3"/></symbol>
+<symbol id="braces" viewBox="0 0 24 24"><path d="M8 4c-3 0-3 2-3 4s0 3-2 4c2 1 2 2 2 4s0 4 3 4M16 4c3 0 3 2 3 4s0 3 2 4c-2 1-2 2-2 4s0 4-3 4"/></symbol>
+<symbol id="rocket" viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.3-2 5-2 5s3.7-.5 5-2c.7-.8.7-2.1-.1-2.9a2.2 2.2 0 0 0-2.9-.1z"/><path d="m12 15-3-3a22 22 0 0 1 2-4A13 13 0 0 1 22 2c0 2.7-.8 7.5-6 11a22 22 0 0 1-4 2z"/><path d="M9 12H4s.6-3 2-4c1.6-1.1 5 0 5 0M12 15v5s3-.6 4-2c1.1-1.6 0-5 0-5"/></symbol>
+<symbol id="hash" viewBox="0 0 24 24"><path d="M5 9h15M4 15h15M10 3L8 21M16 3l-2 18"/></symbol>
+<symbol id="plus" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></symbol>
+<symbol id="dots" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.3"/><circle cx="12" cy="12" r="1.3"/><circle cx="12" cy="19" r="1.3"/></symbol>
+<symbol id="star" viewBox="0 0 24 24"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></symbol>
+<symbol id="bell" viewBox="0 0 24 24"><path d="M6 9a6 6 0 0 1 12 0c0 6 2 7 2 7H4s2-1 2-7M10 20a2 2 0 0 0 4 0"/></symbol>
+<symbol id="share" viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></symbol>
+<symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1 1-1.1 1.7M12 17h.01"/></symbol>
+<symbol id="flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></symbol>
+<symbol id="receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/></symbol>
+<symbol id="stamp" viewBox="0 0 24 24"><path d="M9 3h6v5l3 5H6l3-5zM5 17h14v4H5z"/></symbol>
+<symbol id="ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4zM10 7v10"/></symbol>
+<symbol id="bio" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><circle cx="12" cy="9" r="2"/><path d="M8 15h8M8 18h8"/></symbol>
+<symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
+</defs></svg>
+
+<nav class="glass" id="topnav">
+  <div class="brand"><svg class="i"><use href="#lock"/></svg>Secretly</div>
+  <button class="btn on" data-page="home"><svg class="i"><use href="#home"/></svg><span class="t">Home</span></button>
+  <button class="btn" data-page="tools"><svg class="i"><use href="#tools"/></svg><span class="t">Tools</span></button>
+  <button class="btn" data-page="stream"><svg class="i"><use href="#play"/></svg><span class="t">Stream</span></button>
+  <button class="btn" data-page="dev"><svg class="i"><use href="#user"/></svg><span class="t">Kontak</span></button>
+  <button class="btn sq" id="more-btn" aria-label="Menu lainnya" aria-haspopup="menu" aria-expanded="false"><svg class="i"><use href="#dots"/></svg><i class="dotb" id="more-dot"></i></button>
+</nav>
+<div id="menu-ov"></div>
+<div id="menu" class="glass" role="menu" aria-label="Menu lainnya">
+  <div class="gh">Navigasi</div>
+  <button class="mi" role="menuitem" data-page="home"><svg class="i"><use href="#home"/></svg>Home</button>
+  <button class="mi" role="menuitem" data-page="tools"><svg class="i"><use href="#tools"/></svg>Tools</button>
+  <button class="mi" role="menuitem" data-page="stream"><svg class="i"><use href="#play"/></svg>Stream</button>
+  <button class="mi" role="menuitem" data-page="modfree"><svg class="i"><use href="#gift"/></svg>Modpack Free</button>
+  <button class="mi" role="menuitem" data-page="share"><svg class="i"><use href="#plus"/></svg>Share Modpack</button>
+  <button class="mi" role="menuitem" data-page="modsell"><svg class="i"><use href="#cart"/></svg>Forsell Modpack</button>
+  <button class="mi" role="menuitem" data-page="dev"><svg class="i"><use href="#user"/></svg>Kontak</button>
+  <hr>
+  <div class="gh">Fitur</div>
+  <button class="mi" role="menuitem" data-page="fitur"><svg class="i"><use href="#info"/></svg>Apa Itu Secretly (Semua Fitur)</button>
+  <button class="mi" role="menuitem" data-page="rating"><svg class="i"><use href="#star"/></svg>Rating</button>
+  <button class="mi" role="menuitem" data-page="updates"><svg class="i"><use href="#bell"/></svg>Update Terbaru<span class="nb" id="menu-new">BARU</span></button>
+  <button class="mi" role="menuitem" data-page="help"><svg class="i"><use href="#help"/></svg>Bantuan (FAQ)</button>
+  <button class="mi" role="menuitem" id="mi-share"><svg class="i"><use href="#share"/></svg>Bagikan Web</button>
+  <a class="mi" role="menuitem" id="mi-bug" target="_blank" rel="noopener"><svg class="i"><use href="#flag"/></svg>Lapor Bug / Saran</a>
+  <button class="mi" role="menuitem" id="mi-vid"><svg class="i"><use href="#video"/></svg><span id="vid-lbl">Matikan Video Latar</span></button>
+</div>
+<div id="toast" role="status" aria-live="polite"></div>
+
+<main>
+<!-- HOME -->
+<section class="page on" id="home">
+  <h1>Secretly <span>Tools</span></h1>
+  <p class="lead">Tools gratis, streaming anime dan film, plus tools siap jual untuk bisnis onlinemu. Semua dalam satu halaman yang ringan di HP.</p>
+  <div class="hs glass"><svg class="i"><use href="#search"/></svg><input id="h-q" type="text" placeholder="Cari tool atau fitur..." autocomplete="off" aria-label="Cari fitur"></div>
+  <div id="h-res"></div>
+  <div class="stats">
+    <div class="stat glass"><b>17</b><small>Tools</small></div>
+    <div class="stat glass"><b>5</b><small>Siap Jual</small></div>
+    <div class="stat glass"><b>Free</b><small>Selamanya</small></div>
+  </div>
+  <div class="row t3" style="margin-top:18px">
+    <button class="btn go" data-page="tools"><svg class="i"><use href="#tools"/></svg>Buka Tools</button>
+    <button class="btn" data-page="rating"><svg class="i"><use href="#star"/></svg><span id="h-rate">Rating</span></button>
+    <button class="btn" data-page="updates"><svg class="i"><use href="#bell"/></svg>Update</button>
+  </div>
+  <h2 class="sec">Jalan pintas</h2>
+  <div class="qg">
+    <button class="btn" data-page="stream"><svg class="i"><use href="#play"/></svg>Stream</button>
+    <button class="btn" data-page="fitur"><svg class="i"><use href="#info"/></svg>Semua Fitur</button>
+    <button class="btn" data-page="modfree"><svg class="i"><use href="#gift"/></svg>Modpack Free</button>
+    <button class="btn" data-page="modsell"><svg class="i"><use href="#cart"/></svg>Forsell</button>
+    <button class="btn" data-page="share"><svg class="i"><use href="#plus"/></svg>Share Mod</button>
+    <button class="btn" data-page="dev"><svg class="i"><use href="#user"/></svg>Kontak</button>
+  </div>
+  <h2 class="sec">Tools siap jual</h2>
+  <div class="hz" id="h-sell"></div>
+  <h2 class="sec">Sedang tayang</h2>
+  <div class="hz" id="h-air">Memuat...</div>
+  <h2 class="sec">Kabar terbaru</h2>
+  <div class="card glass" id="h-upd"></div>
+</section>
+
+<!-- TOOLS -->
+<section class="page pick" id="tools">
+  <div class="tabs" id="tabs">
+    <button class="btn" data-t="t-bypass" style="--ac:#ff3d81"><span class="tk"><svg class="i"><use href="#link"/></svg></span><span class="bd">LINK</span><span class="nm">Bypass Link</span><span class="cs">bicolink, sfile, sfl.gl</span></button>
+    <button class="btn" data-t="t-web" style="--ac:#f5a524"><span class="tk"><svg class="i"><use href="#globe"/></svg></span><span class="bd">WEB</span><span class="nm">Bypass Web</span><span class="cs">timer dan pengalihan</span></button>
+    <button class="btn" data-t="t-obf" style="--ac:#8b5cf6"><span class="tk"><svg class="i"><use href="#code"/></svg></span><span class="bd">LUA</span><span class="nm">Obfuscate</span><span class="cs">ubah Lua jadi loader</span></button>
+    <button class="btn" data-t="t-vid" style="--ac:#22b8cf"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">UPLOAD</span><span class="nm">Video ke Link</span><span class="cs">unggah video, dapat tautan</span></button>
+    <button class="btn" data-t="t-img" style="--ac:#2fbf71"><span class="tk"><svg class="i"><use href="#img"/></svg></span><span class="bd">UPLOAD</span><span class="nm">Foto ke Link</span><span class="cs">unggah foto, dapat tautan</span></button>
+    <button class="btn" data-t="t-b64" style="--ac:#ff7a45"><span class="tk"><svg class="i"><use href="#lock"/></svg></span><span class="bd">TEKS</span><span class="nm">Base64</span><span class="cs">encode dan decode</span></button>
+    <button class="btn" data-t="t-json" style="--ac:#4c8dff"><span class="tk"><svg class="i"><use href="#braces"/></svg></span><span class="bd">DEV</span><span class="nm">JSON</span><span class="cs">rapikan dan minify</span></button>
+    <button class="btn" data-t="t-pw" style="--ac:#e05bd0"><span class="tk"><svg class="i"><use href="#key"/></svg></span><span class="bd">ACAK</span><span class="nm">Password</span><span class="cs">generator password</span></button>
+    <button class="btn" data-t="t-sha" style="--ac:#d6b400"><span class="tk"><svg class="i"><use href="#hash"/></svg></span><span class="bd">HASH</span><span class="nm">SHA-256</span><span class="cs">buat hash teks</span></button>
+    <button class="btn" data-t="t-url" style="--ac:#34c4a2"><span class="tk"><svg class="i"><use href="#link"/></svg></span><span class="bd">TEKS</span><span class="nm">URL Encode</span><span class="cs">encode dan decode</span></button>
+    <button class="btn" data-t="t-deploy" style="--ac:#8a97ad"><span class="tk"><svg class="i"><use href="#rocket"/></svg></span><span class="bd">DEPLOY</span><span class="nm">Deploy Vercel</span><span class="cs">HTML ke domain vercel.app</span></button>
+    <button class="btn" data-t="t-chat" style="--ac:#7c5cff"><span class="tk"><svg class="i"><use href="#braces"/></svg></span><span class="bd">AI</span><span class="nm">Chat AI</span><span class="cs">buat website dan kode</span></button>
+    <button class="btn" data-st="s-anime" style="--ac:#ff6b6b"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">ANIME</span><span class="nm">Katalog Anime</span><span class="cs">jadwal dan episode baru</span></button>
+    <button class="btn" data-st="s-film" style="--ac:#4aa3ff"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">FILM</span><span class="nm">Film &amp; Video</span><span class="cs">tonton di dalam aplikasi</span></button>
+    <button class="btn" data-t="t-nota" style="--ac:#e8456b"><span class="tk"><svg class="i"><use href="#receipt"/></svg></span><span class="bd">JUAL</span><span class="nm">Nota Maker</span><span class="cs">nota penjualan PNG</span></button>
+    <button class="btn" data-t="t-qr" style="--ac:#25d366"><span class="tk"><svg class="i"><use href="#qr"/></svg></span><span class="bd">JUAL</span><span class="nm">WA Link dan QR</span><span class="cs">link chat dan QR code</span></button>
+    <button class="btn" data-t="t-wm" style="--ac:#f59e0b"><span class="tk"><svg class="i"><use href="#stamp"/></svg></span><span class="bd">JUAL</span><span class="nm">Watermark Foto</span><span class="cs">branding foto produk</span></button>
+    <button class="btn" data-t="t-key" style="--ac:#a855f7"><span class="tk"><svg class="i"><use href="#ticket"/></svg></span><span class="bd">JUAL</span><span class="nm">Key Generator</span><span class="cs">voucher dan key akses</span></button>
+    <button class="btn" data-t="t-bio" style="--ac:#06b6d4"><span class="tk"><svg class="i"><use href="#bio"/></svg></span><span class="bd">JUAL</span><span class="nm">Link-in-Bio</span><span class="cs">halaman profil siap deploy</span></button>
+  </div>
+
+  <button class="btn" id="tools-back" type="button">&lsaquo; Semua tools</button>
+
+  <div class="card glass tool on" id="t-bypass">
+    <h2><svg class="i"><use href="#link"/></svg>Bypass Link</h2>
+    <p class="d">Mendukung bicolink, sfile, sfl.gl, sub4unlock dan sejenisnya.</p>
+    <input type="text" id="b-in" placeholder="Tempel tautan (bicolink / sfile / sfl.gl)" autocomplete="off">
+    <div class="row"><button class="btn" onclick="paste('b-in')" aria-label="Tempel"><svg class="i"><use href="#paste"/></svg></button>
+    <button class="btn go" style="flex:5" onclick="bypass('b-in','b-out','link')"><svg class="i"><use href="#arrow"/></svg>Proses tautan</button></div>
+    <div class="out" id="b-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-web" hidden>
+    <h2><svg class="i"><use href="#globe"/></svg>Bypass Web</h2>
+    <p class="d">Untuk halaman yang menahan tautan di balik timer atau pengalihan.</p>
+    <input type="text" id="w-in" placeholder="https://contoh-website.com/halaman" autocomplete="off">
+    <div class="row"><button class="btn" onclick="paste('w-in')" aria-label="Tempel"><svg class="i"><use href="#paste"/></svg></button>
+    <button class="btn go" style="flex:5" onclick="bypass('w-in','w-out','web')"><svg class="i"><use href="#arrow"/></svg>Proses website</button></div>
+    <div class="out" id="w-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-obf" hidden>
+    <h2><svg class="i"><use href="#code"/></svg>Obfuscate Lua</h2>
+    <p class="d">Mengubah kode Lua menjadi loader yang sulit dibaca. Berjalan di browser kamu.</p>
+    <textarea id="o-in" placeholder="print('Halo dunia')"></textarea>
+    <button class="btn go" style="width:100%" onclick="obf()"><svg class="i"><use href="#lock"/></svg>Obfuscate</button>
+    <div class="out" id="o-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-vid" hidden>
+    <h2><svg class="i"><use href="#video"/></svg>Video ke Link</h2>
+    <label class="drop"><svg class="i"><use href="#up"/></svg><span id="v-name">Pilih video (maks 50 MB)</span><input type="file" id="v-f" accept="video/*"></label>
+    <button class="btn go" style="width:100%" onclick="upload('v-f','v-out')"><svg class="i"><use href="#up"/></svg>Upload dan buat link</button>
+    <div class="out" id="v-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-img" hidden>
+    <h2><svg class="i"><use href="#img"/></svg>Foto ke Link</h2>
+    <label class="drop"><svg class="i"><use href="#up"/></svg><span id="i-name">Pilih foto (maks 50 MB)</span><input type="file" id="i-f" accept="image/*"></label>
+    <img class="prev" id="i-prev" alt="Pratinjau foto">
+    <button class="btn go" style="width:100%" onclick="upload('i-f','i-out')"><svg class="i"><use href="#up"/></svg>Upload dan buat link</button>
+    <div class="out" id="i-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-b64" hidden>
+    <h2><svg class="i"><use href="#lock"/></svg>Base64</h2>
+    <textarea id="x-in" placeholder="Teks atau string Base64"></textarea>
+    <div class="row"><button class="btn go" onclick="b64(1)">Encode</button><button class="btn go" onclick="b64(0)">Decode</button></div>
+    <div class="out" id="x-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-url" hidden>
+    <h2><svg class="i"><use href="#link"/></svg>URL Encode</h2>
+    <textarea id="u-in" placeholder="Teks atau URL"></textarea>
+    <div class="row"><button class="btn go" onclick="urlc(1)">Encode</button><button class="btn go" onclick="urlc(0)">Decode</button></div>
+    <div class="out" id="u-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-json" hidden>
+    <h2><svg class="i"><use href="#braces"/></svg>JSON Formatter</h2>
+    <textarea id="j-in" placeholder='{"nama":"Secretly"}'></textarea>
+    <div class="row"><button class="btn go" onclick="json(1)">Rapikan</button><button class="btn go" onclick="json(0)">Minify</button></div>
+    <div class="out" id="j-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-pw" hidden>
+    <h2><svg class="i"><use href="#key"/></svg>Password Generator</h2>
+    <input type="text" id="p-len" value="16" inputmode="numeric" placeholder="Panjang (8-64)">
+    <button class="btn go" style="width:100%" onclick="pw()"><svg class="i"><use href="#key"/></svg>Buat password</button>
+    <div class="out" id="p-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-sha" hidden>
+    <h2><svg class="i"><use href="#hash"/></svg>SHA-256</h2>
+    <textarea id="h-in" placeholder="Teks yang mau di-hash"></textarea>
+    <button class="btn go" style="width:100%" onclick="sha()"><svg class="i"><use href="#hash"/></svg>Buat hash</button>
+    <div class="out" id="h-out"></div>
+  </div>
+
+  <div class="card glass tool" id="t-deploy" hidden>
+    <h2><svg class="i"><use href="#rocket"/></svg>Deploy Vercel</h2>
+    <p class="d">Unggah file HTML (boleh ZIP) atau tempel kodenya. Repo GitHub dibuat otomatis dengan nama pilihanmu, lalu website langsung online di domain vercel.app.</p>
+    <div class="row"><input type="text" id="d-name" placeholder="nama-website (huruf kecil, angka, -)" autocomplete="off" style="flex:2"><button class="btn" id="d-check" type="button">Cek nama</button></div>
+    <div class="d" id="d-state" style="margin:8px 0"></div>
+    <input type="file" id="d-files" multiple accept=".html,.htm,.css,.js,.json,.txt,.svg,.png,.jpg,.jpeg,.gif,.webp,.ico,.zip,.py">
+    <textarea id="d-code" placeholder="atau tempel kode HTML di sini"></textarea>
+    <button class="btn go" id="d-go" type="button" style="width:100%"><svg class="i"><use href="#rocket"/></svg>Deploy sekarang</button>
+    <div class="out" id="d-out"></div>
+    <p class="d" style="margin-top:10px">Batas sekitar 3 MB dan 60 file per deploy. Aktivitas deploy dicatat otomatis.</p>
+  </div>
+
+  <div class="card glass tool" id="t-chat" hidden>
+    <h2><svg class="i"><use href="#braces"/></svg>Chat AI</h2>
+    <p class="d">Tanya apa saja atau minta dibuatkan website (HTML). Hasilnya bisa di-preview lalu dikirim ke Deploy Vercel. Ada batas pesan harian.</p>
+    <div id="c-log"></div>
+    <textarea id="c-in" placeholder="Contoh: buatkan landing page toko modpack, tema gelap"></textarea>
+    <button class="btn go" id="c-send" type="button" style="width:100%">Kirim</button>
+  </div>
+
+  <div class="card glass tool" id="t-nota" hidden>
+    <h2><svg class="i"><use href="#receipt"/></svg>Nota Maker</h2>
+    <p class="d">Buat nota penjualan yang rapi dan unduh sebagai gambar PNG untuk dikirim ke pembeli.</p>
+    <input type="text" id="n-shop" maxlength="40" placeholder="Nama toko" autocomplete="off">
+    <input type="text" id="n-buyer" maxlength="40" placeholder="Nama pembeli" autocomplete="off">
+    <div id="n-rows"></div>
+    <div class="row" style="margin:8px 0 10px"><button class="btn" id="n-add" type="button">+ Item</button><input type="text" id="n-disc" inputmode="numeric" placeholder="Diskon (Rp)" style="margin:0;flex:2"></div>
+    <input type="text" id="n-note" maxlength="60" placeholder="Catatan (mis. Terima kasih)" autocomplete="off">
+    <button class="btn go" id="n-go" type="button" style="width:100%"><svg class="i"><use href="#receipt"/></svg>Buat nota</button>
+    <canvas id="n-cv" class="pv" hidden></canvas>
+    <a class="btn go" id="n-dl" hidden style="width:100%"><svg class="i"><use href="#dl"/></svg>Unduh PNG</a>
+  </div>
+
+  <div class="card glass tool" id="t-qr" hidden>
+    <h2><svg class="i"><use href="#qr"/></svg>WA Link dan QR</h2>
+    <p class="d">Isi nomor WhatsApp untuk membuat link chat langsung, atau isi teks/URL saja untuk QR biasa. QR bisa diunduh.</p>
+    <input type="text" id="q-num" inputmode="tel" placeholder="Nomor WhatsApp (mis. 0878xxxx), opsional" autocomplete="off">
+    <textarea id="q-msg" style="min-height:90px" placeholder="Pesan otomatis, atau teks/URL untuk QR"></textarea>
+    <button class="btn go" id="q-go" type="button" style="width:100%"><svg class="i"><use href="#qr"/></svg>Buat link dan QR</button>
+    <div class="out" id="q-out"></div>
+    <div id="q-box" hidden></div>
+    <a class="btn go" id="q-dl" hidden style="width:100%;margin-top:10px"><svg class="i"><use href="#dl"/></svg>Unduh QR</a>
+  </div>
+
+  <div class="card glass tool" id="t-wm" hidden>
+    <h2><svg class="i"><use href="#stamp"/></svg>Watermark Foto</h2>
+    <p class="d">Tempel teks watermark di fotomu. Diproses di browser, foto tidak diunggah ke mana pun.</p>
+    <label class="drop"><svg class="i"><use href="#img"/></svg><span id="wm-name">Pilih foto</span><input type="file" id="wm-f" accept="image/*"></label>
+    <input type="text" id="wm-t" maxlength="40" placeholder="Teks watermark" value="Secretly" autocomplete="off">
+    <select class="sel" id="wm-p" aria-label="Posisi"><option value="tile">Berulang diagonal</option><option value="c">Tengah</option><option value="br">Kanan bawah</option><option value="bl">Kiri bawah</option></select>
+    <select class="sel" id="wm-c" aria-label="Warna"><option value="#ffffff">Putih</option><option value="#000000">Hitam</option><option value="#ff3d81">Pink</option></select>
+    <span class="lbl">Ukuran</span><input type="range" id="wm-s" min="3" max="20" value="7">
+    <span class="lbl">Transparansi</span><input type="range" id="wm-o" min="10" max="100" value="55">
+    <canvas id="wm-cv" class="pv" hidden></canvas>
+    <a class="btn go" id="wm-dl" hidden style="width:100%"><svg class="i"><use href="#dl"/></svg>Unduh PNG</a>
+  </div>
+
+  <div class="card glass tool" id="t-key" hidden>
+    <h2><svg class="i"><use href="#ticket"/></svg>Key Generator</h2>
+    <p class="d">Buat kode voucher atau key akses secara acak untuk dijual. Format: PREFIX-XXXX-XXXX-XXXX.</p>
+    <input type="text" id="k-pre" maxlength="12" placeholder="Prefix (mis. SCR), opsional" autocomplete="off">
+    <div class="row"><input type="text" id="k-n" inputmode="numeric" placeholder="Jumlah" value="10"><input type="text" id="k-seg" inputmode="numeric" placeholder="Blok" value="3"><input type="text" id="k-len" inputmode="numeric" placeholder="Panjang" value="4"></div>
+    <select class="sel" id="k-cs" aria-label="Karakter"><option value="a">Huruf dan angka</option><option value="d">Angka saja</option><option value="l">Huruf saja</option></select>
+    <button class="btn go" id="k-go" type="button" style="width:100%"><svg class="i"><use href="#ticket"/></svg>Buat key</button>
+    <div class="out" id="k-out"></div>
+    <a class="btn" id="k-dl" hidden style="width:100%;margin-top:10px"><svg class="i"><use href="#dl"/></svg>Unduh .txt</a>
+  </div>
+
+  <div class="card glass tool" id="t-bio" hidden>
+    <h2><svg class="i"><use href="#bio"/></svg>Link-in-Bio Builder</h2>
+    <p class="d">Buat halaman profil berisi daftar link (seperti Linktree). Hasilnya satu file HTML yang bisa langsung di-deploy.</p>
+    <input type="text" id="b2-n" maxlength="40" placeholder="Nama" autocomplete="off">
+    <input type="text" id="b2-b" maxlength="120" placeholder="Bio singkat" autocomplete="off">
+    <input type="text" id="b2-i" placeholder="URL foto profil https:// (opsional)" autocomplete="off" inputmode="url">
+    <select class="sel" id="b2-t" aria-label="Tema"><option value="g">Gelap pink</option><option value="p">Gelap merah muda</option><option value="b">Gelap biru</option><option value="h">Gelap hijau</option></select>
+    <textarea id="b2-l" style="min-height:110px" placeholder="Satu link per baris:&#10;WhatsApp | https://wa.me/62...&#10;TikTok | https://tiktok.com/@..."></textarea>
+    <div class="row"><button class="btn go" id="b2-pv" type="button">Preview</button><button class="btn" id="b2-cp" type="button">Salin</button></div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="b2-dl" type="button">Unduh</button><button class="btn" id="b2-dp" type="button">Ke Deploy</button></div>
+    <div class="out" id="b2-out"></div>
+  </div>
+</section>
+
+<!-- STREAM -->
+<section class="page" id="stream">
+  <h1>Stream <span>Center</span></h1>
+  <p class="lead">Nonton anime, film, dan link videomu langsung di dalam web. Sumber yang diputar: trailer YouTube, Internet Archive, dan link milikmu sendiri.</p>
+  <div class="seg glass" id="st-seg">
+    <button class="btn on" type="button" data-s="s-anime">Anime</button>
+    <button class="btn" type="button" data-s="s-film">Film</button>
+    <button class="btn" type="button" data-s="s-link">Playlist</button>
+  </div>
+  <div class="sp on" id="s-anime">
+  <div class="card glass" id="t-anime">
+    <h2><svg class="i"><use href="#video"/></svg>Katalog Anime</h2>
+    <p class="d">Jadwal tayang dan episode terbaru dari AniList. Trailer diputar langsung di sini; episode lengkap lewat platform resmi. Tandai Pantau agar episode baru muncul otomatis di sini.</p>
+    <div class="row"><input type="text" id="a-q" placeholder="Cari anime (mis. Tokyo Revengers)" autocomplete="off" style="flex:2"><button class="btn" id="a-go" type="button">Cari</button></div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="a-air" type="button">Sedang tayang</button><button class="btn" id="a-fav" type="button">Pantauanku</button></div>
+    <div id="a-list" style="margin-top:6px"></div>
+    <div id="a-detail" hidden></div>
+  </div>
+  </div>
+  <div class="sp" id="s-film">
+  <div class="card glass" id="t-film">
+    <h2><svg class="i"><use href="#video"/></svg>Film &amp; Video</h2>
+    <p class="d">Film domain publik dan video bebas dari Internet Archive, diputar langsung di sini. Atau tempel link YouTube, archive.org, .mp4, atau .m3u8 milikmu sendiri.</p>
+    <div class="row"><input type="text" id="f-q" placeholder="Cari film (mis. Nosferatu)" autocomplete="off" style="flex:2"><button class="btn" id="f-go" type="button">Cari</button></div>
+    <div class="row" style="margin-top:8px"><input type="text" id="f-u" placeholder="Tempel link video untuk diputar" autocomplete="off" style="flex:2"><button class="btn" id="f-play" type="button">Putar</button></div>
+    <div id="f-list" style="margin-top:6px"></div>
+  </div>
+  </div>
+  <div class="sp" id="s-link">
+    <div class="card glass">
+      <h2><svg class="i"><use href="#play"/></svg>Playlist Saya</h2>
+      <p class="d">Tempel link YouTube, archive.org, .mp4, atau .m3u8. Putar sekarang atau simpan ke playlist (tersimpan di perangkat ini).</p>
+      <input type="text" id="sl-t" maxlength="40" placeholder="Judul (opsional)" autocomplete="off">
+      <input type="text" id="sl-u" placeholder="https://..." autocomplete="off" inputmode="url">
+      <div class="row"><button class="btn go" id="sl-go" type="button">Putar</button><button class="btn" id="sl-save" type="button">Simpan</button></div>
+      <h2 class="sec">Tersimpan</h2>
+      <div id="sl-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEMUA FITUR -->
+<section class="page" id="fitur">
+  <h1>Apa Itu <span>Secretly?</span></h1>
+  <p class="lead">Secretly adalah kumpulan tools gratis dalam satu web yang ringan: bypass tautan, tools developer, streaming anime dan film, tools siap jual untuk bisnis online, serta tempat berbagi dan menjual modpack. Ini penjelasan semua fiturnya.</p>
+  <div class="card glass" style="margin-bottom:6px">
+    <h2><svg class="i"><use href="#help"/></svg>Cara pakai</h2>
+    <p class="d" style="margin:0">1. Pilih fitur dari beranda, menu bawah, atau cari di kolom pencarian.<br>2. Isi data lalu tekan tombol proses.<br>3. Salin atau unduh hasilnya.</p>
+  </div>
+  <div id="ft-list"></div>
+</section>
+
+<!-- KONTAK DEVELOPER -->
+<section class="page" id="dev">
+  <h1>Kontak <span>Developer</span></h1>
+  <p class="lead">Ada pertanyaan, bug, atau ide tools baru? Hubungi lewat salah satu kanal ini.</p>
+
+  <a class="dev glass" href="https://youtube.com/@Jefri" target="_blank" rel="noopener">
+    <span class="logo" style="background:#ff0000"><svg viewBox="0 0 24 24"><path d="M23.5 6.500a3 3 0 0 0-2.100-2.100C19.500 3.900 12 3.900 12 3.900s-7.500 0-9.400.5A3 3 0 0 0 .5 6.500C0 8.400 0 12 0 12s0 3.600.5 5.500a3 3 0 0 0 2.100 2.100c1.900.5 9.400.5 9.400.5s7.500 0 9.400-.5a3 3 0 0 0 2.100-2.100c.5-1.900.5-5.500.5-5.500s0-3.600-.5-5.500zM9.600 15.600V8.400l6.200 3.600z"/></svg></span>
+    <span><b>YouTube <svg class="vb"><use href="#badge"/></svg></b><small>@Jefri</small></span>
+  </a>
+
+  <a class="dev glass" href="https://tiktok.com/@sevcrett" target="_blank" rel="noopener">
+    <span class="logo" style="background:#000;border:1px solid var(--line)"><svg viewBox="0 0 24 24"><path d="M19.600 6.800a5.200 5.200 0 0 1-3.100-1.100 5.100 5.100 0 0 1-1.900-3.200h-3.300v13.100a2.800 2.800 0 1 1-2-2.700V9.600a6.200 6.200 0 1 0 5.300 6.100V9.100a8.400 8.400 0 0 0 5 1.600z"/></svg></span>
+    <span><b>TikTok <svg class="vb"><use href="#badge"/></svg></b><small>@sevcrett</small></span>
+  </a>
+
+  <a class="dev glass" href="https://wa.me/6287834270844" target="_blank" rel="noopener">
+    <span class="logo" style="background:#25d366"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 0-8.600 15L2 22l5.200-1.400A10 10 0 1 0 12 2zm5.800 14.200c-.2.700-1.400 1.300-2 1.400-.5.100-1.200.1-1.900-.1-.4-.1-1-.3-1.700-.6-3-1.300-5-4.300-5.100-4.500-.1-.2-1.200-1.600-1.200-3s.8-2.100 1-2.400c.3-.3.600-.3.800-.3h.6c.2 0 .5-.1.700.5l1 2.400c.1.200.1.400 0 .6l-.4.600c-.2.200-.3.400-.1.700.2.300.7 1.200 1.500 1.900 1 .9 1.900 1.200 2.200 1.300.3.200.5.100.7-.1l.9-1.100c.2-.3.400-.2.700-.1l2.200 1c.3.200.5.200.5.400.1.100.1.700-.1 1.400z"/></svg></span>
+    <span><b>WhatsApp <svg class="vb"><use href="#badge"/></svg></b><small>+62 878-3427-0844</small></span>
+  </a>
+</section>
+
+<!-- MODPACK FREE -->
+<section class="page" id="modfree">
+  <h1>Modpack <span>Free</span></h1>
+  <p class="lead">Modpack gratis, tinggal unduh. Daftar bisa diubah di array MOD_FREE pada script.</p>
+  <input type="text" class="srch" id="mf-q" placeholder="Cari modpack" autocomplete="off">
+  <div class="mp" id="mf-list"></div>
+</section>
+
+<!-- SHARE MODPACK -->
+<section class="page" id="share">
+  <h1>Share <span>Modpack</span></h1>
+  <p class="lead">Isi semua kolom, lalu modpack langsung tampil di menu Modpack Free.</p>
+  <div class="card glass">
+    <label class="lbl" for="s-n">Nama Modpack <span class="req">*</span></label>
+    <input type="text" id="s-n" maxlength="60" placeholder="Contoh: Modpack Style Santai" autocomplete="off">
+    <label class="lbl" for="s-t">Jenis File <span class="req">*</span></label>
+    <input type="text" id="s-t" maxlength="20" list="s-types" placeholder="ZIP / RAR / 7Z / APK" autocomplete="off">
+    <datalist id="s-types"><option value="ZIP"><option value="RAR"><option value="7Z"><option value="APK"></datalist>
+    <label class="lbl" for="s-l">Link Modpack <span class="req">*</span></label>
+    <input type="text" id="s-l" placeholder="https://www.mediafire.com/..." autocomplete="off" inputmode="url">
+    <label class="lbl" for="s-c">Credits <span class="req">*</span></label>
+    <input type="text" id="s-c" maxlength="40" placeholder="Nama pembuat" autocomplete="off">
+    <span class="lbl">Foto <span class="req">*</span></span>
+    <label class="drop"><svg class="i"><use href="#img"/></svg><span id="s-name">Pilih foto modpack</span><input type="file" id="s-f" accept="image/*"></label>
+    <img class="prev" id="s-prev" alt="Pratinjau foto">
+    <button class="btn go" style="width:100%" onclick="shareMod()"><svg class="i"><use href="#plus"/></svg>Kirim modpack</button>
+    <div class="out" id="s-out"></div>
+  </div>
+</section>
+
+<!-- FORSELL MODPACK -->
+<section class="page" id="modsell">
+  <h1>Forsell <span>Modpack</span></h1>
+  <p class="lead">Modpack premium. Tekan tombol keranjang untuk memesan langsung lewat WhatsApp.</p>
+  <input type="text" class="srch" id="ms-q" placeholder="Cari modpack" autocomplete="off">
+  <div class="mp" id="ms-list"></div>
+</section>
+
+<!-- RATING -->
+<section class="page" id="rating">
+  <h1>Beri <span>Rating</span></h1>
+  <p class="lead">Bantu Secretly berkembang. Rating dan ulasanmu tampil untuk semua pengunjung.</p>
+  <div class="card glass" style="text-align:center;margin-bottom:12px">
+    <div class="avg" id="r-avg">-</div>
+    <div id="r-avgstars" style="margin:8px 0 4px"></div>
+    <small id="r-count" style="color:var(--mut)">Memuat...</small>
+  </div>
+  <div class="card glass">
+    <span class="lbl" style="text-align:center">Rating kamu <span class="req">*</span></span>
+    <div class="stars" id="r-stars" role="group" aria-label="Pilih jumlah bintang"></div>
+    <label class="lbl" for="r-n">Nama (opsional)</label>
+    <input type="text" id="r-n" maxlength="30" placeholder="Anonim" autocomplete="off">
+    <label class="lbl" for="r-c">Ulasan (opsional)</label>
+    <textarea id="r-c" maxlength="200" style="min-height:90px;font-family:Manrope,system-ui,sans-serif;font-size:.95rem" placeholder="Ceritakan pengalamanmu memakai Secretly"></textarea>
+    <button class="btn go" style="width:100%" onclick="sendRating()"><svg class="i"><use href="#star"/></svg>Kirim rating</button>
+    <div class="out" id="r-out"></div>
+  </div>
+  <h2 class="sec">Ulasan terbaru</h2>
+  <div class="mp" id="r-list"></div>
+</section>
+
+<!-- UPDATE TERBARU -->
+<section class="page" id="updates">
+  <h1>Update <span>Terbaru</span></h1>
+  <p class="lead">Catatan perubahan dan fitur baru Secretly, dari yang paling baru.</p>
+  <div class="upd" id="u-list"></div>
+</section>
+
+<!-- BANTUAN -->
+<section class="page" id="help">
+  <h1>Bantuan <span>FAQ</span></h1>
+  <p class="lead">Pertanyaan yang paling sering ditanyakan.</p>
+  <details class="card glass"><summary>Apa yang bisa diputar di Stream?</summary><p>Trailer YouTube, film domain publik dari Internet Archive, dan link videomu sendiri (YouTube, archive.org, .mp4, .m3u8). Untuk episode anime lengkap, tombol mengarah ke platform resmi.</p></details>
+  <details class="card glass"><summary>Apa itu Secretly?</summary><p>Kumpulan tools gratis (bypass tautan, obfuscate Lua, video dan foto ke link, Base64, JSON, dan lainnya) plus tempat berbagi dan menjual modpack, semua dalam satu halaman yang ringan di HP.</p></details>
+  <details class="card glass"><summary>Kenapa Bypass Link kadang gagal?</summary><p>Sebagian situs memakai captcha, timer berbasis token, atau iklan yang hanya bisa jalan di browser asli, jadi tidak bisa diproses otomatis. Coba tool Bypass Web, atau kirim tautan yang gagal lewat menu Lapor Bug / Saran.</p></details>
+  <details class="card glass"><summary>Apakah link hasil upload permanen?</summary><p>Ya, selama layanan penyimpanan aktif. Batas ukuran 50 MB per file dan hanya untuk foto atau video.</p></details>
+  <details class="card glass"><summary>Bagaimana cara Share Modpack?</summary><p>Buka menu Share Modpack, isi semua kolom (nama, jenis file, link, credits, foto), lalu kirim. Modpack langsung tampil di Modpack Free untuk semua pengunjung.</p></details>
+  <details class="card glass"><summary>Apakah hasil Obfuscate aman dari dibaca orang?</summary><p>Obfuscate di sini menyamarkan kode dengan XOR sederhana, jadi cukup untuk mempersulit pembacaan biasa tetapi bukan perlindungan yang kuat.</p></details>
+  <p style="margin-top:16px"><a class="btn go" id="help-bug" target="_blank" rel="noopener" style="width:100%"><svg class="i"><use href="#flag"/></svg>Lapor Bug / Saran</a></p>
+</section>
+
+<p class="foot">&copy; Secretly</p>
+</main>
+
+<nav class="dock" aria-label="Menu bawah">
+  <button class="btn on" data-page="home" aria-label="Home" title="Home"><svg class="i"><use href="#home"/></svg><span class="lb">Home</span></button>
+  <button class="btn" data-page="tools" aria-label="Tools" title="Tools"><svg class="i"><use href="#tools"/></svg><span class="lb">Tools</span></button>
+  <button class="btn" data-page="stream" aria-label="Stream" title="Stream"><svg class="i"><use href="#play"/></svg><span class="lb">Stream</span></button>
+  <button class="btn" data-page="modfree" aria-label="Modpack Free" title="Modpack Free"><svg class="i"><use href="#gift"/></svg><span class="lb">Free</span></button>
+  <button class="btn" data-page="share" aria-label="Share Modpack" title="Share Modpack"><svg class="i"><use href="#plus"/></svg><span class="lb">Share</span></button>
+  <button class="btn" data-page="modsell" aria-label="Forsell Modpack" title="Forsell Modpack"><svg class="i"><use href="#cart"/></svg><span class="lb">Jual</span></button>
+  <button class="btn" data-page="dev" aria-label="Kontak" title="Kontak"><svg class="i"><use href="#user"/></svg><span class="lb">Kontak</span></button>
+</nav>
+
+<script>
+/* AKUN: splash SECRETLY -> login -> role (owner / reseller / member). Penegakan akses ada di server (api/*), bukan di sini. */
+(function () {
+  var TK = "secretly_tok_v1", token = null, user = null, stage = "splash", ready = false;
+  try { token = localStorage.getItem(TK); } catch (e) {}
+  var _f = window.fetch.bind(window);
+  window.fetch = function (u, o) {
+    var s = typeof u === "string" ? u : (u && u.url) || "";
+    if (/^\/api\//.test(s) && !/^\/api\/log/.test(s) && token) { o = Object.assign({}, o); o.headers = Object.assign({}, o.headers, { Authorization: "Bearer " + token }); }
+    return _f(u, o).then(function (r) { if (r.status === 401 && user && /^\/api\//.test(s)) logout(); return r; });
+  };
+  function api(b) { return fetch("/api/auth", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(b) })
+    .then(function (r) { return r.json().catch(function () { return { ok: false, error: "Respon server tidak valid" }; }); })
+    .catch(function () { return { ok: false, error: "Tidak bisa terhubung ke server" }; }); }
+  function el(t, c, x) { var e = document.createElement(t); if (c) e.className = c; if (x != null) e.textContent = x; return e; }
+
+  var css = el("style"); css.textContent =
+    "#au{position:fixed;inset:0;z-index:2147483600;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;color:#fff;font-family:inherit;text-align:center;background:radial-gradient(circle at 50% 30%,#3a0b21,#0a0408 70%)}" +
+    "#au .lg{font-size:clamp(34px,11vw,56px);font-weight:800;letter-spacing:.18em;background:linear-gradient(135deg,#ff6a9a,#b4235a);-webkit-background-clip:text;background-clip:text;color:transparent}" +
+    "#au .bar{width:200px;height:4px;border-radius:4px;background:rgba(255,255,255,.12);margin:22px 0 14px;overflow:hidden}#au .bar i{display:block;height:100%;width:0;background:linear-gradient(90deg,#ff6a9a,#b4235a);animation:aubar 1.8s ease forwards}" +
+    "@keyframes aubar{to{width:100%}}@keyframes aupl{50%{opacity:.35}}#au .tp{font-size:14px;color:rgba(255,255,255,.75)}#au .tp.rd{animation:aupl 1.4s infinite}" +
+    "#au form,.acc .bx{width:100%;max-width:340px;text-align:left}#au h2{margin:0 0 14px;text-align:center;font-size:22px}" +
+    "#au input,.acc input,.acc select{width:100%;box-sizing:border-box;margin:0 0 10px;padding:13px;border-radius:12px;border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:#fff;font:inherit;font-size:15px}" +
+    "#au button,.acc button{padding:12px 14px;border-radius:12px;border:1px solid rgba(255,140,170,.45);background:linear-gradient(135deg,rgba(200,40,95,.85),rgba(120,20,55,.85));color:#fff;font:inherit;font-weight:600;cursor:pointer}#au button{width:100%}" +
+    "#au .er{min-height:18px;margin-top:10px;font-size:13px;color:#ffb3c8;text-align:center}" +
+    "#acBtn{position:fixed;right:12px;bottom:84px;z-index:60;padding:9px 13px;border-radius:999px;border:1px solid rgba(255,140,170,.45);background:rgba(110,18,53,.9);color:#fff;font:600 13px inherit;cursor:pointer}" +
+    ".acc{position:fixed;inset:0;z-index:2147483000;overflow:auto;background:rgba(10,4,8,.92);color:#fff;padding:18px;display:flex;justify-content:center}.acc .bx{max-width:420px;padding-bottom:40px}" +
+    ".acc h3{margin:18px 0 8px;font-size:16px}.acc .row{display:flex;gap:8px;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(255,255,255,.1);font-size:14px}" +
+    ".acc .row button{padding:6px 10px;font-size:12px}.acc .st{font-size:13px;color:#9be7b0;min-height:18px}.acc .st.e{color:#ffb3c8}.acc .rl{opacity:.65;font-size:12px}";
+  document.head.appendChild(css);
+
+  var WA = "https://wa.me/6287834270844", FONT = "'Cinzel Decorative',Georgia,'Times New Roman',serif";
+  var css2 = el("style"); css2.textContent =
+    "#au{background:radial-gradient(circle at 50% 38%,#1a0a12 0,#000 62%)}" +
+    "#au .lg,#au h2,#au button,#au .mn a,#au .tp{font-family:" + FONT + "}" +
+    "#au .lg{background:none;-webkit-text-fill-color:#fff;color:#fff;font-weight:900;letter-spacing:.12em;text-shadow:0 0 18px rgba(255,255,255,.55),0 0 44px rgba(80,150,255,.4);animation:aulg 1.8s ease-out both}" +
+    "@keyframes aulg{from{opacity:0;filter:blur(14px);letter-spacing:.35em}to{opacity:1;filter:blur(0);letter-spacing:.12em}}" +
+    "#au .ks{font-size:11px;letter-spacing:.4em;color:rgba(255,255,255,.8);margin-top:26px;opacity:0;transition:opacity .8s}#au .ks.on{opacity:1;animation:aupl 1.6s infinite}" +
+    "#au svg.lk{width:112px;height:150px;margin-top:30px;overflow:visible;filter:drop-shadow(0 0 10px rgba(255,255,255,.35))}" +
+    "#au .sh{transition:transform .5s ease .75s;transform-origin:84px 62px}#au .key{transition:transform .55s ease,opacity .3s}#au .key{opacity:0;transform:translateY(46px)}" +
+    "#au.go .key{opacity:1;transform:translateY(0) rotate(0)}#au.go.tn .key{transform:translateY(0) rotate(-70deg);transition:transform .45s ease}" +
+    "#au.go.tn .sh{transform:translateY(-14px) rotate(-18deg)}#au.go.fl{animation:aufl .7s ease forwards}@keyframes aufl{0%{filter:none}40%{filter:brightness(2.2)}100%{filter:brightness(1);opacity:0}}" +
+    "#au .pc{font-size:13px;letter-spacing:.3em;margin-top:6px;color:rgba(255,255,255,.85)}#au .bar i{animation:none;transition:width .15s linear}" +
+    "#au .mn{width:100%;max-width:330px;display:flex;flex-direction:column;gap:12px;margin-top:8px;animation:aulg .9s ease-out both}" +
+    "#au .mn a,#au .mn button{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(255,255,255,.07);color:#fff;font-size:14px;font-weight:700;letter-spacing:.12em;text-decoration:none;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}" +
+    "#au .mn .pm{background:linear-gradient(135deg,#ff4d8d,#a01850);border-color:rgba(255,160,190,.6);box-shadow:0 8px 26px rgba(255,60,130,.35)}" +
+    "#au .sb{font-size:11px;letter-spacing:.3em;color:rgba(255,255,255,.8);margin:2px 0 0}#au .sm{font-size:12px;color:rgba(255,255,255,.6);margin:0 0 14px;font-family:Manrope,system-ui,sans-serif}" +
+    "#au .so{display:flex;gap:12px}#au .so a,#au .so button{flex:1;padding:12px;font-size:12px}#au .ft{margin-top:18px;font-size:11px;color:rgba(255,255,255,.5);font-family:Manrope,system-ui,sans-serif}#au .nt{min-height:16px;font-size:12px;color:#9be7b0;font-family:Manrope,system-ui,sans-serif}" +
+    "#au .bk{background:none!important;border:0!important;margin-top:8px;font-size:12px!important;color:rgba(255,255,255,.7)!important;box-shadow:none!important}";
+  document.head.appendChild(css2);
+
+  var bg = document.querySelectorAll("main,nav");
+  function lockBg(v) { bg.forEach(function (n) { n.inert = v; }); document.body.style.overflow = v ? "hidden" : ""; }
+  var au = el("div"); au.id = "au"; document.body.appendChild(au); lockBg(true);
+  function step(h) { au.className = ""; au.innerHTML = h; }
+  function go(href, label, cls, svg) { var a = el("a", cls || "", label); a.href = href; a.target = "_blank"; a.rel = "noopener"; return a; }
+  var SKULL = '<svg class="sk" viewBox="0 0 200 200" aria-hidden="true"><g fill="#fff" opacity=".92"><g transform="rotate(32 100 128)"><rect x="28" y="121" width="144" height="14" rx="7"/><circle cx="30" cy="116" r="9"/><circle cx="30" cy="140" r="9"/><circle cx="170" cy="116" r="9"/><circle cx="170" cy="140" r="9"/></g><g transform="rotate(-32 100 128)"><rect x="28" y="121" width="144" height="14" rx="7"/><circle cx="30" cy="116" r="9"/><circle cx="30" cy="140" r="9"/><circle cx="170" cy="116" r="9"/><circle cx="170" cy="140" r="9"/></g></g>' +
+    '<path d="M100 20c-40 0-64 25-64 60 0 21 9 36 23 45v25c0 7 5 12 12 12h58c7 0 12-5 12-12v-25c14-9 23-24 23-45 0-35-24-60-64-60z" fill="#fff" stroke="#12060a" stroke-width="5"/>' +
+    '<ellipse cx="72" cy="86" rx="16" ry="19" fill="#12060a"/><ellipse cx="128" cy="86" rx="16" ry="19" fill="#12060a"/><circle class="ey" cx="72" cy="88" r="5" fill="#4aa3ff"/><circle class="ey" cx="128" cy="88" r="5" fill="#4aa3ff"/>' +
+    '<path d="M100 102l-9 20h18z" fill="#12060a"/><path d="M78 150v18M92 150v18M108 150v18M122 150v18" stroke="#12060a" stroke-width="5" stroke-linecap="round"/></svg>';
+  var css3 = el("style"); css3.textContent =
+    "#au .sk{width:clamp(130px,42vw,190px);height:auto;filter:drop-shadow(0 0 14px rgba(70,150,255,.6));animation:ausk 4s ease-in-out infinite}@keyframes ausk{50%{transform:translateY(-8px)}}" +
+    "#au .ey{animation:auey 2.2s ease-in-out infinite}@keyframes auey{50%{opacity:.25}}" +
+    "#au .big{font-family:" + FONT + ";font-weight:900;font-size:clamp(34px,11.6vw,84px);color:#fff;letter-spacing:.04em;white-space:nowrap;text-shadow:0 0 22px rgba(255,255,255,.6),0 0 60px rgba(80,150,255,.55)}" +
+    "#au .big span{display:inline-block;opacity:0;animation:ault .95s cubic-bezier(.2,.8,.2,1) forwards}" +
+    "@keyframes ault{from{opacity:0;transform:translateY(28px) scale(1.3);filter:blur(12px)}to{opacity:1;transform:none;filter:blur(0)}}" +
+    "#au .big.pl{animation:aupg 2s ease-in-out infinite alternate}@keyframes aupg{to{text-shadow:0 0 34px rgba(255,255,255,.9),0 0 90px rgba(80,150,255,.8)}}" +
+    "#au .ks{position:absolute;bottom:12vh;margin:0}#auCv{position:fixed;inset:0;width:100%;height:100%;z-index:2147483590;display:none}";
+  document.head.appendChild(css3);
+
+  /* latar animasi bergaya anime (canvas, 60 FPS): langit malam, bulan, bintang, bintang jatuh, awan, laut, kapal */
+  var cv = el("canvas"); cv.id = "auCv"; document.body.insertBefore(cv, au);
+  var raf = 0, sceneOn = false;
+  function scene(on) {
+    cv.style.display = on ? "block" : "none"; au.style.background = on ? "transparent" : "";
+    if (on && !sceneOn) { sceneOn = true; draw(); } else if (!on) { sceneOn = false; cancelAnimationFrame(raf); }
+  }
+  function draw() {
+    var c = cv.getContext("2d"), D = Math.min(window.devicePixelRatio || 1, 2), W, H, st = [], sh = [], t0 = performance.now(), nxt = 1.2;
+    function size() { W = cv.clientWidth; H = cv.clientHeight; cv.width = W * D; cv.height = H * D; c.setTransform(D, 0, 0, D, 0, 0); }
+    size(); window.addEventListener("resize", size);
+    for (var i = 0; i < 170; i++) st.push({ x: Math.random(), y: Math.random() * .66, r: Math.random() * 1.5 + .3, p: Math.random() * 6.3, s: .6 + Math.random() * 1.8 });
+    function ship(x, y, s, t) {
+      c.save(); c.translate(x, y + Math.sin(t * 1.3) * 4 * s); c.rotate(Math.sin(t * 1.1) * .035); c.scale(s, s); c.fillStyle = "#07030c";
+      c.beginPath(); c.moveTo(-70, 0); c.quadraticCurveTo(-60, 26, -30, 28); c.lineTo(50, 28); c.quadraticCurveTo(80, 22, 90, -8); c.lineTo(60, 0); c.closePath(); c.fill();
+      c.fillRect(-3, -112, 6, 112); c.fillRect(-48, -78, 4, 78); c.fillRect(36, -88, 4, 88);
+      [[-3, -108, 44, 62], [-3, -108, -44, 62], [-46, -76, 34, 46], [38, -86, 34, 52]].forEach(function (q, k) {
+        var w = q[2], h = q[3], x0 = q[0]; c.beginPath(); c.moveTo(x0, q[1]); c.quadraticCurveTo(x0 + w * .9 + Math.sin(t * 2 + k) * 3, q[1] + h * .5, x0 + w * .8, q[1] + h); c.lineTo(x0, q[1] + h); c.closePath(); c.fill(); });
+      c.fillStyle = "#4aa3ff"; c.beginPath(); c.moveTo(-3, -112); c.lineTo(-3, -126); c.lineTo(16 + Math.sin(t * 5) * 3, -120); c.closePath(); c.fill(); c.restore();
+    }
+    function frame(now) {
+      if (!sceneOn) return; var t = (now - t0) / 1000, hz = H * .68, g = c.createLinearGradient(0, 0, 0, hz);
+      g.addColorStop(0, "#030816"); g.addColorStop(.5, "#0b1f55"); g.addColorStop(1, "#2a63c9"); c.fillStyle = g; c.fillRect(0, 0, W, H);
+      st.forEach(function (s) { c.globalAlpha = .35 + .65 * Math.abs(Math.sin(t * s.s + s.p)); c.fillStyle = "#fff"; c.beginPath(); c.arc(s.x * W, s.y * H, s.r, 0, 6.3); c.fill(); }); c.globalAlpha = 1;
+      var mx = W * .76, my = H * .17, mr = Math.min(W, H) * .075, mg = c.createRadialGradient(mx, my, mr * .6, mx, my, mr * 4.2);
+      mg.addColorStop(0, "rgba(170,210,255,.55)"); mg.addColorStop(1, "rgba(170,210,255,0)"); c.fillStyle = mg; c.fillRect(mx - mr * 5, my - mr * 5, mr * 10, mr * 10);
+      c.fillStyle = "#eef6ff"; c.beginPath(); c.arc(mx, my, mr, 0, 6.3); c.fill(); c.fillStyle = "rgba(150,180,220,.35)"; c.beginPath(); c.arc(mx - mr * .3, my - mr * .1, mr * .22, 0, 6.3); c.arc(mx + mr * .25, my + mr * .3, mr * .15, 0, 6.3); c.fill();
+      if (t > nxt) { nxt = t + 2 + Math.random() * 3; sh.push({ x: Math.random() * W * .8 + W * .2, y: Math.random() * H * .3, t: t }); }
+      sh = sh.filter(function (s) { return t - s.t < .9; });
+      sh.forEach(function (s) { var k = (t - s.t) / .9, x = s.x - k * W * .5, y = s.y + k * H * .22, l = c.createLinearGradient(x, y, x + 90, y - 40); l.addColorStop(0, "rgba(255,255,255," + (1 - k) + ")"); l.addColorStop(1, "rgba(255,255,255,0)"); c.strokeStyle = l; c.lineWidth = 2; c.beginPath(); c.moveTo(x, y); c.lineTo(x + 90, y - 40); c.stroke(); });
+      for (var k = 0; k < 3; k++) { c.fillStyle = "rgba(150,190,255," + (.05 + k * .03) + ")"; var sp = 10 + k * 8, y = H * (.2 + k * .12);
+        for (var j = -1; j < 4; j++) { var x = ((j * W * .45 + t * sp) % (W * 1.8)) - W * .3; c.beginPath(); c.ellipse(x, y, W * .22, 14 + k * 5, 0, 0, 6.3); c.ellipse(x + W * .12, y - 8, W * .14, 12 + k * 4, 0, 0, 6.3); c.fill(); } }
+      var sg = c.createLinearGradient(0, hz, 0, H); sg.addColorStop(0, "#123a8a"); sg.addColorStop(1, "#020614"); c.fillStyle = sg; c.fillRect(0, hz, W, H - hz);
+      c.fillStyle = "rgba(190,220,255,.16)"; for (var r = 0; r < 14; r++) { var wy = hz + 8 + r * 9, ww = (mr * 2.4) * (1 - r / 18) * (.6 + .4 * Math.sin(t * 2 + r)); c.fillRect(mx - ww / 2, wy, ww, 2); }
+      for (var L = 0; L < 4; L++) {
+        if (L === 1) ship(W * .3, hz + 14, Math.min(W, 460) / 460 * 1.1, t);
+        c.fillStyle = "rgba(" + (8 - L * 2) + "," + (36 - L * 7) + "," + (92 - L * 16) + "," + (.55 + L * .12) + ")"; c.beginPath(); c.moveTo(0, H);
+        var by = hz + 22 + L * (H - hz) * .2; for (var x = 0; x <= W + 8; x += 8) c.lineTo(x, by + Math.sin(x * .02 + t * (1 + L * .4)) * (4 + L * 2) + Math.sin(x * .05 - t * .8) * 2); c.lineTo(W, H); c.closePath(); c.fill();
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    raf = requestAnimationFrame(frame);
+  }
+  document.addEventListener("visibilitychange", function () { if (document.hidden) cancelAnimationFrame(raf); else if (sceneOn) { raf = requestAnimationFrame(function f(n) { sceneOn = false; scene(true); }); } });
+
+  /* 1) layar awal: hanya "KETUK UNTUK MASUK", cukup ketuk satu kali */
+  step('<div class="ks" id="auKs">KETUK UNTUK MASUK</div>');
+  setTimeout(function () { ready = true; var k = document.getElementById("auKs"); if (k) k.className = "ks on"; }, 700);
+  function next() { if (stage !== "splash" || !ready) return; stage = "busy"; title(); }
+  ["pointerdown", "keydown"].forEach(function (ev) { document.addEventListener(ev, next); });
+
+  /* 2) teks SECRETLY besar dengan animasi huruf per huruf */
+  function title() {
+    step('<div class="big" id="auBig"></div>'); var b = document.getElementById("auBig");
+    "SECRETLY".split("").forEach(function (ch, i) { var s = el("span", "", ch); s.style.animationDelay = (.2 + i * .13) + "s"; b.appendChild(s); });
+    setTimeout(function () { b.className = "big pl"; }, 1700); setTimeout(loading, 3300);
+  }
+
+  /* 3) loading: latar animasi + logo tengkorak */
+  function loading() {
+    scene(true); step(SKULL + '<div class="lg" style="font-size:clamp(26px,8.5vw,40px);margin-top:14px;animation:none">SECRETLY</div><div class="bar"><i id="auB"></i></div><div class="pc" id="auPc">0%</div>');
+    var n = 0, b = document.getElementById("auB"), p = document.getElementById("auPc");
+    var t = setInterval(function () { n += 2 + Math.random() * 6; if (n >= 100) { n = 100; clearInterval(t); setTimeout(menu, 350); } b.style.width = n + "%"; p.textContent = Math.floor(n) + "%"; }, 110);
+  }
+
+  /* 4) menu & login meniru layout referensi: tombol biru, kartu kaca, ikon bulat */
+  var OF = "Orbitron,'Exo 2',Rajdhani,system-ui,sans-serif";
+  var css4 = el("style"); css4.textContent =
+    "#au .bar i{background:linear-gradient(90deg,#5cb0ff,#2563d6)}" +
+    "#au .mx{width:100%;max-width:340px;display:flex;flex-direction:column;gap:11px;animation:aulg .9s ease-out both;font-family:" + OF + "}" +
+    "#au .sb{font-family:" + OF + ";font-weight:800;font-size:12px;letter-spacing:.2em;color:#fff;margin:6px 0 2px}#au .sm{font-style:italic;font-size:11.5px;color:rgba(255,255,255,.75);margin:0 0 12px}" +
+    "#au .tl{display:flex;gap:9px}#au .tl div{flex:1;padding:11px 4px 9px;border-radius:14px;border:1px solid rgba(255,255,255,.22);background:rgba(120,170,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);text-align:center}" +
+    "#au .tl svg{width:22px;height:22px}#au .tl b{display:block;font-size:10px;letter-spacing:.08em;margin-top:5px;color:#fff}#au .tl i{display:block;font-style:normal;font:500 8.5px Manrope,sans-serif;color:rgba(255,255,255,.65);margin-top:2px}" +
+    "#au .bt{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;padding:15px;border-radius:14px;border:1px solid rgba(255,255,255,.25);background:rgba(120,170,255,.13);color:#fff;font:800 13px " + OF + ";letter-spacing:.14em;text-decoration:none;cursor:pointer;-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px)}" +
+    "#au .bt.bl{background:linear-gradient(180deg,#58adff,#2f7be0);border-color:rgba(190,225,255,.7);box-shadow:0 8px 24px rgba(47,123,224,.45)}#au .bt svg,#au .rc svg{width:18px;height:18px}" +
+    "#au svg.ic{fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}" +
+    "#au .sc2{padding:18px 12px 12px;border-radius:18px;border:1px solid rgba(255,255,255,.22);background:rgba(120,170,255,.12);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);text-align:center}" +
+    "#au .rr{display:flex;justify-content:center;gap:26px}#au .rc{display:flex;flex-direction:column;align-items:center;gap:6px;color:#fff;text-decoration:none;font:600 9.5px Manrope,sans-serif;background:none;border:0;padding:0;cursor:pointer}" +
+    "#au .rc span{width:46px;height:46px;border-radius:50%;border:1.5px solid rgba(255,255,255,.65);background:rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center}#au .rc svg{width:20px;height:20px}" +
+    "#au .cp{margin-top:12px;font:500 10px Manrope,sans-serif;color:rgba(255,255,255,.6)}#au .nt{font:500 11px Manrope,sans-serif;color:#9fe0ff;min-height:14px;margin-top:6px}" +
+    "#au .cd{width:100%;max-width:340px;padding:22px 20px;border-radius:22px;background:rgba(255,255,255,.97);color:#0d1b3a;text-align:left;font-family:Manrope,system-ui,sans-serif;box-shadow:0 18px 50px rgba(0,0,0,.5)}" +
+    "#au .cd h2{margin:0;font:800 21px Manrope,sans-serif;text-align:left;color:#0d1b3a}#au .cd p{margin:3px 0 16px;font-size:12.5px;color:#6b7a99}" +
+    "#au .ip{position:relative;margin-bottom:12px}#au .ip svg{position:absolute;left:13px;top:50%;transform:translateY(-50%);width:18px;height:18px;stroke:#6b7a99}" +
+    "#au .cd input{margin:0;padding:14px 42px 14px 42px;background:#f3f7ff;color:#0d1b3a;border:1.5px solid #cfd8e8;border-radius:14px}#au .cd input:focus{outline:0;border-color:#2f7be0}" +
+    "#au .cd .ey2{position:absolute;right:6px;top:50%;transform:translateY(-50%);width:34px;height:34px;padding:0;border:0;background:none;display:flex;align-items:center;justify-content:center}#au .cd .ey2 svg{position:static;transform:none;stroke:#6b7a99}" +
+    "#au .cd .er{color:#d33;min-height:16px;margin:0 0 6px;text-align:left}#au .cd .bt{margin-top:6px}#au .cd .bt.dk{background:#1d4f9e;border-color:#1d4f9e}#au .bk2{margin-top:14px;background:none;border:0;color:rgba(255,255,255,.8);font:600 12px Manrope,sans-serif;width:auto;padding:6px}" +
+    "#au .mk{font:600 13px Manrope,sans-serif;color:rgba(255,255,255,.85);margin:14px 0}" +
+    "#au .rc{width:auto!important}#au{overflow-y:auto;justify-content:flex-start}#au>:first-child{margin-top:auto}#au>:last-child{margin-bottom:auto}#au .cd .bt+.bt{margin-top:10px}";
+  document.head.appendChild(css4);
+  var IC = { login: "M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4M10 17l5-5-5-5M15 12H3", bag: "M6 2L4 6v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6l-2-4zM4 6h16M16 10a4 4 0 0 1-8 0",
+    head: "M3 14v-2a9 9 0 0 1 18 0v2M3 14h3v5H3zM18 14h3v5h-3zM18 19c0 1.5-2 2-6 2", tk: "M9 18V5l12-2v13M9 18a3 3 0 1 1-6 0 3 3 0 0 1 6 0zM21 16a3 3 0 1 1-6 0 3 3 0 0 1 6 0z",
+    dc: "M5 5c3-1.5 11-1.5 14 0l2 12c-2 1.7-4 2.6-6 3l-1-2c-1 .2-3 .2-4 0l-1 2c-2-.4-4-1.3-6-3zM9 12h.01M15 12h.01", tool: "M14 6a4 4 0 0 0-5 5L3 17l4 4 6-6a4 4 0 0 0 5-5l-3 3-3-1-1-3z",
+    dep: "M5 15c-1 1-2 4-2 6 2 0 5-1 6-2M12 15l-3-3c1-5 5-9 12-9 0 7-4 11-9 12zM12 15v5l4-3v-4", ai: "M8 9l-4 3 4 3M16 9l4 3-4 3M13 6l-2 12", user: "M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2M12 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8z",
+    lock: "M5 11h14v10H5zM8 11V7a4 4 0 0 1 8 0v4", eye: "M1 12s4-8 11-8 11 8 11 8-4 8-11 8S1 12 1 12zM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" };
+  function svg(k) { return '<svg class="ic" viewBox="0 0 24 24"><path d="' + IC[k] + '"/></svg>'; }
+  function bt(tag, label, k, cls, href) { var e = el(tag, "bt " + (cls || "")); e.innerHTML = svg(k) + "<span>" + label + "</span>"; if (href) { e.href = href; e.target = "_blank"; e.rel = "noopener"; } return e; }
+
+  function menu() {
+    stage = "menu"; au.className = ""; au.innerHTML = ""; scene(true); au.insertAdjacentHTML("beforeend", SKULL); au.lastChild.style.width = "clamp(96px,30vw,140px)";
+    au.appendChild(el("div", "lg", "SECRETLY")).style.cssText = "font-size:clamp(28px,9.5vw,44px);animation:none;margin:10px 0 4px";
+    au.appendChild(el("p", "sb", "SECRETLY · FOR YOU")); au.appendChild(el("p", "sm", "Tools terbaru dengan fitur lengkap"));
+    var m = el("div", "mx"), tl = el("div", "tl");
+    [["tool", "TOOLS", "Bypass, Lua, Hash"], ["dep", "DEPLOY", "Web jadi link"], ["ai", "AI", "Chat & kode"]].forEach(function (x) { var d = el("div"); d.innerHTML = svg(x[0]) + "<b>" + x[1] + "</b><i>" + x[2] + "</i>"; tl.appendChild(d); });
+    m.appendChild(tl);
+    var mk = bt("button", "MASUK", "login", "bl"); mk.onclick = onMasuk; m.appendChild(mk);
+    m.appendChild(bt("a", "BELI AKSES", "bag", "", WA + "?text=" + encodeURIComponent("Halo, saya mau beli akses Secretly")));
+    m.appendChild(bt("a", "HUBUNGI SUPPORT", "head", "", WA + "?text=" + encodeURIComponent("Halo, saya butuh bantuan Secretly")));
+    var sc = el("div", "sc2"), rr = el("div", "rr"), nt = el("div", "nt");
+    var dc = el("button", "rc"); dc.innerHTML = "<span>" + svg("dc") + "</span>Discord";
+    dc.onclick = function () { var v = "jefrip0"; try { navigator.clipboard.writeText(v); } catch (e) { var t = el("textarea"); t.value = v; document.body.appendChild(t); t.select(); try { document.execCommand("copy"); } catch (x) {} t.remove(); } nt.textContent = "Username Discord disalin: @" + v; };
+    var tk = el("a", "rc"); tk.href = "https://www.tiktok.com/@sevcrett"; tk.target = "_blank"; tk.rel = "noopener"; tk.innerHTML = "<span>" + svg("tk") + "</span>TikTok";
+    rr.appendChild(dc); rr.appendChild(tk); sc.appendChild(rr); sc.appendChild(nt); sc.appendChild(el("div", "cp", "© 2026 SECRETLY")); m.appendChild(sc); au.appendChild(m);
+  }
+  function onMasuk() {
+    if (!token) return showLogin();
+    api({ action: "me" }).then(function (j) { if (j.ok) enter(j.user); else { token = null; try { localStorage.removeItem(TK); } catch (e) {} showLogin(); } });
+  }
+  function showLogin() {
+    stage = "login"; au.innerHTML = ""; scene(true); au.insertAdjacentHTML("beforeend", SKULL);
+    au.lastChild.style.cssText = "width:clamp(96px,30vw,130px)"; au.appendChild(el("div", "mk", "Masuk ke akunmu"));
+    var c = el("form", "cd"); c.innerHTML = '<h2>Selamat datang</h2><p>Username & password</p><div class="ip">' + svg("user") + '<input id="auU" placeholder="Username" autocomplete="username" autocapitalize="none"></div><div class="ip">' + svg("lock") +
+      '<input id="auP" type="password" placeholder="Password" autocomplete="current-password"><button type="button" class="ey2" aria-label="Tampilkan">' + svg("eye") + '</button></div><div class="er" id="auE"></div>';
+    var go1 = bt("button", "MASUK →", "login", "bl"); go1.type = "submit"; go1.querySelector("svg").remove(); c.appendChild(go1);
+    c.appendChild(bt("a", "BANTUAN", "head", "dk", WA + "?text=" + encodeURIComponent("Halo, saya tidak bisa login Secretly")));
+    var bk = el("button", "bk2", "‹ Kembali"); bk.type = "button"; bk.onclick = menu; au.appendChild(c); au.appendChild(bk);
+    var pw = c.querySelector("#auP"); c.querySelector(".ey2").onclick = function () { pw.type = pw.type === "password" ? "text" : "password"; };
+    c.addEventListener("submit", function (e) {
+      e.preventDefault(); var er = c.querySelector("#auE"); er.textContent = ""; go1.disabled = true; go1.firstChild.textContent = "MEMERIKSA...";
+      api({ action: "login", username: c.querySelector("#auU").value, password: pw.value }).then(function (j) {
+        go1.disabled = false; go1.firstChild.textContent = "MASUK →"; if (!j.ok) { er.textContent = j.error || "Login gagal"; return; }
+        token = j.token; try { localStorage.setItem(TK, token); } catch (x) {} enter(j.user);
+      });
+    });
+  }
+
+  function enter(u) {
+    user = u; stage = "app"; scene(false); cv.remove(); au.remove(); lockBg(false);
+    if (u.role !== "owner") { var d = document.querySelector('[data-t="t-deploy"]'); if (d) d.style.display = "none"; }
+    var b = el("button", "", u.name + " · " + u.role); b.id = "acBtn"; b.onclick = panel; document.body.appendChild(b);
+  }
+  function logout() { token = null; user = null; try { localStorage.removeItem(TK); } catch (e) {} location.reload(); }
+
+  function panel() {
+    var w = el("div", "acc"), bx = el("div", "bx"); w.appendChild(bx);
+    var top = el("div", "row"); top.appendChild(el("b", "", "Akun: " + user.name + " (" + user.role + ")"));
+    var x = el("button", "", "Tutup"); x.onclick = function () { w.remove(); }; top.appendChild(x); bx.appendChild(top);
+    var out = el("button", "", "Keluar (logout)"); out.style.cssText = "width:100%;margin-top:12px"; out.onclick = logout; bx.appendChild(out);
+    function status() { var s = el("div", "st"); s.set = function (t, bad) { s.textContent = t; s.className = "st" + (bad ? " e" : ""); }; return s; }
+    var tgt = el("select"), list = el("div"), canMake = user.role !== "member";
+    function refresh() {
+      tgt.innerHTML = ""; var o = el("option", "", "Akun saya"); o.value = ""; tgt.appendChild(o);
+      if (!canMake) return; list.innerHTML = "";
+      api({ action: "list" }).then(function (j) { (j.users || []).forEach(function (u) {
+        var op = el("option", "", u.display || u.username); op.value = u.username; tgt.appendChild(op);
+        var r = el("div", "row"), n = el("span", "", (u.display || u.username)); n.appendChild(el("span", "rl", "  " + u.role)); r.appendChild(n);
+        if (u.username !== user.name.toLowerCase()) { var d = el("button", "", "Hapus"), arm = false;
+          d.onclick = function () { if (!arm) { arm = true; d.textContent = "Yakin?"; return; } api({ action: "delete", username: u.username }).then(function (k) { if (k.ok) refresh(); else d.textContent = k.error || "Gagal"; }); };
+          r.appendChild(d); } list.appendChild(r); }); });
+    }
+    if (canMake) {
+      bx.appendChild(el("h3", "", "Buat akun"));
+      var nu = el("input"); nu.placeholder = "Username baru"; nu.autocapitalize = "none"; var np = el("input"); np.placeholder = "Password"; np.type = "text";
+      var rs = el("select"); (user.role === "owner" ? ["member", "reseller", "owner"] : ["member"]).forEach(function (r) { var o = el("option", "", r); o.value = r; rs.appendChild(o); });
+      var cb = el("button", "", "Buat akun"), cs = status();
+      cb.onclick = function () { api({ action: "create", username: nu.value, password: np.value, role: rs.value }).then(function (j) { cs.set(j.ok ? "Akun dibuat" : j.error, !j.ok); if (j.ok) { nu.value = ""; np.value = ""; refresh(); } }); };
+      [nu, np, rs, cb, cs].forEach(function (e) { bx.appendChild(e); });
+    }
+    bx.appendChild(el("h3", "", "Ganti password"));
+    var pp = el("input"); pp.placeholder = "Password baru"; pp.type = "text"; var pb = el("button", "", "Simpan"), ps = status();
+    pb.onclick = function () { api({ action: "setpass", username: tgt.value || undefined, password: pp.value }).then(function (j) { ps.set(j.ok ? "Password diganti" : j.error, !j.ok); if (j.ok) pp.value = ""; }); };
+    if (canMake) bx.appendChild(tgt); [pp, pb, ps].forEach(function (e) { bx.appendChild(e); });
+    if (canMake) { bx.appendChild(el("h3", "", user.role === "owner" ? "Semua akun" : "Akun member kamu")); bx.appendChild(list); }
+    document.body.appendChild(w); refresh();
+  }
+})();
+</script>
+<script>
+/* ====== KONFIGURASI ======
+   1) Supabase (Project Settings > API): isi SB_URL dan SB_KEY (anon / publishable key, BUKAN service_role)
+   2) Bypass memakai function /api/bypass (file api/bypass.js), tidak perlu diubah. */
+const SB_URL = "https://pjhreyoluozjmaehqjza.supabase.co";
+const SB_KEY = "sb_publishable_s_u2cWRCrZHkHvlPP9pN0Q_VhDqoMKI";
+const API_BYPASS = "/api/bypass?url=";
+const API_UPLOAD = "https://tmpfiles.org/api/v1/upload";   // cadangan kalau Supabase belum diisi (link hilang ±1 jam)
+const SB_READY = /^https:\/\/[a-z0-9-]+\.supabase\.co$/i.test(SB_URL) && !/ISI-/i.test(SB_URL) && SB_KEY.length > 30 && !/^ISI_/.test(SB_KEY);
+const MAX_MB = SB_READY ? 50 : 100;
+const sbH = x => { const o = {apikey: SB_KEY}; if(SB_KEY.startsWith("eyJ")) o.Authorization = "Bearer " + SB_KEY; return Object.assign(o, x || {}); };
+async function sbErr(r){ let m = ""; try{ const j = await r.json(); m = j.message || j.error || ""; }catch(e){} m = m || ("HTTP " + r.status); if(/bucket|row-level|policy|relation|does not exist|schema cache|not found/i.test(m) || [401,403,404].includes(r.status)) m += " (jalankan supabase-setup.sql di Supabase > SQL Editor)"; return new Error(m); }
+async function sbUpload(blob, name){
+  const ext = ((name.split(".").pop() || "bin").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 5)) || "bin";
+  const path = Date.now() + "-" + Math.random().toString(36).slice(2, 9) + "." + ext;
+  const r = await fetch(SB_URL + "/storage/v1/object/uploads/" + path, {method: "POST", headers: sbH({"Content-Type": blob.type || "application/octet-stream", "x-upsert": "false"}), body: blob});
+  if(!r.ok) throw await sbErr(r);
+  return SB_URL + "/storage/v1/object/public/uploads/" + path;
+}
+
+const $ = id => document.getElementById(id);
+const show = (id, txt, err, link) => {
+  const o = $(id); o.className = "out show" + (err ? " err" : ""); o.innerHTML = "";
+  const s = document.createElement("div"); s.textContent = txt; o.appendChild(s);
+  if (link && !err) {
+    const r = document.createElement("div"); r.className = "row"; r.style.marginTop = "10px";
+    r.innerHTML = '<button class="btn"><svg class="i"><use href="#copy"/></svg>Copy</button><a class="btn go" target="_blank" rel="noopener"><svg class="i"><use href="#open"/></svg>Buka</a>';
+    r.firstChild.onclick = async () => { let ok = false; try{ await navigator.clipboard.writeText(txt); ok = true; }catch(e){ const ta = document.createElement("textarea"); ta.value = txt; ta.style.cssText = "position:fixed;opacity:0"; document.body.appendChild(ta); ta.select(); try{ ok = document.execCommand("copy"); }catch(_){} ta.remove(); } r.firstChild.lastChild.textContent = ok ? "Tersalin" : "Gagal, salin manual"; };
+    if (/^https?:\/\//.test(txt)) r.lastChild.href = txt; else r.lastChild.style.display = "none";
+    o.appendChild(r);
+  }
+};
+
+/* Navigasi halaman */
+const TOOLSPG = document.querySelector("section#tools"); /* id "tools" juga dipakai simbol SVG, jadi dipilih lewat section */
+function go(id){
+  document.querySelectorAll(".page").forEach(p => p.classList.toggle("on", p.id === id));
+  document.querySelectorAll("nav [data-page]").forEach(n => n.classList.toggle("on", n.dataset.page === id));
+  scrollTo({top: 0});
+  if(id === "tools") TOOLSPG.classList.add("pick");
+  if(id === "rating") loadRatings();
+  if(id === "updates") markSeen();
+  if(id === "stream") sSeg(window.CUR_SEG || "s-anime");
+  if(id === "home") homeLoad();
+}
+document.querySelectorAll("[data-page]").forEach(b => b.onclick = () => go(b.dataset.page));
+/* Tab tools */
+document.querySelectorAll("#tabs [data-t]").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".tool").forEach(t => t.hidden = t.id !== b.dataset.t);
+  TOOLSPG.classList.remove("pick"); scrollTo({top: 0});
+});
+$("tools-back").onclick = () => { TOOLSPG.classList.add("pick"); scrollTo({top: 0}); };
+
+async function paste(id){ try{ $(id).value = await navigator.clipboard.readText(); }catch(e){ $(id).focus(); } }
+
+/* Bypass Link / Bypass Web (memanggil /api/bypass) */
+function addLinks(out, links, title){
+  if(!links || !links.length) return;
+  const box = document.createElement("div"); box.style.marginTop = "12px";
+  const t = document.createElement("div"); t.style.opacity = ".7"; t.textContent = title; box.appendChild(t);
+  links.forEach(l => { const a = document.createElement("a"); a.href = l.url; a.target = "_blank"; a.rel = "noopener"; a.style.cssText = "display:block;color:#ffb3cf;margin-top:6px"; a.textContent = (l.text ? l.text + " - " : "") + l.url; box.appendChild(a); });
+  $(out).appendChild(box);
+}
+async function bypass(inp, out, mode){
+  const u = $(inp).value.trim();
+  if(!/^https?:\/\//i.test(u)) return show(out, "Masukkan tautan yang diawali http:// atau https://", true);
+  show(out, "Memproses... bisa sampai 1 menit, jangan tutup halaman");
+  try{
+    let j, r, tries = 0;
+    for(;;){
+      tries++;
+      const ac = new AbortController(), tm = setTimeout(() => ac.abort(), 70000);
+      try{
+        r = await fetch(API_BYPASS + encodeURIComponent(u) + (mode === "web" ? "&mode=web" : ""), {signal: ac.signal});
+        j = await r.json().catch(() => null);
+      }catch(e){ j = {ok: false, retryable: true, error: e.name === "AbortError" ? "waktu habis" : e.message}; }
+      finally{ clearTimeout(tm); }
+      if(!j || j.ok || !j.retryable || tries >= 2) break;
+      show(out, "Gagal (" + j.error + "). Mencoba lagi otomatis, percobaan 2 dari 2...");
+      await new Promise(x => setTimeout(x, 1500));
+    }
+    if(!j){ throw new Error(r.status === 404 ? "file api/bypass.js belum ikut ter-deploy di Vercel (harus ada di folder api/)" : r.status === 504 ? "waktu server habis, naikkan maxDuration di vercel.json" : "balasan server tidak valid (HTTP " + r.status + ")"); }
+    try{ logEvent("bypass", new URL(u).hostname + " " + (j.ok ? "ok" : j.captcha ? "captcha" : "gagal")); }catch(e){}
+    if(!j.ok){ if(!j.captcha){ let h = ""; try{ h = new URL(u).hostname; }catch(e){} logErr("bypass-" + mode, h + ": " + (j.error || "kosong")); } show(out, ((j.captcha || j.manual) ? "Perlu langkah manual: " : "Bypass gagal: ") + (j.error || "Hasil kosong"), true); if(j.captcha || j.manual) addLinks(out, [{url: u, text: "Buka tautan asli di browser"}], "Selesaikan verifikasinya sendiri:"); addLinks(out, j.links, "Tautan yang mungkin tujuanmu:"); return; }
+    show(out, j.result, false, true);
+    addLinks(out, j.links, "Tautan lain di halaman:");
+  }catch(e){ show(out, "Bypass gagal: " + (e.name === "AbortError" ? "waktu habis" : e.message), true); }
+}
+
+/* Obfuscate Lua (di browser). XOR murni aritmetika: jalan di Lua 5.1 / 5.3 / Luau */
+function obf(){
+  const src = $("o-in").value;
+  if(!src.trim()) return show("o-out", "Tempel kode Lua dulu.", true);
+  const key = Math.floor(Math.random() * 200) + 30, bytes = [];
+  for(const b of new TextEncoder().encode(src)) bytes.push(b ^ key);
+  const nm = () => "_" + Math.random().toString(36).slice(2, 8);
+  const [d, k, x, s, i, f, e] = [nm(), nm(), nm(), nm(), nm(), nm(), nm()];
+  const lua = "local " + d + "={" + bytes.join(",") + "};local " + k + "=" + key + ";" +
+    "local function " + x + "(a,b)local r,p=0,1;while a>0 or b>0 do local u,v=a%2,b%2;if u~=v then r=r+p end;a=(a-u)/2;b=(b-v)/2;p=p*2 end;return r end;" +
+    "local " + s + "={};for " + i + "=1,#" + d + " do " + s + "[" + i + "]=string.char(" + x + "(" + d + "[" + i + "]," + k + "))end;" +
+    "local " + f + "," + e + "=(loadstring or load)(table.concat(" + s + "));if not " + f + " then error(" + e + ") end;return " + f + "()";
+  show("o-out", lua, false, true);
+}
+
+/* Upload video / foto -> link permanen (Supabase Storage) */
+$("v-f").onchange = e => $("v-name").textContent = e.target.files[0]?.name || "Pilih video (maks 50 MB)";
+$("i-f").onchange = e => { const f = e.target.files[0]; if(!f) return;
+  $("i-name").textContent = f.name; const p = $("i-prev"); p.src = URL.createObjectURL(f); p.style.display = "block"; };
+async function upload(fid, out){
+  const f = $(fid).files[0];
+  if(!f) return show(out, "Pilih file dulu.", true);
+  if(f.size > MAX_MB * 1024 * 1024) return show(out, "Ukuran file melebihi " + MAX_MB + " MB.", true);
+  show(out, "Mengunggah... jangan tutup halaman");
+  try{
+    let url;
+    if(SB_READY){ url = await sbUpload(f, f.name); }
+    else{
+      const fd = new FormData(); fd.append("file", f);
+      const r = await fetch(API_UPLOAD, {method: "POST", body: fd});
+      const j = await r.json();
+      url = j.data?.url || j.url; if(!url) throw new Error("Server tidak mengembalikan link");
+      url = url.replace("tmpfiles.org/", "tmpfiles.org/dl/").replace("/dl/dl/", "/dl/");
+    }
+    show(out, url, false, true);
+  }catch(e){ show(out, "Upload gagal: " + e.message, true); }
+}
+
+/* Modpack: edit data di sini */
+const WA = "6287834270844";
+const MOD_FREE = [
+  {n:"Modpack Contoh 1", d:"Deskripsi singkat modpack", s:"25 MB", u:"#"},
+  {n:"Modpack Contoh 2", d:"Deskripsi singkat modpack", s:"48 MB", u:"#"},
+  {n:"Modpack Contoh 3", d:"Deskripsi singkat modpack", s:"12 MB", u:"#"}
+];
+const MOD_SELL = [
+  {n:"Modpack Buat Repe/Robber", d:"Android", p:"Rp 10.000"},
+  {n:"Modpack Buat Roleplay Santai", d:"Android", p:"Rp 5.000"},
+  {n:"Modpack Compe Sotot Rp", d:"Android", p:"Rp 7.000"},
+  {n:"Modpack TCW Habis", d:"Android", p:"Rp 3.000"},
+  {n:"Modpack Style Gonzela", d:"Android", p:"Rp 3.000"},
+  {n:"Modpack Cv Little Batley", d:"Android", p:"Rp 3.000"}
+];
+/* Modpack hasil share: disimpan di Supabase (tampil di semua perangkat) */
+const SHARE_KEY = "secretly_shared_mods";   // data lama di browser, dipindah otomatis ke Supabase
+let SHARED = [], SHARED_ERR = "";
+const allFree = () => [...SHARED, ...MOD_FREE];
+async function loadShared(){
+  if(!SB_READY) return;
+  try{
+    const r = await fetch(SB_URL + "/rest/v1/modpacks?select=name,file_type,link,credits,image_url&order=created_at.desc&limit=100", {headers: sbH()});
+    if(!r.ok) throw await sbErr(r);
+    SHARED = (await r.json()).map(x => ({n: x.name, d: "Credits: " + x.credits, s: x.file_type, u: x.link, img: x.image_url}));
+    SHARED_ERR = "";
+  }catch(e){ SHARED_ERR = e.message; }
+  renderMods("mf-list", allFree(), $("mf-q").value, false);
+  if(SHARED_ERR){ const p = document.createElement("p"); p.className = "lead"; p.textContent = "Gagal memuat modpack bersama: " + SHARED_ERR; $("mf-list").prepend(p); }
+}
+async function sbPost(table, row){
+  const r = await fetch(SB_URL + "/rest/v1/" + table, {method: "POST", headers: sbH({"Content-Type": "application/json", Prefer: "return=minimal"}), body: JSON.stringify(row)});
+  if(!r.ok) throw await sbErr(r);
+}
+const postMod = m => sbPost("modpacks", m);
+async function migrateLocal(){
+  if(!SB_READY) return;
+  let old = []; try{ old = JSON.parse(localStorage.getItem(SHARE_KEY) || "[]"); }catch(e){}
+  try{
+    for(let i = old.length - 1; i >= 0; i--){
+      const m = old[i], lk = String(m.u || ""), nm = String(m.n || "").slice(0, 60);
+      if(/^https?:\/\//i.test(lk) && nm.length >= 2){
+        let img = null;
+        if(m.img && /^data:image\//.test(m.img)) img = await sbUpload(await (await fetch(m.img)).blob(), "thumb.jpg");
+        await postMod({name: nm, file_type: String(m.s || "ZIP").slice(0, 20), link: lk, credits: String(m.d || "").replace(/^Credits:\s*/, "").slice(0, 40) || "-", image_url: img});
+      }
+      old.splice(i, 1); localStorage.setItem(SHARE_KEY, JSON.stringify(old));
+    }
+    localStorage.removeItem(SHARE_KEY);
+  }catch(e){}
+}
+
+function card(m, sell){
+  const el = document.createElement("div"); el.className = "item glass";
+  const ic = document.createElement("div"); ic.className = "ic";
+  if(m.img && /^(data:image\/|https:\/\/)/.test(m.img)){ const im = document.createElement("img"); im.src = m.img; im.alt = m.n; ic.appendChild(im); }
+  else ic.innerHTML = '<svg class="i"><use href="#' + (sell ? "cart" : "gift") + '"/></svg>';
+  const inf = document.createElement("div"); inf.className = "inf";
+  const b = document.createElement("b"); b.textContent = m.n;
+  const sm = document.createElement("small"); sm.textContent = m.d;
+  const tg = document.createElement("span"); tg.className = "tag"; tg.textContent = sell ? m.p : m.s;
+  inf.append(b, sm, document.createElement("br"), tg);
+  const a = document.createElement("a"); a.className = "btn go"; a.target = "_blank"; a.rel = "noopener";
+  a.setAttribute("aria-label", sell ? "Beli " + m.n : "Unduh " + m.n);
+  a.href = sell ? "https://wa.me/" + WA + "?text=" + encodeURIComponent("Halo, saya mau beli " + m.n + " (" + m.p + ")") : (/^https?:\/\//i.test(m.u) ? m.u : "#");
+  a.innerHTML = '<svg class="i"><use href="#' + (sell ? "cart" : "dl") + '"/></svg>';
+  el.append(ic, inf, a); return el;
+}
+function renderMods(list, data, q, sell){
+  const box = $(list); box.innerHTML = "";
+  const r = data.filter(m => m.n.toLowerCase().includes(q.toLowerCase()));
+  if(!r.length){ const e = document.createElement("p"); e.className = "lead"; e.textContent = "Modpack tidak ditemukan."; box.appendChild(e); }
+  r.forEach(m => box.appendChild(card(m, sell)));
+}
+$("mf-q").oninput = e => renderMods("mf-list", allFree(), e.target.value, false);
+$("ms-q").oninput = e => renderMods("ms-list", MOD_SELL, e.target.value, true);
+renderMods("mf-list", allFree(), "", false); renderMods("ms-list", MOD_SELL, "", true);
+
+$("s-f").onchange = e => { const f = e.target.files[0]; if(!f) return;
+  $("s-name").textContent = f.name; const p = $("s-prev"); p.src = URL.createObjectURL(f); p.style.display = "block"; };
+function shrink(file){ return new Promise((ok, no) => {
+  const im = new Image(); im.onload = () => { const k = Math.min(1, 320 / Math.max(im.width, im.height));
+    const c = document.createElement("canvas"); c.width = Math.round(im.width * k); c.height = Math.round(im.height * k);
+    c.getContext("2d").drawImage(im, 0, 0, c.width, c.height);
+    c.toBlob(b => b ? ok(b) : no(new Error("Foto tidak bisa diproses")), "image/jpeg", .78); };
+  im.onerror = () => no(new Error("Foto tidak bisa dibaca")); im.src = URL.createObjectURL(file); }); }
+async function shareMod(){
+  const n = $("s-n").value.trim(), t = $("s-t").value.trim(), l = $("s-l").value.trim(), c = $("s-c").value.trim(), f = $("s-f").files[0];
+  if(!n || !t || !l || !c || !f) return show("s-out", "Semua kolom wajib diisi: nama, jenis file, link, credits, dan foto.", true);
+  if(!/^https?:\/\//i.test(l)) return show("s-out", "Link harus diawali http:// atau https://", true);
+  if(!SB_READY) return show("s-out", "Supabase belum diisi. Isi SB_URL dan SB_KEY di index.html supaya modpack tampil di semua perangkat.", true);
+  const btn = document.querySelector("#share .go"); btn.disabled = true; show("s-out", "Mengirim...");
+  try{
+    const img = await sbUpload(await shrink(f), "thumb.jpg");
+    await postMod({name: n, file_type: t.toUpperCase(), link: l, credits: c, image_url: img});
+    ["s-n","s-t","s-l","s-c","s-f"].forEach(i => $(i).value = "");
+    $("s-name").textContent = "Pilih foto modpack"; $("s-prev").style.display = "none"; $("s-out").className = "out";
+    await loadShared();
+    document.querySelector('.dock [data-page="modfree"]').click();
+  }catch(e){ show("s-out", "Gagal: " + e.message, true); }
+  finally{ btn.disabled = false; }
+}
+
+/* Tools tambahan */
+function json(pretty){ try{ const o = JSON.parse($("j-in").value); show("j-out", pretty ? JSON.stringify(o, null, 2) : JSON.stringify(o), false, true); }
+  catch(e){ show("j-out", "JSON tidak valid: " + e.message, true); } }
+function pw(){ const n = Math.min(64, Math.max(8, parseInt($("p-len").value) || 16));
+  const c = "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnpqrstuvwxyz23456789!@#$%^&*";
+  const r = crypto.getRandomValues(new Uint32Array(n)); show("p-out", Array.from(r, x => c[x % c.length]).join(""), false, true); }
+async function sha(){ const v = $("h-in").value; if(!v) return show("h-out", "Isi teks dulu.", true);
+  const h = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(v));
+  show("h-out", Array.from(new Uint8Array(h), b => b.toString(16).padStart(2, "0")).join(""), false, true); }
+
+/* Base64 dan URL */
+const bin = a => { let r = ""; for(let i = 0; i < a.length; i += 8192) r += String.fromCharCode.apply(null, a.subarray(i, i + 8192)); return r; };
+function b64(enc){ const v = $("x-in").value;
+  try{ show("x-out", enc ? btoa(bin(new TextEncoder().encode(v))) : new TextDecoder().decode(Uint8Array.from(atob(v.trim().replace(/-/g, "+").replace(/_/g, "/")), c => c.charCodeAt(0))), false, true); }
+  catch(e){ show("x-out", "Input tidak valid.", true); } }
+function urlc(enc){ const v = $("u-in").value;
+  try{ show("u-out", enc ? encodeURIComponent(v) : decodeURIComponent(v), false, true); }
+  catch(e){ show("u-out", "Input tidak valid.", true); } }
+
+/* ===== v1.2: menu titik tiga, toast, rating, update, bagikan, video ===== */
+const toast = msg => { const t = $("toast"); t.textContent = msg; t.classList.add("show"); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove("show"), 2200); };
+const menu = $("menu"), ov = $("menu-ov"), mb = $("more-btn");
+function openMenu(){
+  const r = $("topnav").getBoundingClientRect();
+  menu.style.top = (r.bottom + 8) + "px";
+  menu.style.right = Math.max(10, document.documentElement.clientWidth - r.right) + "px";
+  menu.classList.add("show"); ov.classList.add("show"); mb.setAttribute("aria-expanded", "true");
+}
+function closeMenu(){ menu.classList.remove("show"); ov.classList.remove("show"); mb.setAttribute("aria-expanded", "false"); }
+mb.onclick = () => menu.classList.contains("show") ? closeMenu() : openMenu();
+ov.onclick = closeMenu;
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeMenu(); });
+menu.querySelectorAll(".mi").forEach(b => b.addEventListener("click", closeMenu));
+
+/* Lapor bug / saran (WhatsApp developer) */
+const BUG_URL = "https://wa.me/" + WA + "?text=" + encodeURIComponent("Halo, saya mau lapor bug / kasih saran untuk Secretly:\n");
+$("mi-bug").href = BUG_URL; $("help-bug").href = BUG_URL;
+
+/* Bagikan web */
+async function shareSite(){
+  const d = {title: "Secretly Tools", text: "Tools gratis dan modpack di Secretly", url: location.origin + location.pathname};
+  try{ if(navigator.share){ await navigator.share(d); return; } }catch(e){ if(e.name === "AbortError") return; }
+  try{ await navigator.clipboard.writeText(d.url); toast("Link web disalin"); }catch(e){ toast(d.url); }
+}
+$("mi-share").onclick = shareSite;
+
+/* Video latar on/off */
+const VID_KEY = "secretly_novid";
+function applyVid(off){
+  const v = $("bg"); v.style.display = off ? "none" : "";
+  try{ if(off) v.pause(); else { const p = v.play(); if(p && p.catch) p.catch(() => {}); } }catch(e){}
+  $("vid-lbl").textContent = off ? "Nyalakan Video Latar" : "Matikan Video Latar";
+}
+let VID_OFF = false; try{ VID_OFF = localStorage.getItem(VID_KEY) === "1"; }catch(e){}
+$("mi-vid").onclick = () => { VID_OFF = !VID_OFF; try{ localStorage.setItem(VID_KEY, VID_OFF ? "1" : "0"); }catch(e){} applyVid(VID_OFF); toast(VID_OFF ? "Video latar dimatikan" : "Video latar dinyalakan"); };
+if(VID_OFF) applyVid(true);
+
+/* Update terbaru: edit daftar ini setiap kali ada pembaruan (yang terbaru paling atas) */
+const UPDATES = [
+  {v: "1.4", d: "18 Okt 2026", t: "Stream, Semua Fitur, dan 5 tools siap jual", i: [
+    "Wajib join saluran WhatsApp dihapus, pengunjung bisa langsung masuk",
+    "Halaman Stream baru: Anime, Film, dan Playlist Saya dalam satu tempat",
+    "Halaman Apa Itu Secretly berisi penjelasan semua fitur dan tools",
+    "5 tools baru yang bisa dijual: Nota Maker, WA Link dan QR, Watermark Foto, Key Generator, Link-in-Bio Builder",
+    "Beranda baru: pencarian fitur, jalan pintas, tools siap jual, anime sedang tayang, dan kabar terbaru",
+    "Navigasi bawah dirapikan: sudut lebih tegas, label pada tombol aktif, dan tombol Stream"]},
+  {v: "1.3", d: "17 Okt 2026", t: "Perbaikan tools, Deploy, Chat AI, dan Anime", i: [
+    "Bypass Link lebih tahan terhadap halaman perantara dan menampilkan tautan kandidat saat gagal",
+    "Bypass mengenali halaman captcha dan berhenti lebih cepat, serta otomatis mengulang sekali jika error jaringan atau waktu habis",
+    "Tombol Copy kini berfungsi di semua browser, Base64 mendukung teks besar",
+    "Pesan error upload dan rating lebih jelas",
+    "Error di web tercatat otomatis supaya cepat diperbaiki",
+    "Tool baru: Deploy Vercel. Buat repo GitHub dan website vercel.app langsung dari sini",
+    "Tool baru: Chat AI untuk membuat website dan kode, serta Katalog Anime dengan jadwal dan episode terbaru"]},
+  {v: "1.2", d: "17 Okt 2026", t: "Menu baru, Rating, dan navigasi lebih besar", i: [
+    "Menu titik tiga di kanan atas: akses cepat ke semua halaman dan fitur",
+    "Fitur Rating dan ulasan: nilai Secretly dan baca ulasan pengunjung lain",
+    "Halaman Update Terbaru berisi catatan perubahan",
+    "Bantuan (FAQ), Bagikan Web, dan Lapor Bug / Saran lewat WhatsApp",
+    "Opsi mematikan video latar untuk HP yang berat",
+    "Navigasi bawah lebih besar, lebih lebar, dan sedikit dinaikkan"]},
+  {v: "1.1", d: "17 Okt 2026", t: "Modpack bersama dan tools diperbaiki", i: [
+    "Share Modpack kini tersimpan online dan tampil di semua perangkat",
+    "Bypass Link dan Bypass Web berjalan lewat server sendiri",
+    "Obfuscate Lua diperbaiki (Lua 5.1, 5.3, dan Luau)",
+    "Video ke Link dan Foto ke Link kini permanen (maks 50 MB)"]},
+  {v: "1.0", d: "Rilis awal", t: "Secretly Tools meluncur", i: [
+    "Tools: Bypass Link, Bypass Web, Obfuscate, Video ke Link, Foto ke Link, Base64, JSON, Password, SHA-256, URL Encode",
+    "Modpack Free, Share Modpack, dan Forsell Modpack",
+    "Kontak developer"]}
+];
+const SEEN_KEY = "secretly_seen_ver";
+function seenVer(){ try{ return localStorage.getItem(SEEN_KEY); }catch(e){ return null; } }
+function markSeen(){ try{ localStorage.setItem(SEEN_KEY, UPDATES[0].v); }catch(e){} $("more-dot").classList.remove("show"); $("menu-new").classList.remove("show"); }
+(function(){
+  const box = $("u-list");
+  UPDATES.forEach((u, idx) => {
+    const c = document.createElement("div"); c.className = "card glass";
+    const hd = document.createElement("div"); hd.className = "hd";
+    const v = document.createElement("span"); v.className = "tag"; v.textContent = "v" + u.v;
+    hd.appendChild(v);
+    if(idx === 0){ const n = document.createElement("span"); n.className = "tag new"; n.textContent = "Terbaru"; hd.appendChild(n); }
+    const d = document.createElement("small"); d.textContent = u.d; hd.appendChild(d);
+    const t = document.createElement("h3"); t.textContent = u.t;
+    const ul = document.createElement("ul"); u.i.forEach(x => { const li = document.createElement("li"); li.textContent = x; ul.appendChild(li); });
+    c.append(hd, t, ul); box.appendChild(c);
+  });
+  if(seenVer() !== UPDATES[0].v){ $("more-dot").classList.add("show"); $("menu-new").classList.add("show"); }
+})();
+
+/* Rating (Supabase: tabel ratings + view rating_summary) */
+let RATE = 0;
+const RATED_KEY = "secretly_rated";
+const starsEl = (n, big) => { const s = document.createElement("span"); s.className = "sr" + (big ? " big" : "");
+  for(let i = 1; i <= 5; i++) s.insertAdjacentHTML("beforeend", '<svg class="i' + (i <= n ? " on" : "") + '"><use href="#star"/></svg>'); return s; };
+(function(){
+  const box = $("r-stars");
+  for(let i = 1; i <= 5; i++){
+    const b = document.createElement("button"); b.type = "button"; b.className = "sb"; b.setAttribute("aria-label", i + " bintang");
+    b.innerHTML = '<svg class="i"><use href="#star"/></svg>';
+    b.onclick = () => { RATE = i; [...box.children].forEach((x, k) => x.classList.toggle("on", k < i)); };
+    box.appendChild(b);
+  }
+})();
+async function loadRatings(){
+  if(!SB_READY){ $("r-count").textContent = "Supabase belum diisi"; return; }
+  try{
+    const [a, b] = await Promise.all([
+      fetch(SB_URL + "/rest/v1/rating_summary?select=avg,total", {headers: sbH()}),
+      fetch(SB_URL + "/rest/v1/ratings?select=stars,name,comment,created_at&comment=not.is.null&order=created_at.desc&limit=30", {headers: sbH()})
+    ]);
+    if(!a.ok) throw await sbErr(a); if(!b.ok) throw await sbErr(b);
+    const sm = (await a.json())[0] || {avg: 0, total: 0}, rows = await b.json();
+    const avg = Number(sm.avg) || 0, total = Number(sm.total) || 0;
+    $("r-avg").textContent = total ? avg.toFixed(1) : "-";
+    $("r-avgstars").innerHTML = ""; $("r-avgstars").appendChild(starsEl(Math.round(avg), true));
+    $("r-count").textContent = total ? total + " ulasan" : "Belum ada rating. Jadilah yang pertama!";
+    $("h-rate").textContent = total ? avg.toFixed(1) + " (" + total + ")" : "Rating";
+    const list = $("r-list"); list.innerHTML = "";
+    if(!rows.length){ const p = document.createElement("p"); p.className = "lead"; p.textContent = "Belum ada ulasan."; list.appendChild(p); }
+    rows.forEach(x => {
+      const c = document.createElement("div"); c.className = "rv glass";
+      const top = document.createElement("div"); top.className = "top";
+      const nm = document.createElement("b"); nm.textContent = x.name || "Anonim";
+      const dt = document.createElement("small"); dt.textContent = new Date(x.created_at).toLocaleDateString("id-ID", {day: "numeric", month: "short", year: "numeric"});
+      top.append(nm, starsEl(x.stars), dt);
+      const p = document.createElement("p"); p.textContent = x.comment;
+      c.append(top, p); list.appendChild(c);
+    });
+  }catch(e){ $("r-count").textContent = "Gagal memuat: " + e.message; }
+}
+async function sendRating(){
+  if(!SB_READY) return show("r-out", "Supabase belum diisi. Isi SB_URL dan SB_KEY di index.html.", true);
+  if(!RATE) return show("r-out", "Pilih jumlah bintang dulu.", true);
+  let done = false; try{ done = localStorage.getItem(RATED_KEY) === "1"; }catch(e){}
+  if(done) return show("r-out", "Kamu sudah memberi rating dari perangkat ini. Terima kasih!", true);
+  const name = $("r-n").value.trim().slice(0, 30) || null, comment = $("r-c").value.trim().slice(0, 200) || null;
+  const btn = document.querySelector("#rating .go"); btn.disabled = true; show("r-out", "Mengirim...");
+  try{
+    await sbPost("ratings", {stars: RATE, name, comment});
+    try{ localStorage.setItem(RATED_KEY, "1"); }catch(e){}
+    show("r-out", "Terima kasih atas ratingmu!");
+    $("r-n").value = ""; $("r-c").value = "";
+    await loadRatings();
+  }catch(e){ show("r-out", "Gagal mengirim: " + e.message, true); }
+  finally{ btn.disabled = false; }
+}
+
+/* Catat error dan aktivitas ke file log di GitHub lewat /api/log */
+let LOGGED = 0, EVN = 0;
+function logEvent(ev, msg, isErr){
+  if(isErr ? LOGGED >= 5 : EVN >= 30) return; isErr ? LOGGED++ : EVN++;
+  try{ fetch("/api/log", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({ev, msg: String(msg).slice(0, 300)}), keepalive: true}).catch(() => {}); }catch(e){}
+}
+function logErr(src, msg){ logEvent("err_" + String(src).replace(/[^a-z]/gi, "_"), msg, true); }
+window.addEventListener("error", e => logErr("js", e.message));
+window.addEventListener("unhandledrejection", e => logErr("promise", (e.reason && e.reason.message) || e.reason));
+
+/* Deploy Vercel */
+function loadZip(){ return window.JSZip ? Promise.resolve() : new Promise((ok, no) => { const x = document.createElement("script"); x.src = "https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"; x.onload = ok; x.onerror = () => no(new Error("Gagal memuat pembuka ZIP")); document.head.appendChild(x); }); }
+async function dFiles(){
+  const out = [], add = (p, u8) => out.push({path: p.replace(/^(\.?\/)+/, ""), b64: btoa(bin(u8))});
+  for(const f of $("d-files").files){
+    if(/\.zip$/i.test(f.name)){ await loadZip(); const z = await JSZip.loadAsync(f); for(const [p, e] of Object.entries(z.files)){ if(e.dir || /(^|\/)(__MACOSX|\.DS_Store)/.test(p)) continue; add(p, await e.async("uint8array")); } }
+    else add(f.name, new Uint8Array(await f.arrayBuffer()));
+  }
+  const code = $("d-code").value.trim(); if(code) add("index.html", new TextEncoder().encode(code));
+  if(out.length > 1 && out.every(f => f.path.includes("/")) && new Set(out.map(f => f.path.split("/")[0])).size === 1) out.forEach(f => f.path = f.path.split("/").slice(1).join("/"));
+  return out;
+}
+async function dCheck(){
+  const st = $("d-state"), n = $("d-name").value.trim(); if(!n){ st.textContent = "Isi nama dulu"; return false; }
+  st.textContent = "Mengecek nama...";
+  try{ const j = await (await fetch("/api/deploy?name=" + encodeURIComponent(n))).json(); st.textContent = (j.ok ? "Tersedia: " : "") + (j.ok ? j.name : (j.msg || j.error || "Gagal mengecek")); st.style.color = j.ok ? "#9be7b0" : "#ffb3c8"; if(j.name) $("d-name").value = j.name; return !!j.ok; }
+  catch(e){ st.textContent = "Gagal mengecek nama"; st.style.color = "#ffb3c8"; return false; }
+}
+async function dDeploy(){
+  const out = "d-out"; show(out, "Menyiapkan file...");
+  try{
+    const files = await dFiles(); if(!files.length) return show(out, "Pilih file atau tempel kode HTML dulu", true);
+    if(files.reduce((t, f) => t + f.b64.length * .75, 0) > 3.2e6) return show(out, "Total file lebih dari 3 MB, kecilkan dulu", true);
+    show(out, "Membuat repo GitHub lalu deploy ke Vercel... bisa sampai 1 menit, jangan tutup halaman");
+    const r = await fetch("/api/deploy", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({name: $("d-name").value, files})});
+    const j = await r.json().catch(() => null);
+    if(!j || !j.ok){ const m = (j && j.error) || ("Server tidak merespons (HTTP " + r.status + ")"); show(out, m, true); if(!j || !j.taken) logErr("deploy", m); return; }
+    show(out, j.url, false, true);
+    if((j.fixes && j.fixes.length) || j.pending){ const n = document.createElement("div"); n.style.cssText = "margin-top:10px;opacity:.75"; n.textContent = (j.fixes && j.fixes.length ? "Diperbaiki otomatis: " + j.fixes.join("; ") + ". " : "") + (j.pending ? "Situs masih diproses, tunggu sebentar lalu buka tautannya." : ""); $(out).appendChild(n); }
+  }catch(e){ show(out, "Deploy gagal: " + e.message, true); logErr("deploy", e.message); }
+}
+$("d-check").onclick = dCheck; $("d-go").onclick = dDeploy; $("d-name").onblur = () => { if($("d-name").value.trim()) dCheck(); };
+
+/* Chat AI (streaming dari /api/chat) */
+const chatHist = [];
+function copyTxt(t, b){ navigator.clipboard.writeText(t).then(() => { b.textContent = "Tersalin"; }).catch(() => { b.textContent = "Gagal"; }); }
+function chatPreview(code){
+  const o = document.createElement("div"); o.className = "cprev";
+  const c = document.createElement("button"); c.className = "btn"; c.type = "button"; c.textContent = "Tutup preview"; c.onclick = () => o.remove();
+  const f = document.createElement("iframe"); f.setAttribute("sandbox", "allow-scripts allow-forms allow-modals"); f.srcdoc = code;
+  o.append(c, f); document.body.appendChild(o);
+}
+function chatRender(el, text, done){
+  el.textContent = "";
+  text.split("```").forEach((p, i) => {
+    if(i % 2 === 0){ if(p.trim()){ const d = document.createElement("div"); d.style.whiteSpace = "pre-wrap"; d.textContent = p.trim(); el.appendChild(d); } return; }
+    const nl = p.indexOf("\n"), lang = (nl > -1 ? p.slice(0, nl) : "").trim().toLowerCase(), code = nl > -1 ? p.slice(nl + 1) : "";
+    const box = document.createElement("div"); box.className = "cb"; const pre = document.createElement("pre"); pre.textContent = code; box.appendChild(pre);
+    if(done){
+      const bar = document.createElement("div"); bar.className = "row";
+      const mk = (n, f) => { const b = document.createElement("button"); b.className = "btn"; b.type = "button"; b.textContent = n; b.onclick = () => f(b); bar.appendChild(b); };
+      mk("Salin", b => copyTxt(code, b));
+      if(lang === "html" || /<html|<!doctype/i.test(code)){
+        mk("Preview", () => chatPreview(code));
+        mk("Kirim ke Deploy", () => { $("d-code").value = code; const t = document.querySelector('#tabs [data-t="t-deploy"]'); if(t) t.click(); toast("Kode dikirim ke Deploy Vercel"); });
+      }
+      box.appendChild(bar);
+    }
+    el.appendChild(box);
+  });
+}
+async function chatSend(){
+  const inp = $("c-in"), t = inp.value.trim(); if(!t) return; inp.value = "";
+  const log = $("c-log"), mkm = c => { const d = document.createElement("div"); d.className = "cmsg " + c; log.appendChild(d); return d; };
+  mkm("u").textContent = t; chatHist.push({role: "user", content: t});
+  const el = mkm("a"); el.textContent = "Mengetik..."; $("c-send").disabled = true; let full = "", raf = 0;
+  try{
+    const r = await fetch("/api/chat", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({messages: chatHist.slice(-12)})});
+    if(!r.ok || !r.body){ const j = await r.json().catch(() => null); throw new Error((j && j.error) || "Server tidak merespons (HTTP " + r.status + ")"); }
+    const rd = r.body.getReader(), dc = new TextDecoder();
+    for(;;){ const x = await rd.read(); if(x.done) break; full += dc.decode(x.value, {stream: true}); if(!raf) raf = requestAnimationFrame(() => { raf = 0; chatRender(el, full, false); log.scrollTop = log.scrollHeight; }); }
+    if(raf) cancelAnimationFrame(raf);
+    chatRender(el, full, true); chatHist.push({role: "assistant", content: full});
+  }catch(e){ if(raf) cancelAnimationFrame(raf); el.textContent = "Gagal: " + e.message; chatHist.pop(); logErr("chat", e.message); }
+  $("c-send").disabled = false; log.scrollTop = log.scrollHeight;
+}
+$("c-send").onclick = chatSend;
+
+/* Katalog Anime (AniList). Tombol tonton hanya mengarah ke platform resmi. */
+const AL = "https://graphql.anilist.co", FAVK = "secretly_anime_fav_v1";
+const favs = () => { try{ return JSON.parse(localStorage.getItem(FAVK) || "{}"); }catch(e){ return {}; } };
+const saveFavs = f => { try{ localStorage.setItem(FAVK, JSON.stringify(f)); }catch(e){} };
+const MF = "id title{romaji english} coverImage{large} episodes status nextAiringEpisode{episode timeUntilAiring}";
+const latest = m => m.nextAiringEpisode ? m.nextAiringEpisode.episode - 1 : (m.episodes || 0);
+const eta = s => s >= 86400 ? Math.floor(s / 86400) + " hari lagi" : s >= 3600 ? Math.floor(s / 3600) + " jam lagi" : Math.max(1, Math.floor(s / 60)) + " menit lagi";
+const okUrl = u => /^https?:\/\//i.test(u || "");
+let aMode = "air", aLoaded = false;
+async function al(query, variables){
+  const r = await fetch(AL, {method: "POST", headers: {"Content-Type": "application/json", Accept: "application/json"}, body: JSON.stringify({query, variables})});
+  const j = await r.json().catch(() => null);
+  if(!r.ok || !j || j.errors) throw new Error((j && j.errors && j.errors[0].message) || "AniList HTTP " + r.status);
+  return j.data;
+}
+function mkel(tag, txt, cls){ const e = document.createElement(tag); if(txt) e.textContent = txt; if(cls) e.className = cls; return e; }
+function aCard(m){
+  const f = favs(), c = mkel("div", "", "ac"), img = mkel("img"), d = mkel("div"), l = latest(m);
+  img.src = m.coverImage.large; img.alt = ""; img.loading = "lazy";
+  d.append(mkel("b", m.title.english || m.title.romaji), mkel("small", "Episode terbaru: " + (l || "-") + (m.episodes ? " dari " + m.episodes : "")));
+  if(m.nextAiringEpisode) d.appendChild(mkel("small", "Episode " + m.nextAiringEpisode.episode + " tayang " + eta(m.nextAiringEpisode.timeUntilAiring)));
+  if(f[m.id] && l > (f[m.id].seen || 0)) d.appendChild(mkel("small", "Ada episode baru", "nw"));
+  c.append(img, d); c.onclick = () => aOpen(m.id); return c;
+}
+async function aLoad(mode){
+  aMode = mode; const box = $("a-list"); $("a-detail").hidden = true; box.hidden = false; box.textContent = "Memuat...";
+  try{
+    let data;
+    if(mode === "fav"){ const ids = Object.keys(favs()).map(Number); if(!ids.length){ box.textContent = "Belum ada yang dipantau. Buka sebuah anime lalu tekan Pantau."; return; } data = await al("query($ids:[Int]){Page(perPage:50){media(id_in:$ids,type:ANIME){" + MF + "}}}", {ids}); }
+    else if(mode === "search") data = await al("query($q:String){Page(perPage:20){media(search:$q,type:ANIME,sort:SEARCH_MATCH){" + MF + "}}}", {q: $("a-q").value.trim()});
+    else data = await al("query{Page(perPage:20){media(type:ANIME,status:RELEASING,sort:TRENDING_DESC){" + MF + "}}}", {});
+    const list = data.Page.media; box.textContent = ""; if(!list.length){ box.textContent = "Tidak ada hasil."; return; } list.forEach(m => box.appendChild(aCard(m)));
+  }catch(e){ box.textContent = "Gagal memuat: " + e.message; logErr("anime", e.message); }
+}
+async function aOpen(id){
+  const dt = $("a-detail"); $("a-list").hidden = true; dt.hidden = false; dt.textContent = "Memuat...";
+  try{
+    const m = (await al("query($id:Int){Media(id:$id){" + MF + " season seasonYear description(asHtml:false) streamingEpisodes{title url site} externalLinks{site url type} trailer{id site}}}", {id})).Media;
+    const f = favs(), l = latest(m); if(f[id]){ f[id].seen = l; saveFavs(f); }
+    dt.textContent = ""; const back = mkel("button", "\u2039 Kembali", "btn"); back.type = "button"; back.onclick = () => aLoad(aMode);
+    const fav = mkel("button", f[id] ? "Berhenti pantau" : "Pantau", "btn"); fav.type = "button";
+    fav.onclick = () => { const g = favs(); if(g[id]) delete g[id]; else g[id] = {t: m.title.romaji, seen: latest(m)}; saveFavs(g); fav.textContent = g[id] ? "Berhenti pantau" : "Pantau"; };
+    dt.append(back, fav, mkel("h3", m.title.english || m.title.romaji),
+      mkel("small", [m.season && m.seasonYear ? m.season + " " + m.seasonYear : "", m.status, "Episode terbaru: " + (l || "-") + (m.episodes ? " dari " + m.episodes : "")].filter(Boolean).join(" | ")),
+      mkel("p", (m.description || "").replace(/<[^>]*>/g, " ").replace(/\s+/g, " ").trim().slice(0, 420)));
+    if(m.trailer && m.trailer.site === "youtube" && /^[\w-]{11}$/.test(m.trailer.id)){ const tb = mkel("button", "\u25B6 Putar trailer di sini", "btn"); tb.type = "button"; tb.style.display = "block"; tb.onclick = () => playIn({t: "yt", id: m.trailer.id}, (m.title.english || m.title.romaji) + " (trailer)"); dt.appendChild(tb); }
+    const pl = (m.externalLinks || []).filter(x => x.type === "STREAMING" && okUrl(x.url));
+    dt.appendChild(mkel("h3", pl.length ? "Tonton di platform resmi" : "Belum ada tautan platform resmi"));
+    pl.forEach(x => { const a = mkel("a", x.site, "btn"); a.href = x.url; a.target = "_blank"; a.rel = "noopener noreferrer"; dt.appendChild(a); });
+    const eps = (m.streamingEpisodes || []).filter(x => okUrl(x.url)).reverse().slice(0, 30);
+    if(eps.length){ dt.appendChild(mkel("h3", "Episode")); eps.forEach(x => { const a = mkel("a", x.title + " (" + x.site + ")", "btn"); a.href = x.url; a.target = "_blank"; a.rel = "noopener noreferrer"; a.style.display = "block"; dt.appendChild(a); }); }
+  }catch(e){ dt.textContent = "Gagal memuat: " + e.message; logErr("anime", e.message); }
+}
+$("a-go").onclick = () => { if($("a-q").value.trim()) aLoad("search"); };
+$("a-q").onkeydown = e => { if(e.key === "Enter") $("a-go").click(); };
+$("a-air").onclick = () => aLoad("air"); $("a-fav").onclick = () => aLoad("fav");
+
+/* ===== PEMUTAR DALAM APLIKASI (tanpa membuka YouTube/aplikasi lain) ===== */
+const PSRC = u => { u = String(u || "").trim(); let m;
+  if((m = u.match(/(?:youtu\.be\/|youtube(?:-nocookie)?\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([\w-]{11})/))) return {t: "yt", id: m[1]};
+  if((m = u.match(/archive\.org\/(?:details|embed)\/([^\/?#]+)/))) return {t: "ia", id: m[1]};
+  if(/^https?:\/\/[^\s]+\.m3u8(\?|#|$)/i.test(u)) return {t: "hls", u};
+  if(/^https?:\/\/[^\s]+\.(mp4|webm|ogv|m4v|mov)(\?|#|$)/i.test(u)) return {t: "vid", u};
+  return null; };
+let hlsP = null, hlsI = null;
+function playIn(s, title){
+  let w = $("pl"); if(w) w.remove();
+  w = document.createElement("div"); w.id = "pl"; w.style.cssText = "position:fixed;inset:0;z-index:2147482000;background:#000;display:flex;flex-direction:column;padding-top:env(safe-area-inset-top)";
+  const bar = document.createElement("div"); bar.style.cssText = "display:flex;align-items:center;gap:10px;padding:10px 14px;color:#fff;font:600 14px Manrope,sans-serif";
+  const t = mkel("span", title || "Pemutar"); t.style.cssText = "flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap";
+  const x = mkel("button", "\u2715 Tutup", "btn"); x.type = "button"; x.onclick = () => { if(hlsI){ try{ hlsI.destroy(); }catch(e){} hlsI = null; } w.remove(); };
+  bar.append(t, x); const box = document.createElement("div"); box.style.cssText = "flex:1;display:flex;align-items:center;justify-content:center;min-height:0";
+  w.append(bar, box); document.body.appendChild(w);
+  const frame = src => { const f = document.createElement("iframe"); f.src = src; f.allow = "autoplay; fullscreen; picture-in-picture; encrypted-media"; f.allowFullscreen = true; f.referrerPolicy = "strict-origin-when-cross-origin"; f.style.cssText = "width:100%;aspect-ratio:16/9;max-height:100%;border:0;background:#000"; box.appendChild(f); };
+  if(s.t === "yt") frame("https://www.youtube-nocookie.com/embed/" + s.id + "?autoplay=1&playsinline=1&rel=0");
+  else if(s.t === "ia") frame("https://archive.org/embed/" + encodeURIComponent(s.id));
+  else { const v = document.createElement("video"); v.controls = true; v.autoplay = true; v.playsInline = true; v.style.cssText = "width:100%;max-height:100%;background:#000"; box.appendChild(v);
+    if(s.t === "vid") v.src = s.u;
+    else if(v.canPlayType("application/vnd.apple.mpegurl")) v.src = s.u;
+    else { const go = () => { if(window.Hls && Hls.isSupported()){ hlsI = new Hls(); hlsI.loadSource(s.u); hlsI.attachMedia(v); } else box.textContent = "Format ini tidak didukung di perangkat ini"; };
+      if(window.Hls) go(); else { const sc = document.createElement("script"); sc.src = "https://cdnjs.cloudflare.com/ajax/libs/hls.js/1.5.13/hls.min.js"; sc.onload = go; sc.onerror = () => { box.textContent = "Gagal memuat pemutar"; }; document.head.appendChild(sc); } } }
+}
+/* Film & video legal: Internet Archive (domain publik / bebas) + putar link sendiri */
+async function fLoad(){
+  const box = $("f-list"), q = $("f-q").value.trim().replace(/["():]/g, " "); box.textContent = "Memuat...";
+  const base = "mediatype:movies AND collection:(feature_films OR animationandcartoons OR classic_tv)";
+  const url = "https://archive.org/advancedsearch.php?q=" + encodeURIComponent((q ? "title:(" + q + ") AND " : "") + base) + "&fl%5B%5D=identifier&fl%5B%5D=title&fl%5B%5D=year&rows=24&page=1&output=json" + (q ? "" : "&sort%5B%5D=downloads+desc");
+  try{
+    const j = await (await fetch(url)).json(), docs = (j.response && j.response.docs) || []; box.textContent = ""; if(!docs.length){ box.textContent = "Tidak ada hasil."; return; }
+    docs.forEach(d => { const c = mkel("div", "", "ac"), img = mkel("img"), t = mkel("div"); img.src = "https://archive.org/services/img/" + encodeURIComponent(d.identifier); img.alt = ""; img.loading = "lazy";
+      t.append(mkel("b", d.title || d.identifier), mkel("small", (d.year ? d.year + " \u2022 " : "") + "Putar di sini")); c.append(img, t); c.onclick = () => playIn({t: "ia", id: d.identifier}, d.title); box.appendChild(c); });
+  }catch(e){ box.textContent = "Gagal memuat: " + e.message; logErr("film", e.message); }
+}
+$("f-go").onclick = fLoad; $("f-q").onkeydown = e => { if(e.key === "Enter") fLoad(); };
+$("f-play").onclick = () => { const s = PSRC($("f-u").value); if(!s){ toast("Link tidak dikenali. Pakai link YouTube, archive.org, .mp4 atau .m3u8"); return; } playIn(s, "Link kamu"); };
+let fLoaded = false;
+
+/* ===== v1.4: Stream, Semua Fitur, beranda, dan 5 tools siap jual ===== */
+const FT = [
+  {g:"Tools Link dan Web", n:"Bypass Link", d:"Lewati halaman perantara bicolink, sfile, dan sfl.gl untuk mendapat tautan asli.", ic:"link", ac:"#ff3d81", t:"t-bypass"},
+  {g:"Tools Link dan Web", n:"Bypass Web", d:"Untuk halaman yang menahan tautan di balik timer atau pengalihan.", ic:"globe", ac:"#f5a524", t:"t-web"},
+  {g:"Tools Link dan Web", n:"Video ke Link", d:"Unggah video (maks 50 MB) lalu dapat tautan permanen.", ic:"video", ac:"#22b8cf", t:"t-vid"},
+  {g:"Tools Link dan Web", n:"Foto ke Link", d:"Unggah foto lalu dapat tautan yang bisa dibagikan.", ic:"img", ac:"#2fbf71", t:"t-img"},
+  {g:"Tools Developer", n:"Obfuscate Lua", d:"Ubah kode Lua jadi loader yang sulit dibaca. Berjalan di browser kamu.", ic:"code", ac:"#8b5cf6", t:"t-obf"},
+  {g:"Tools Developer", n:"Base64, URL, JSON", d:"Encode dan decode teks, rapikan atau minify JSON.", ic:"lock", ac:"#ff7a45", t:"t-b64"},
+  {g:"Tools Developer", n:"Password dan SHA-256", d:"Buat password acak yang kuat dan hash teks SHA-256.", ic:"key", ac:"#e05bd0", t:"t-pw"},
+  {g:"Tools Developer", n:"Deploy Vercel", d:"Unggah HTML lalu website langsung online di domain vercel.app (khusus Owner).", ic:"rocket", ac:"#8a97ad", t:"t-deploy"},
+  {g:"Tools Developer", n:"Chat AI", d:"Tanya apa saja atau minta dibuatkan website dan kode.", ic:"braces", ac:"#7c5cff", t:"t-chat"},
+  {g:"Stream", n:"Anime", d:"Jadwal tayang, episode terbaru, trailer, dan tautan platform resmi. Tandai Pantau agar episode baru muncul otomatis.", ic:"play", ac:"#ff6b6b", s:"s-anime"},
+  {g:"Stream", n:"Film dan Video", d:"Film domain publik dari Internet Archive, diputar langsung di sini.", ic:"video", ac:"#4aa3ff", s:"s-film"},
+  {g:"Stream", n:"Playlist Saya", d:"Putar dan simpan link YouTube, archive.org, .mp4, atau .m3u8 milikmu.", ic:"play", ac:"#ffb02e", s:"s-link"},
+  {g:"Siap Jual", n:"Nota Maker", d:"Buat nota penjualan rapi dan unduh sebagai PNG.", ic:"receipt", ac:"#e8456b", t:"t-nota"},
+  {g:"Siap Jual", n:"WA Link dan QR", d:"Buat link chat WhatsApp dengan pesan otomatis dan QR code.", ic:"qr", ac:"#25d366", t:"t-qr"},
+  {g:"Siap Jual", n:"Watermark Foto", d:"Tempel watermark teks di foto produk atau karya.", ic:"stamp", ac:"#f59e0b", t:"t-wm"},
+  {g:"Siap Jual", n:"Key Generator", d:"Buat voucher dan key akses acak dalam jumlah banyak.", ic:"ticket", ac:"#a855f7", t:"t-key"},
+  {g:"Siap Jual", n:"Link-in-Bio Builder", d:"Buat halaman profil berisi link, siap di-deploy.", ic:"bio", ac:"#06b6d4", t:"t-bio"},
+  {g:"Modpack", n:"Modpack Free", d:"Daftar modpack gratis yang tinggal unduh.", ic:"gift", ac:"#ff3d81", p:"modfree"},
+  {g:"Modpack", n:"Share Modpack", d:"Bagikan modpackmu, langsung tampil untuk semua pengunjung.", ic:"plus", ac:"#8b5cf6", p:"share"},
+  {g:"Modpack", n:"Forsell Modpack", d:"Modpack premium, pesan lewat WhatsApp.", ic:"cart", ac:"#2fbf71", p:"modsell"},
+  {g:"Komunitas", n:"Rating dan Ulasan", d:"Beri bintang dan baca ulasan pengunjung lain.", ic:"star", ac:"#ffc64d", p:"rating"},
+  {g:"Komunitas", n:"Update Terbaru", d:"Catatan perubahan dan fitur baru.", ic:"bell", ac:"#ff3d81", p:"updates"},
+  {g:"Komunitas", n:"Bantuan dan Kontak", d:"FAQ, lapor bug, dan kontak developer.", ic:"help", ac:"#4c8dff", p:"help"}
+];
+function openTool(t){ go("tools"); const b = document.querySelector('#tabs [data-t="' + t + '"]'); if(b) b.click(); }
+function ftOpen(f){ if(f.t) openTool(f.t); else if(f.s){ go("stream"); sSeg(f.s); } else go(f.p); }
+function ftItem(f){
+  const d = mkel("div", "", "fi glass"); d.style.setProperty("--ac", f.ac);
+  d.innerHTML = '<span class="ic"><svg class="i"><use href="#' + f.ic + '"/></svg></span><span class="inf"><b></b><small></small></span><button class="btn" type="button">Buka</button>';
+  d.querySelector("b").textContent = f.n; d.querySelector("small").textContent = f.d; d.querySelector("button").onclick = () => ftOpen(f); return d;
+}
+(function(){
+  const box = $("ft-list"); let last = "";
+  FT.forEach(f => { if(f.g !== last){ last = f.g; box.appendChild(mkel("div", f.g, "fg")); } box.appendChild(ftItem(f)); });
+  FT.filter(f => f.g === "Siap Jual").forEach(f => {
+    const b = mkel("button", "", "hc glass"); b.type = "button"; b.style.setProperty("--ac", f.ac);
+    b.innerHTML = '<span class="ic"><svg class="i"><use href="#' + f.ic + '"/></svg></span><b></b><small></small>';
+    b.querySelector("b").textContent = f.n; b.querySelector("small").textContent = f.d; b.onclick = () => ftOpen(f); $("h-sell").appendChild(b);
+  });
+  const u = UPDATES[0], c = $("h-upd");
+  c.append(mkel("span", "v" + u.v + " - " + u.d, "tag"), mkel("h3", u.t), (() => { const ul = mkel("ul"); ul.style.cssText = "padding-left:18px;color:var(--mut);line-height:1.6;font-size:.88rem"; u.i.slice(0, 3).forEach(x => ul.appendChild(mkel("li", x))); return ul; })());
+  const m = mkel("button", "Lihat semua update", "btn"); m.type = "button"; m.style.cssText = "width:100%;margin-top:12px"; m.onclick = () => go("updates"); c.appendChild(m);
+  $("h-q").oninput = e => {
+    const q = e.target.value.trim().toLowerCase(), b = $("h-res"); b.textContent = ""; if(!q) return;
+    const r = FT.filter(f => (f.n + " " + f.d + " " + f.g).toLowerCase().includes(q)).slice(0, 6);
+    if(!r.length){ b.appendChild(mkel("p", "Tidak ada yang cocok.", "lead")); return; } r.forEach(f => b.appendChild(ftItem(f)));
+  };
+  document.querySelectorAll("#tabs [data-st]").forEach(b => b.onclick = () => { go("stream"); sSeg(b.dataset.st); });
+})();
+
+/* Stream */
+function sSeg(id){
+  window.CUR_SEG = id;
+  document.querySelectorAll("#stream .sp").forEach(p => p.classList.toggle("on", p.id === id));
+  document.querySelectorAll("#st-seg [data-s]").forEach(b => b.classList.toggle("on", b.dataset.s === id));
+  if(id === "s-anime"){ if(!aLoaded){ aLoaded = true; aLoad("air"); } else if(aMode === "fav") aLoad("fav"); }
+  if(id === "s-film" && !fLoaded){ fLoaded = true; fLoad(); }
+  if(id === "s-link") plRender();
+}
+document.querySelectorAll("#st-seg [data-s]").forEach(b => b.onclick = () => sSeg(b.dataset.s));
+const PLK = "secretly_pl_v1", plGet = () => { try{ return JSON.parse(localStorage.getItem(PLK) || "[]"); }catch(e){ return []; } };
+function plRender(){
+  const b = $("sl-list"), l = plGet(); b.textContent = "";
+  if(!l.length){ b.textContent = "Playlist kosong. Tempel link lalu tekan Simpan."; return; }
+  l.forEach((x, i) => {
+    const c = mkel("div", "", "ac"), t = mkel("div"), d = mkel("button", "\u00d7", "btn"); d.type = "button"; d.setAttribute("aria-label", "Hapus"); d.style.marginLeft = "auto";
+    t.append(mkel("b", x.t), mkel("small", x.u.slice(0, 48)));
+    d.onclick = e => { e.stopPropagation(); const g = plGet(); g.splice(i, 1); try{ localStorage.setItem(PLK, JSON.stringify(g)); }catch(_){} plRender(); };
+    c.onclick = () => { const s = PSRC(x.u); s ? playIn(s, x.t) : toast("Link tidak dikenali"); }; c.append(t, d); b.appendChild(c);
+  });
+}
+$("sl-go").onclick = () => { const s = PSRC($("sl-u").value); s ? playIn(s, $("sl-t").value.trim() || "Link kamu") : toast("Link tidak dikenali. Pakai YouTube, archive.org, .mp4 atau .m3u8"); };
+$("sl-save").onclick = () => {
+  const u = $("sl-u").value.trim(); if(!PSRC(u)) return toast("Link tidak dikenali. Pakai YouTube, archive.org, .mp4 atau .m3u8");
+  const g = plGet(); g.unshift({t: $("sl-t").value.trim().slice(0, 40) || "Tanpa judul", u});
+  try{ localStorage.setItem(PLK, JSON.stringify(g.slice(0, 30))); }catch(e){} $("sl-t").value = $("sl-u").value = ""; plRender(); toast("Disimpan ke playlist");
+};
+let hLoaded = false;
+async function homeLoad(){
+  if(hLoaded) return; hLoaded = true; const b = $("h-air");
+  try{
+    const d = await al("query{Page(perPage:12){media(type:ANIME,status:RELEASING,sort:TRENDING_DESC){id title{romaji english} coverImage{large}}}}", {}); b.textContent = "";
+    d.Page.media.forEach(m => { const c = mkel("div", "", "pc"), i = mkel("img"); i.src = m.coverImage.large; i.alt = ""; i.loading = "lazy";
+      c.append(i, mkel("span", m.title.english || m.title.romaji)); c.onclick = () => { aLoaded = true; go("stream"); sSeg("s-anime"); aOpen(m.id); }; b.appendChild(c); });
+  }catch(e){ hLoaded = false; b.textContent = "Gagal memuat: " + e.message; }
+}
+
+/* Helper unduhan */
+const rp = n => "Rp " + Math.round(n).toLocaleString("id-ID"), num = s => parseInt(String(s).replace(/\D/g, ""), 10) || 0;
+
+/* 1. Nota Maker */
+function nRow(){
+  const r = mkel("div", "", "rowi");
+  r.innerHTML = '<input type="text" placeholder="Item" maxlength="40"><input type="text" inputmode="numeric" placeholder="Qty" value="1"><input type="text" inputmode="numeric" placeholder="Harga"><button class="btn" type="button" aria-label="Hapus">&times;</button>';
+  r.lastChild.onclick = () => { if($("n-rows").children.length > 1) r.remove(); }; $("n-rows").appendChild(r);
+}
+nRow(); $("n-add").onclick = nRow;
+$("n-go").onclick = () => {
+  const items = [...$("n-rows").children].map(r => { const i = r.querySelectorAll("input"); return {n: i[0].value.trim(), q: num(i[1].value) || 1, p: num(i[2].value)}; }).filter(x => x.n);
+  if(!items.length) return toast("Isi minimal satu item");
+  const disc = num($("n-disc").value), sub = items.reduce((t, x) => t + x.q * x.p, 0), tot = Math.max(0, sub - disc), note = $("n-note").value.trim();
+  const c = $("n-cv"), W = 600, D = 2, H = 330 + items.length * 40 + (disc ? 36 : 0) + (note ? 50 : 0);
+  c.width = W * D; c.height = H * D; c.hidden = false; const x = c.getContext("2d"); x.scale(D, D);
+  x.fillStyle = "#fff"; x.fillRect(0, 0, W, H); x.fillStyle = "#c2185b"; x.fillRect(0, 0, W, 10); x.textBaseline = "top";
+  const T = (s, px, py, f, col, al) => { x.font = f; x.fillStyle = col; x.textAlign = al || "left"; x.fillText(s, px, py); };
+  T($("n-shop").value.trim() || "Toko Saya", 30, 34, "800 28px Outfit,Arial", "#111");
+  T("NOTA PENJUALAN", 30, 74, "700 14px Manrope,Arial", "#c2185b");
+  T(new Date().toLocaleString("id-ID", {dateStyle: "long", timeStyle: "short"}), 30, 96, "500 14px Manrope,Arial", "#555");
+  T("Pembeli: " + ($("n-buyer").value.trim() || "-"), 30, 118, "500 14px Manrope,Arial", "#555");
+  let y = 160; x.fillStyle = "#ddd"; x.fillRect(30, y - 10, 540, 1);
+  T("Item", 30, y, "700 14px Manrope,Arial", "#111"); T("Jumlah", 400, y, "700 14px Manrope,Arial", "#111", "right"); T("Total", 570, y, "700 14px Manrope,Arial", "#111", "right"); y += 34;
+  items.forEach(it => { T(it.n.slice(0, 24), 30, y, "500 15px Manrope,Arial", "#111"); T(it.q + " x " + it.p.toLocaleString("id-ID"), 400, y, "500 14px Manrope,Arial", "#555", "right"); T(rp(it.q * it.p), 570, y, "600 15px Manrope,Arial", "#111", "right"); y += 40; });
+  x.fillStyle = "#ddd"; x.fillRect(30, y - 8, 540, 1); y += 8;
+  T("Subtotal", 30, y, "500 15px Manrope,Arial", "#555"); T(rp(sub), 570, y, "500 15px Manrope,Arial", "#555", "right"); y += 36;
+  if(disc){ T("Diskon", 30, y, "500 15px Manrope,Arial", "#555"); T("- " + rp(disc), 570, y, "500 15px Manrope,Arial", "#555", "right"); y += 36; }
+  x.fillStyle = "#fdeaf1"; x.fillRect(30, y - 8, 540, 46); T("TOTAL", 42, y + 4, "800 18px Outfit,Arial", "#c2185b"); T(rp(tot), 558, y + 4, "800 20px Outfit,Arial", "#c2185b", "right"); y += 66;
+  if(note) T(note, 300, y, "500 14px Manrope,Arial", "#777", "center");
+  $("n-dl").hidden = false;
+};
+$("n-dl").onclick = () => { const a = $("n-dl"); a.href = $("n-cv").toDataURL("image/png"); a.download = "nota-" + Date.now() + ".png"; };
+
+/* 2. WA Link dan QR */
+function qrLoad(){ return window.QRCode ? Promise.resolve() : new Promise((ok, no) => { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"; s.onload = ok; s.onerror = () => no(new Error("Gagal memuat pembuat QR")); document.head.appendChild(s); }); }
+$("q-go").onclick = async () => {
+  let n = $("q-num").value.replace(/\D/g, ""), m = $("q-msg").value.trim(), t;
+  if(n){ n = n[0] === "0" ? "62" + n.slice(1) : n[0] === "8" ? "62" + n : n; t = "https://wa.me/" + n + (m ? "?text=" + encodeURIComponent(m) : ""); } else t = m;
+  if(!t) return show("q-out", "Isi nomor WhatsApp atau teks/URL dulu.", true);
+  show("q-out", t, false, true); const b = $("q-box"); b.innerHTML = ""; b.hidden = false; $("q-dl").hidden = true;
+  try{
+    await qrLoad(); new QRCode(b, {text: t, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.M});
+    setTimeout(() => { const cv = b.querySelector("canvas"); if(cv) $("q-dl").hidden = false; }, 150);
+  }catch(e){ const im = new Image(); im.alt = "QR"; im.width = im.height = 240; im.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent(t); b.appendChild(im); }
+};
+$("q-dl").onclick = () => { const cv = $("q-box").querySelector("canvas"), a = $("q-dl"); if(cv){ a.href = cv.toDataURL("image/png"); a.download = "qr.png"; } };
+
+/* 3. Watermark Foto */
+let wmImg = null;
+function wmDraw(){
+  if(!wmImg) return; const c = $("wm-cv"), k = Math.min(1, 1600 / Math.max(wmImg.width, wmImg.height));
+  c.width = Math.round(wmImg.width * k); c.height = Math.round(wmImg.height * k); c.hidden = false; $("wm-dl").hidden = false;
+  const x = c.getContext("2d"), t = $("wm-t").value || "Secretly", fs = Math.max(14, c.width * $("wm-s").value / 100), p = $("wm-p").value;
+  x.drawImage(wmImg, 0, 0, c.width, c.height); x.globalAlpha = $("wm-o").value / 100; x.fillStyle = $("wm-c").value;
+  x.font = "800 " + fs + "px Outfit,Arial"; x.textBaseline = "middle"; x.shadowColor = "rgba(0,0,0,.35)"; x.shadowBlur = fs / 8;
+  if(p === "tile"){ x.textAlign = "center"; const w = x.measureText(t).width + fs * 2; x.rotate(-Math.PI / 6);
+    for(let yy = -c.height, r = 0; yy < c.height * 1.5; yy += fs * 3.2, r++) for(let xx = -c.width + (r % 2) * w / 2; xx < c.width * 1.5; xx += w) x.fillText(t, xx, yy); }
+  else{ const mg = fs * .6; x.textAlign = p === "br" ? "right" : p === "bl" ? "left" : "center"; x.fillText(t, p === "br" ? c.width - mg : p === "bl" ? mg : c.width / 2, p === "c" ? c.height / 2 : c.height - fs); }
+}
+const wmD = () => { clearTimeout(wmD.t); wmD.t = setTimeout(wmDraw, 120); };
+$("wm-f").onchange = e => { const f = e.target.files[0]; if(!f) return; $("wm-name").textContent = f.name; const im = new Image(); im.onload = () => { wmImg = im; wmDraw(); }; im.onerror = () => toast("Foto tidak bisa dibaca"); im.src = URL.createObjectURL(f); };
+["wm-t", "wm-s", "wm-o", "wm-c", "wm-p"].forEach(i => { $(i).oninput = wmD; $(i).onchange = wmD; });
+$("wm-dl").onclick = () => { const a = $("wm-dl"); a.href = $("wm-cv").toDataURL("image/png"); a.download = "watermark-" + Date.now() + ".png"; };
+
+/* 4. Key Generator */
+$("k-go").onclick = () => {
+  const pre = $("k-pre").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12), segs = Math.min(8, Math.max(1, num($("k-seg").value) || 3)), len = Math.min(12, Math.max(2, num($("k-len").value) || 4)), n = Math.min(200, Math.max(1, num($("k-n").value) || 10));
+  const cs = {a: "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", d: "0123456789", l: "ABCDEFGHJKLMNPQRSTUVWXYZ"}[$("k-cs").value], out = new Set();
+  while(out.size < n){ const p = []; for(let s = 0; s < segs; s++) p.push(Array.from(crypto.getRandomValues(new Uint32Array(len)), v => cs[v % cs.length]).join("")); out.add((pre ? pre + "-" : "") + p.join("-")); if(cs.length ** (segs * len) < n) break; }
+  const txt = [...out].join("\n"); show("k-out", txt, false, true); $("k-out").style.whiteSpace = "pre-wrap";
+  const a = $("k-dl"); a.href = URL.createObjectURL(new Blob([txt], {type: "text/plain"})); a.download = "keys-" + Date.now() + ".txt"; a.hidden = false;
+};
+
+/* 5. Link-in-Bio Builder */
+function bioHtml(){
+  const e = s => String(s).replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+  const nm = e($("b2-n").value.trim() || "Nama Kamu"), bio = e($("b2-b").value.trim()), img = $("b2-i").value.trim(), th = {g: ["#0a0408", "#ff3d81"], p: ["#1a0a12", "#ff7aa8"], b: ["#06101f", "#4aa3ff"], h: ["#0b1a12", "#2fbf71"]}[$("b2-t").value];
+  const ls = $("b2-l").value.split("\n").map(l => l.split("|").map(s => s.trim())).filter(a => a[0] && /^https?:\/\//i.test(a[1] || "")).slice(0, 12);
+  if(!ls.length) return null;
+  return '<!DOCTYPE html>\n<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + nm + '</title>\n<style>*{box-sizing:border-box;margin:0}body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 18px;background:' + th[0] + ';color:#fff;font-family:system-ui,sans-serif}img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin-bottom:14px;border:3px solid ' + th[1] + '}h1{font-size:1.5rem}p{opacity:.75;margin:6px 0 24px;text-align:center;max-width:420px}a{display:block;width:100%;max-width:420px;text-align:center;padding:15px;margin-bottom:12px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid ' + th[1] + ';color:#fff;text-decoration:none;font-weight:600}a:active{background:' + th[1] + '}</style></head>\n<body>' +
+    (/^https:\/\//i.test(img) ? '<img src="' + e(img) + '" alt="">' : "") + '<h1>' + nm + '</h1><p>' + bio + '</p>\n' + ls.map(a => '<a href="' + e(a[1]) + '" target="_blank" rel="noopener">' + e(a[0]) + '</a>').join("\n") + '\n</body></html>';
+}
+const bioDo = f => { const c = bioHtml(); if(!c) return show("b2-out", "Isi minimal 1 link dengan format: Label | https://...", true); $("b2-out").className = "out"; f(c); };
+$("b2-pv").onclick = () => bioDo(chatPreview);
+$("b2-cp").onclick = () => bioDo(c => navigator.clipboard.writeText(c).then(() => toast("HTML disalin")).catch(() => toast("Gagal menyalin")));
+$("b2-dl").onclick = () => bioDo(c => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([c], {type: "text/html"})); a.download = "index.html"; a.click(); });
+$("b2-dp").onclick = () => bioDo(c => { const t = document.querySelector('#tabs [data-t="t-deploy"]'); if(!t || t.style.display === "none") return toast("Deploy khusus Owner. Unduh HTML lalu upload sendiri."); $("d-code").value = c; openTool("t-deploy"); toast("Kode dikirim ke Deploy Vercel"); });
+
+/* Mulai */
+(async () => { await migrateLocal(); await loadShared(); })();
+loadRatings(); homeLoad();
+</script>
+</body>
+</html>
