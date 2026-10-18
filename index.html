@@ -144,6 +144,46 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
 .ac img{width:64px;height:90px;object-fit:cover;border-radius:10px;flex:none;background:#0006}
 .ac b{display:block;line-height:1.25}.ac small{display:block;opacity:.7;margin-top:3px}.nw{color:#ffd166;opacity:1!important;font-weight:700}
 #a-detail .btn{margin:4px 4px 4px 0;text-decoration:none}#a-detail h3{margin:10px 0 4px}#a-detail p{opacity:.8;font-size:.86rem;line-height:1.5}
+
+/* ===== v1.4: navigasi baru, Stream, Semua Fitur, tools siap jual, beranda ===== */
+[hidden]{display:none!important}
+nav#topnav{border-radius:16px}
+nav:not(.dock) .btn{border-radius:12px}
+nav .brand{min-width:0;overflow:hidden;text-overflow:ellipsis}
+.dock{border-radius:18px;padding:8px;gap:4px;bottom:calc(16px + env(safe-area-inset-bottom));background:rgba(16,6,10,.55);border:1px solid rgba(255,255,255,.2)}
+.dock .btn{flex-direction:column;gap:3px;height:58px;border-radius:13px;background:transparent;border-color:transparent;backdrop-filter:none;-webkit-backdrop-filter:none;color:rgba(255,255,255,.7)}
+.dock .btn:hover{background:rgba(255,255,255,.08);border-color:transparent}
+.dock .btn .i{width:25px;height:25px}
+.dock .btn .lb{display:none;font:700 .62rem/1 Manrope;letter-spacing:.02em}
+.dock .btn.on{flex-grow:1.9;color:#fff;background:linear-gradient(160deg,rgba(255,61,129,.5),rgba(194,24,91,.38));border-color:rgba(255,120,170,.55);box-shadow:0 4px 14px rgba(255,61,129,.25)}
+.dock .btn.on .lb{display:block}
+#acBtn{bottom:calc(100px + env(safe-area-inset-bottom))!important}
+#toast{bottom:calc(112px + env(safe-area-inset-bottom))}
+.sel{width:100%;padding:13px 14px;border-radius:14px;border:1px solid var(--line);background:rgba(0,0,0,.28);color:#fff;font:500 .95rem Manrope;margin-bottom:10px}
+.sel option{color:#000}
+input[type=range]{width:100%;margin:2px 0 12px;accent-color:#ff3d81}
+.seg{display:flex;gap:4px;margin:4px 0 14px;padding:5px;border-radius:14px}
+.seg .btn{flex:1;padding:10px 4px;border-radius:10px;background:transparent;border-color:transparent}
+.seg .btn.on{background:rgba(255,61,129,.35);border-color:rgba(255,61,129,.6)}
+.sp{display:none}.sp.on{display:block}
+.hs{display:flex;align-items:center;gap:10px;padding:0 14px;border-radius:14px;margin-bottom:10px}
+.hs input{flex:1;min-width:0;background:none;border:0;margin:0;padding:14px 0;color:#fff;font:500 .95rem Manrope;outline:0}
+.qg{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.qg .btn{flex-direction:column;padding:14px 4px;border-radius:14px;gap:7px;font-size:.78rem}
+.qg .i{width:26px;height:26px}
+.hz{display:flex;gap:10px;overflow-x:auto;padding-bottom:6px;scrollbar-width:none}.hz::-webkit-scrollbar{display:none}
+.hc{flex:none;width:136px;border-radius:14px;padding:12px;text-align:left;display:flex;flex-direction:column;gap:8px;cursor:pointer;color:#fff;font:inherit}
+.hc .ic,.fi .ic{width:40px;height:40px;border-radius:12px;display:grid;place-items:center;flex:none;background:var(--ac)}
+.hc b{font:700 .92rem Outfit}.hc small{color:var(--mut);font-size:.72rem;line-height:1.3}
+.pc{flex:none;width:96px;cursor:pointer;font-size:.74rem;line-height:1.25}
+.pc img{width:96px;height:136px;object-fit:cover;border-radius:12px;display:block;margin-bottom:5px;background:#0006}.pc span{display:block}
+.fi{display:flex;gap:12px;align-items:center;border-radius:14px;padding:12px;margin-bottom:8px}
+.fi .inf{flex:1;min-width:0}.fi b{display:block;font:700 .95rem Outfit}.fi small{color:var(--mut);font-size:.8rem;line-height:1.4;display:block;margin-top:2px}
+.fg{font:700 .74rem Manrope;letter-spacing:.09em;text-transform:uppercase;color:var(--mut);margin:20px 2px 8px}
+.rowi{display:grid;grid-template-columns:2fr 1fr 1.4fr auto;gap:6px;margin-bottom:6px}
+.rowi input{margin:0!important;padding:11px 10px!important}.rowi .btn{padding:0 12px}
+canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
+#q-box{background:#fff;padding:12px;border-radius:12px;display:inline-block;margin-top:12px}#q-box img,#q-box canvas{display:block}
 </style>
 </head>
 <body>
@@ -182,12 +222,21 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
 <symbol id="share" viewBox="0 0 24 24"><path d="M12 15V3M8 7l4-4 4 4M5 12v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-7"/></symbol>
 <symbol id="help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.2a2.6 2.6 0 1 1 3.6 2.4c-.7.4-1.1 1-1.1 1.7M12 17h.01"/></symbol>
 <symbol id="flag" viewBox="0 0 24 24"><path d="M5 21V4M5 4h12l-2 4 2 4H5"/></symbol>
+<symbol id="play" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M10 8.5l6 3.5-6 3.5z"/></symbol>
+<symbol id="receipt" viewBox="0 0 24 24"><path d="M6 3h12v18l-3-2-3 2-3-2-3 2zM9 8h6M9 12h6"/></symbol>
+<symbol id="qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v3M17 20h4"/></symbol>
+<symbol id="stamp" viewBox="0 0 24 24"><path d="M9 3h6v5l3 5H6l3-5zM5 17h14v4H5z"/></symbol>
+<symbol id="ticket" viewBox="0 0 24 24"><path d="M3 7h18v3a2 2 0 0 0 0 4v3H3v-3a2 2 0 0 0 0-4zM10 7v10"/></symbol>
+<symbol id="bio" viewBox="0 0 24 24"><rect x="5" y="3" width="14" height="18" rx="3"/><circle cx="12" cy="9" r="2"/><path d="M8 15h8M8 18h8"/></symbol>
+<symbol id="info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+<symbol id="search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></symbol>
 </defs></svg>
 
 <nav class="glass" id="topnav">
   <div class="brand"><svg class="i"><use href="#lock"/></svg>Secretly</div>
   <button class="btn on" data-page="home"><svg class="i"><use href="#home"/></svg><span class="t">Home</span></button>
   <button class="btn" data-page="tools"><svg class="i"><use href="#tools"/></svg><span class="t">Tools</span></button>
+  <button class="btn" data-page="stream"><svg class="i"><use href="#play"/></svg><span class="t">Stream</span></button>
   <button class="btn" data-page="dev"><svg class="i"><use href="#user"/></svg><span class="t">Kontak</span></button>
   <button class="btn sq" id="more-btn" aria-label="Menu lainnya" aria-haspopup="menu" aria-expanded="false"><svg class="i"><use href="#dots"/></svg><i class="dotb" id="more-dot"></i></button>
 </nav>
@@ -196,12 +245,14 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
   <div class="gh">Navigasi</div>
   <button class="mi" role="menuitem" data-page="home"><svg class="i"><use href="#home"/></svg>Home</button>
   <button class="mi" role="menuitem" data-page="tools"><svg class="i"><use href="#tools"/></svg>Tools</button>
+  <button class="mi" role="menuitem" data-page="stream"><svg class="i"><use href="#play"/></svg>Stream</button>
   <button class="mi" role="menuitem" data-page="modfree"><svg class="i"><use href="#gift"/></svg>Modpack Free</button>
   <button class="mi" role="menuitem" data-page="share"><svg class="i"><use href="#plus"/></svg>Share Modpack</button>
   <button class="mi" role="menuitem" data-page="modsell"><svg class="i"><use href="#cart"/></svg>Forsell Modpack</button>
   <button class="mi" role="menuitem" data-page="dev"><svg class="i"><use href="#user"/></svg>Kontak</button>
   <hr>
   <div class="gh">Fitur</div>
+  <button class="mi" role="menuitem" data-page="fitur"><svg class="i"><use href="#info"/></svg>Apa Itu Secretly (Semua Fitur)</button>
   <button class="mi" role="menuitem" data-page="rating"><svg class="i"><use href="#star"/></svg>Rating</button>
   <button class="mi" role="menuitem" data-page="updates"><svg class="i"><use href="#bell"/></svg>Update Terbaru<span class="nb" id="menu-new">BARU</span></button>
   <button class="mi" role="menuitem" data-page="help"><svg class="i"><use href="#help"/></svg>Bantuan (FAQ)</button>
@@ -215,10 +266,12 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
 <!-- HOME -->
 <section class="page on" id="home">
   <h1>Secretly <span>Tools</span></h1>
-  <p class="lead">Kumpulan tools gratis untuk melewati tautan, mengobfuscate Lua, dan mengubah video atau foto menjadi link. Semua dalam satu halaman, ringan dipakai di HP.</p>
+  <p class="lead">Tools gratis, streaming anime dan film, plus tools siap jual untuk bisnis onlinemu. Semua dalam satu halaman yang ringan di HP.</p>
+  <div class="hs glass"><svg class="i"><use href="#search"/></svg><input id="h-q" type="text" placeholder="Cari tool atau fitur..." autocomplete="off" aria-label="Cari fitur"></div>
+  <div id="h-res"></div>
   <div class="stats">
-    <div class="stat glass"><b>10</b><small>Tools</small></div>
-    <div class="stat glass"><b>3</b><small>Kontak</small></div>
+    <div class="stat glass"><b>17</b><small>Tools</small></div>
+    <div class="stat glass"><b>5</b><small>Siap Jual</small></div>
     <div class="stat glass"><b>Free</b><small>Selamanya</small></div>
   </div>
   <div class="row t3" style="margin-top:18px">
@@ -226,6 +279,21 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
     <button class="btn" data-page="rating"><svg class="i"><use href="#star"/></svg><span id="h-rate">Rating</span></button>
     <button class="btn" data-page="updates"><svg class="i"><use href="#bell"/></svg>Update</button>
   </div>
+  <h2 class="sec">Jalan pintas</h2>
+  <div class="qg">
+    <button class="btn" data-page="stream"><svg class="i"><use href="#play"/></svg>Stream</button>
+    <button class="btn" data-page="fitur"><svg class="i"><use href="#info"/></svg>Semua Fitur</button>
+    <button class="btn" data-page="modfree"><svg class="i"><use href="#gift"/></svg>Modpack Free</button>
+    <button class="btn" data-page="modsell"><svg class="i"><use href="#cart"/></svg>Forsell</button>
+    <button class="btn" data-page="share"><svg class="i"><use href="#plus"/></svg>Share Mod</button>
+    <button class="btn" data-page="dev"><svg class="i"><use href="#user"/></svg>Kontak</button>
+  </div>
+  <h2 class="sec">Tools siap jual</h2>
+  <div class="hz" id="h-sell"></div>
+  <h2 class="sec">Sedang tayang</h2>
+  <div class="hz" id="h-air">Memuat...</div>
+  <h2 class="sec">Kabar terbaru</h2>
+  <div class="card glass" id="h-upd"></div>
 </section>
 
 <!-- TOOLS -->
@@ -243,8 +311,13 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
     <button class="btn" data-t="t-url" style="--ac:#34c4a2"><span class="tk"><svg class="i"><use href="#link"/></svg></span><span class="bd">TEKS</span><span class="nm">URL Encode</span><span class="cs">encode dan decode</span></button>
     <button class="btn" data-t="t-deploy" style="--ac:#8a97ad"><span class="tk"><svg class="i"><use href="#rocket"/></svg></span><span class="bd">DEPLOY</span><span class="nm">Deploy Vercel</span><span class="cs">HTML ke domain vercel.app</span></button>
     <button class="btn" data-t="t-chat" style="--ac:#7c5cff"><span class="tk"><svg class="i"><use href="#braces"/></svg></span><span class="bd">AI</span><span class="nm">Chat AI</span><span class="cs">buat website dan kode</span></button>
-    <button class="btn" data-t="t-anime" style="--ac:#ff6b6b"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">ANIME</span><span class="nm">Katalog Anime</span><span class="cs">jadwal dan episode baru</span></button>
-    <button class="btn" data-t="t-film" style="--ac:#4aa3ff"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">FILM</span><span class="nm">Film &amp; Video</span><span class="cs">tonton di dalam aplikasi</span></button>
+    <button class="btn" data-st="s-anime" style="--ac:#ff6b6b"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">ANIME</span><span class="nm">Katalog Anime</span><span class="cs">jadwal dan episode baru</span></button>
+    <button class="btn" data-st="s-film" style="--ac:#4aa3ff"><span class="tk"><svg class="i"><use href="#video"/></svg></span><span class="bd">FILM</span><span class="nm">Film &amp; Video</span><span class="cs">tonton di dalam aplikasi</span></button>
+    <button class="btn" data-t="t-nota" style="--ac:#e8456b"><span class="tk"><svg class="i"><use href="#receipt"/></svg></span><span class="bd">JUAL</span><span class="nm">Nota Maker</span><span class="cs">nota penjualan PNG</span></button>
+    <button class="btn" data-t="t-qr" style="--ac:#25d366"><span class="tk"><svg class="i"><use href="#qr"/></svg></span><span class="bd">JUAL</span><span class="nm">WA Link dan QR</span><span class="cs">link chat dan QR code</span></button>
+    <button class="btn" data-t="t-wm" style="--ac:#f59e0b"><span class="tk"><svg class="i"><use href="#stamp"/></svg></span><span class="bd">JUAL</span><span class="nm">Watermark Foto</span><span class="cs">branding foto produk</span></button>
+    <button class="btn" data-t="t-key" style="--ac:#a855f7"><span class="tk"><svg class="i"><use href="#ticket"/></svg></span><span class="bd">JUAL</span><span class="nm">Key Generator</span><span class="cs">voucher dan key akses</span></button>
+    <button class="btn" data-t="t-bio" style="--ac:#06b6d4"><span class="tk"><svg class="i"><use href="#bio"/></svg></span><span class="bd">JUAL</span><span class="nm">Link-in-Bio</span><span class="cs">halaman profil siap deploy</span></button>
   </div>
 
   <button class="btn" id="tools-back" type="button">&lsaquo; Semua tools</button>
@@ -345,7 +418,79 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
     <button class="btn go" id="c-send" type="button" style="width:100%">Kirim</button>
   </div>
 
-  <div class="card glass tool" id="t-anime" hidden>
+  <div class="card glass tool" id="t-nota" hidden>
+    <h2><svg class="i"><use href="#receipt"/></svg>Nota Maker</h2>
+    <p class="d">Buat nota penjualan yang rapi dan unduh sebagai gambar PNG untuk dikirim ke pembeli.</p>
+    <input type="text" id="n-shop" maxlength="40" placeholder="Nama toko" autocomplete="off">
+    <input type="text" id="n-buyer" maxlength="40" placeholder="Nama pembeli" autocomplete="off">
+    <div id="n-rows"></div>
+    <div class="row" style="margin:8px 0 10px"><button class="btn" id="n-add" type="button">+ Item</button><input type="text" id="n-disc" inputmode="numeric" placeholder="Diskon (Rp)" style="margin:0;flex:2"></div>
+    <input type="text" id="n-note" maxlength="60" placeholder="Catatan (mis. Terima kasih)" autocomplete="off">
+    <button class="btn go" id="n-go" type="button" style="width:100%"><svg class="i"><use href="#receipt"/></svg>Buat nota</button>
+    <canvas id="n-cv" class="pv" hidden></canvas>
+    <a class="btn go" id="n-dl" hidden style="width:100%"><svg class="i"><use href="#dl"/></svg>Unduh PNG</a>
+  </div>
+
+  <div class="card glass tool" id="t-qr" hidden>
+    <h2><svg class="i"><use href="#qr"/></svg>WA Link dan QR</h2>
+    <p class="d">Isi nomor WhatsApp untuk membuat link chat langsung, atau isi teks/URL saja untuk QR biasa. QR bisa diunduh.</p>
+    <input type="text" id="q-num" inputmode="tel" placeholder="Nomor WhatsApp (mis. 0878xxxx), opsional" autocomplete="off">
+    <textarea id="q-msg" style="min-height:90px" placeholder="Pesan otomatis, atau teks/URL untuk QR"></textarea>
+    <button class="btn go" id="q-go" type="button" style="width:100%"><svg class="i"><use href="#qr"/></svg>Buat link dan QR</button>
+    <div class="out" id="q-out"></div>
+    <div id="q-box" hidden></div>
+    <a class="btn go" id="q-dl" hidden style="width:100%;margin-top:10px"><svg class="i"><use href="#dl"/></svg>Unduh QR</a>
+  </div>
+
+  <div class="card glass tool" id="t-wm" hidden>
+    <h2><svg class="i"><use href="#stamp"/></svg>Watermark Foto</h2>
+    <p class="d">Tempel teks watermark di fotomu. Diproses di browser, foto tidak diunggah ke mana pun.</p>
+    <label class="drop"><svg class="i"><use href="#img"/></svg><span id="wm-name">Pilih foto</span><input type="file" id="wm-f" accept="image/*"></label>
+    <input type="text" id="wm-t" maxlength="40" placeholder="Teks watermark" value="Secretly" autocomplete="off">
+    <select class="sel" id="wm-p" aria-label="Posisi"><option value="tile">Berulang diagonal</option><option value="c">Tengah</option><option value="br">Kanan bawah</option><option value="bl">Kiri bawah</option></select>
+    <select class="sel" id="wm-c" aria-label="Warna"><option value="#ffffff">Putih</option><option value="#000000">Hitam</option><option value="#ff3d81">Pink</option></select>
+    <span class="lbl">Ukuran</span><input type="range" id="wm-s" min="3" max="20" value="7">
+    <span class="lbl">Transparansi</span><input type="range" id="wm-o" min="10" max="100" value="55">
+    <canvas id="wm-cv" class="pv" hidden></canvas>
+    <a class="btn go" id="wm-dl" hidden style="width:100%"><svg class="i"><use href="#dl"/></svg>Unduh PNG</a>
+  </div>
+
+  <div class="card glass tool" id="t-key" hidden>
+    <h2><svg class="i"><use href="#ticket"/></svg>Key Generator</h2>
+    <p class="d">Buat kode voucher atau key akses secara acak untuk dijual. Format: PREFIX-XXXX-XXXX-XXXX.</p>
+    <input type="text" id="k-pre" maxlength="12" placeholder="Prefix (mis. SCR), opsional" autocomplete="off">
+    <div class="row"><input type="text" id="k-n" inputmode="numeric" placeholder="Jumlah" value="10"><input type="text" id="k-seg" inputmode="numeric" placeholder="Blok" value="3"><input type="text" id="k-len" inputmode="numeric" placeholder="Panjang" value="4"></div>
+    <select class="sel" id="k-cs" aria-label="Karakter"><option value="a">Huruf dan angka</option><option value="d">Angka saja</option><option value="l">Huruf saja</option></select>
+    <button class="btn go" id="k-go" type="button" style="width:100%"><svg class="i"><use href="#ticket"/></svg>Buat key</button>
+    <div class="out" id="k-out"></div>
+    <a class="btn" id="k-dl" hidden style="width:100%;margin-top:10px"><svg class="i"><use href="#dl"/></svg>Unduh .txt</a>
+  </div>
+
+  <div class="card glass tool" id="t-bio" hidden>
+    <h2><svg class="i"><use href="#bio"/></svg>Link-in-Bio Builder</h2>
+    <p class="d">Buat halaman profil berisi daftar link (seperti Linktree). Hasilnya satu file HTML yang bisa langsung di-deploy.</p>
+    <input type="text" id="b2-n" maxlength="40" placeholder="Nama" autocomplete="off">
+    <input type="text" id="b2-b" maxlength="120" placeholder="Bio singkat" autocomplete="off">
+    <input type="text" id="b2-i" placeholder="URL foto profil https:// (opsional)" autocomplete="off" inputmode="url">
+    <select class="sel" id="b2-t" aria-label="Tema"><option value="g">Gelap pink</option><option value="p">Gelap merah muda</option><option value="b">Gelap biru</option><option value="h">Gelap hijau</option></select>
+    <textarea id="b2-l" style="min-height:110px" placeholder="Satu link per baris:&#10;WhatsApp | https://wa.me/62...&#10;TikTok | https://tiktok.com/@..."></textarea>
+    <div class="row"><button class="btn go" id="b2-pv" type="button">Preview</button><button class="btn" id="b2-cp" type="button">Salin</button></div>
+    <div class="row" style="margin-top:8px"><button class="btn" id="b2-dl" type="button">Unduh</button><button class="btn" id="b2-dp" type="button">Ke Deploy</button></div>
+    <div class="out" id="b2-out"></div>
+  </div>
+</section>
+
+<!-- STREAM -->
+<section class="page" id="stream">
+  <h1>Stream <span>Center</span></h1>
+  <p class="lead">Nonton anime, film, dan link videomu langsung di dalam web. Sumber yang diputar: trailer YouTube, Internet Archive, dan link milikmu sendiri.</p>
+  <div class="seg glass" id="st-seg">
+    <button class="btn on" type="button" data-s="s-anime">Anime</button>
+    <button class="btn" type="button" data-s="s-film">Film</button>
+    <button class="btn" type="button" data-s="s-link">Playlist</button>
+  </div>
+  <div class="sp on" id="s-anime">
+  <div class="card glass" id="t-anime">
     <h2><svg class="i"><use href="#video"/></svg>Katalog Anime</h2>
     <p class="d">Jadwal tayang dan episode terbaru dari AniList. Trailer diputar langsung di sini; episode lengkap lewat platform resmi. Tandai Pantau agar episode baru muncul otomatis di sini.</p>
     <div class="row"><input type="text" id="a-q" placeholder="Cari anime (mis. Tokyo Revengers)" autocomplete="off" style="flex:2"><button class="btn" id="a-go" type="button">Cari</button></div>
@@ -353,13 +498,38 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
     <div id="a-list" style="margin-top:6px"></div>
     <div id="a-detail" hidden></div>
   </div>
-  <div class="card glass tool" id="t-film" hidden>
+  </div>
+  <div class="sp" id="s-film">
+  <div class="card glass" id="t-film">
     <h2><svg class="i"><use href="#video"/></svg>Film &amp; Video</h2>
     <p class="d">Film domain publik dan video bebas dari Internet Archive, diputar langsung di sini. Atau tempel link YouTube, archive.org, .mp4, atau .m3u8 milikmu sendiri.</p>
     <div class="row"><input type="text" id="f-q" placeholder="Cari film (mis. Nosferatu)" autocomplete="off" style="flex:2"><button class="btn" id="f-go" type="button">Cari</button></div>
     <div class="row" style="margin-top:8px"><input type="text" id="f-u" placeholder="Tempel link video untuk diputar" autocomplete="off" style="flex:2"><button class="btn" id="f-play" type="button">Putar</button></div>
     <div id="f-list" style="margin-top:6px"></div>
   </div>
+  </div>
+  <div class="sp" id="s-link">
+    <div class="card glass">
+      <h2><svg class="i"><use href="#play"/></svg>Playlist Saya</h2>
+      <p class="d">Tempel link YouTube, archive.org, .mp4, atau .m3u8. Putar sekarang atau simpan ke playlist (tersimpan di perangkat ini).</p>
+      <input type="text" id="sl-t" maxlength="40" placeholder="Judul (opsional)" autocomplete="off">
+      <input type="text" id="sl-u" placeholder="https://..." autocomplete="off" inputmode="url">
+      <div class="row"><button class="btn go" id="sl-go" type="button">Putar</button><button class="btn" id="sl-save" type="button">Simpan</button></div>
+      <h2 class="sec">Tersimpan</h2>
+      <div id="sl-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SEMUA FITUR -->
+<section class="page" id="fitur">
+  <h1>Apa Itu <span>Secretly?</span></h1>
+  <p class="lead">Secretly adalah kumpulan tools gratis dalam satu web yang ringan: bypass tautan, tools developer, streaming anime dan film, tools siap jual untuk bisnis online, serta tempat berbagi dan menjual modpack. Ini penjelasan semua fiturnya.</p>
+  <div class="card glass" style="margin-bottom:6px">
+    <h2><svg class="i"><use href="#help"/></svg>Cara pakai</h2>
+    <p class="d" style="margin:0">1. Pilih fitur dari beranda, menu bawah, atau cari di kolom pencarian.<br>2. Isi data lalu tekan tombol proses.<br>3. Salin atau unduh hasilnya.</p>
+  </div>
+  <div id="ft-list"></div>
 </section>
 
 <!-- KONTAK DEVELOPER -->
@@ -455,6 +625,7 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
 <section class="page" id="help">
   <h1>Bantuan <span>FAQ</span></h1>
   <p class="lead">Pertanyaan yang paling sering ditanyakan.</p>
+  <details class="card glass"><summary>Apa yang bisa diputar di Stream?</summary><p>Trailer YouTube, film domain publik dari Internet Archive, dan link videomu sendiri (YouTube, archive.org, .mp4, .m3u8). Untuk episode anime lengkap, tombol mengarah ke platform resmi.</p></details>
   <details class="card glass"><summary>Apa itu Secretly?</summary><p>Kumpulan tools gratis (bypass tautan, obfuscate Lua, video dan foto ke link, Base64, JSON, dan lainnya) plus tempat berbagi dan menjual modpack, semua dalam satu halaman yang ringan di HP.</p></details>
   <details class="card glass"><summary>Kenapa Bypass Link kadang gagal?</summary><p>Sebagian situs memakai captcha, timer berbasis token, atau iklan yang hanya bisa jalan di browser asli, jadi tidak bisa diproses otomatis. Coba tool Bypass Web, atau kirim tautan yang gagal lewat menu Lapor Bug / Saran.</p></details>
   <details class="card glass"><summary>Apakah link hasil upload permanen?</summary><p>Ya, selama layanan penyimpanan aktif. Batas ukuran 50 MB per file dan hanya untuk foto atau video.</p></details>
@@ -467,12 +638,13 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
 </main>
 
 <nav class="dock" aria-label="Menu bawah">
-  <button class="btn on" data-page="home" aria-label="Home" title="Home"><svg class="i"><use href="#home"/></svg></button>
-  <button class="btn" data-page="tools" aria-label="Tools" title="Tools"><svg class="i"><use href="#tools"/></svg></button>
-  <button class="btn" data-page="modfree" aria-label="Modpack Free" title="Modpack Free"><svg class="i"><use href="#gift"/></svg></button>
-  <button class="btn" data-page="share" aria-label="Share Modpack" title="Share Modpack"><svg class="i"><use href="#plus"/></svg></button>
-  <button class="btn" data-page="modsell" aria-label="Forsell Modpack" title="Forsell Modpack"><svg class="i"><use href="#cart"/></svg></button>
-  <button class="btn" data-page="dev" aria-label="Kontak" title="Kontak"><svg class="i"><use href="#user"/></svg></button>
+  <button class="btn on" data-page="home" aria-label="Home" title="Home"><svg class="i"><use href="#home"/></svg><span class="lb">Home</span></button>
+  <button class="btn" data-page="tools" aria-label="Tools" title="Tools"><svg class="i"><use href="#tools"/></svg><span class="lb">Tools</span></button>
+  <button class="btn" data-page="stream" aria-label="Stream" title="Stream"><svg class="i"><use href="#play"/></svg><span class="lb">Stream</span></button>
+  <button class="btn" data-page="modfree" aria-label="Modpack Free" title="Modpack Free"><svg class="i"><use href="#gift"/></svg><span class="lb">Free</span></button>
+  <button class="btn" data-page="share" aria-label="Share Modpack" title="Share Modpack"><svg class="i"><use href="#plus"/></svg><span class="lb">Share</span></button>
+  <button class="btn" data-page="modsell" aria-label="Forsell Modpack" title="Forsell Modpack"><svg class="i"><use href="#cart"/></svg><span class="lb">Jual</span></button>
+  <button class="btn" data-page="dev" aria-label="Kontak" title="Kontak"><svg class="i"><use href="#user"/></svg><span class="lb">Kontak</span></button>
 </nav>
 
 <script>
@@ -684,7 +856,6 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
     user = u; stage = "app"; scene(false); cv.remove(); au.remove(); lockBg(false);
     if (u.role !== "owner") { var d = document.querySelector('[data-t="t-deploy"]'); if (d) d.style.display = "none"; }
     var b = el("button", "", u.name + " · " + u.role); b.id = "acBtn"; b.onclick = panel; document.body.appendChild(b);
-    if (window.__wag) window.__wag();
   }
   function logout() { token = null; user = null; try { localStorage.removeItem(TK); } catch (e) {} location.reload(); }
 
@@ -721,83 +892,6 @@ details p{color:var(--mut);line-height:1.6;margin-top:10px;font-size:.9rem}
     document.body.appendChild(w); refresh();
   }
 })();
-</script>
-<script>
-/* Gerbang saluran WhatsApp. WhatsApp tidak punya API untuk mengecek follow saluran,
-   jadi "deteksi" = pengguna membuka tautan saluran, kembali, lalu menunggu beberapa detik. Bukan verifikasi mutlak. */
-window.__wag = function () {
-  var LINK = "https://whatsapp.com/channel/0029VbB7HlkE50UeOumONS2d";
-  var KEY = "secretly_wa_joined_v1", WAIT = 10; // detik minimal setelah kembali dari WhatsApp
-  var ls = { get: function (k) { try { return localStorage.getItem(k); } catch (e) { return null; } },
-             set: function (k, v) { try { localStorage.setItem(k, v); } catch (e) {} } };
-  if (ls.get(KEY) === "1") return;
-
-  var css = document.createElement("style");
-  css.textContent =
-    "#wag{position:fixed;inset:0;z-index:2147483647;display:flex;align-items:center;justify-content:center;padding:20px;" +
-    "background:rgba(10,4,8,.72);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);font-family:inherit;color:#fff}" +
-    "#wag .c{width:100%;max-width:380px;padding:26px 22px;border-radius:22px;background:rgba(255,255,255,.09);" +
-    "border:1px solid rgba(255,255,255,.18);box-shadow:0 20px 60px rgba(0,0,0,.5)}" +
-    "#wag h2{margin:14px 0 6px;font-size:21px;line-height:1.25}" +
-    "#wag p{margin:0 0 18px;font-size:14px;line-height:1.55;color:rgba(255,255,255,.75)}" +
-    "#wag .ic{width:46px;height:46px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#b4235a,#6e1235)}" +
-    "#wag button{width:100%;padding:14px;border:1px solid rgba(255,140,170,.45);border-radius:14px;font-weight:600;font-size:15px;font-family:inherit;color:#fff;" +
-    "background:linear-gradient(135deg,rgba(200,40,95,.85),rgba(120,20,55,.85));cursor:pointer}" +
-    "#wag button[disabled]{opacity:.45;cursor:not-allowed}" +
-    "#wag .st{margin-top:14px;font-size:13px;min-height:18px;color:#ffb3c8}" +
-    "#wag .ok{color:#9be7b0}" +
-    "body.wag-lock{overflow:hidden}";
-  document.head.appendChild(css);
-
-  var box = document.createElement("div");
-  box.id = "wag";
-  box.innerHTML =
-    '<div class="c" role="dialog" aria-modal="true" aria-labelledby="wagT">' +
-    '<div class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l18-8-8 18-2-8-8-2z"/></svg></div>' +
-    '<h2 id="wagT">Ikuti saluran WhatsApp dulu</h2>' +
-    '<p>Untuk memakai Secretly, ikuti saluran kami. Buka saluran, tekan Ikuti, lalu kembali ke halaman ini.</p>' +
-    '<button id="wagGo" type="button">Buka saluran WhatsApp</button>' +
-    '<div class="st" id="wagSt"></div>' +
-    '<button id="wagOk" type="button" disabled style="margin-top:12px">Saya sudah ikuti</button>' +
-    '</div>';
-  document.body.appendChild(box);
-  document.body.classList.add("wag-lock");
-
-  var st = box.querySelector("#wagSt"), go = box.querySelector("#wagGo"), ok = box.querySelector("#wagOk");
-  var opened = false, left = WAIT, timer = null, awayAt = 0;
-
-  function say(t, good) { st.textContent = t; st.className = "st" + (good ? " ok" : ""); }
-  var bg = document.querySelectorAll("main,nav");
-  bg.forEach(function (n) { n.inert = true; });
-  function unlock() { ls.set(KEY, "1"); document.body.classList.remove("wag-lock"); bg.forEach(function (n) { n.inert = false; }); box.remove(); }
-
-  function tick() {
-    if (left > 0) { say("Belum terdeteksi. Tunggu " + left + " detik lagi..."); left--; return; }
-    clearInterval(timer); timer = null;
-    ok.disabled = false; say("Terdeteksi. Tekan tombol di bawah untuk masuk.", true);
-  }
-  function backFromWA() {
-    if (!opened || document.hidden) return;
-    // harus benar-benar meninggalkan halaman minimal 3 detik (membuka WhatsApp)
-    if (awayAt && Date.now() - awayAt < 3000) { say("Kamu kembali terlalu cepat. Buka saluran dan tekan Ikuti dulu."); opened = false; awayAt = 0; return; }
-    if (ok.disabled) { ok.disabled = false; say("Terdeteksi. Tekan tombol di bawah untuk masuk.", true); }
-  }
-
-  go.addEventListener("click", function () {
-    opened = true; awayAt = Date.now(); left = WAIT;
-    say("Tekan Ikuti di WhatsApp, lalu kembali ke sini.");
-    window.open(LINK, "_blank", "noopener");
-  });
-  document.addEventListener("visibilitychange", function () {
-    if (document.hidden) { if (opened && !awayAt) awayAt = Date.now(); } else backFromWA();
-  });
-  window.addEventListener("focus", backFromWA);
-  ok.addEventListener("click", function () {
-    if (!opened || ok.disabled) { say("Buka saluran dulu, lalu kembali ke sini."); return; }
-    unlock();
-  });
-};
-
 </script>
 <script>
 /* ====== KONFIGURASI ======
@@ -841,6 +935,8 @@ function go(id){
   if(id === "tools") TOOLSPG.classList.add("pick");
   if(id === "rating") loadRatings();
   if(id === "updates") markSeen();
+  if(id === "stream") sSeg(window.CUR_SEG || "s-anime");
+  if(id === "home") homeLoad();
 }
 document.querySelectorAll("[data-page]").forEach(b => b.onclick = () => go(b.dataset.page));
 /* Tab tools */
@@ -1086,8 +1182,14 @@ if(VID_OFF) applyVid(true);
 
 /* Update terbaru: edit daftar ini setiap kali ada pembaruan (yang terbaru paling atas) */
 const UPDATES = [
-  {v: "1.3", d: "17 Okt 2026", t: "Wajib ikut saluran dan perbaikan tools", i: [
-    "Sebelum memakai Secretly, pengunjung diminta mengikuti saluran WhatsApp kami",
+  {v: "1.4", d: "18 Okt 2026", t: "Stream, Semua Fitur, dan 5 tools siap jual", i: [
+    "Wajib join saluran WhatsApp dihapus, pengunjung bisa langsung masuk",
+    "Halaman Stream baru: Anime, Film, dan Playlist Saya dalam satu tempat",
+    "Halaman Apa Itu Secretly berisi penjelasan semua fitur dan tools",
+    "5 tools baru yang bisa dijual: Nota Maker, WA Link dan QR, Watermark Foto, Key Generator, Link-in-Bio Builder",
+    "Beranda baru: pencarian fitur, jalan pintas, tools siap jual, anime sedang tayang, dan kabar terbaru",
+    "Navigasi bawah dirapikan: sudut lebih tegas, label pada tombol aktif, dan tombol Stream"]},
+  {v: "1.3", d: "17 Okt 2026", t: "Perbaikan tools, Deploy, Chat AI, dan Anime", i: [
     "Bypass Link lebih tahan terhadap halaman perantara dan menampilkan tautan kandidat saat gagal",
     "Bypass mengenali halaman captcha dan berhenti lebih cepat, serta otomatis mengulang sekali jika error jaringan atau waktu habis",
     "Tombol Copy kini berfungsi di semua browser, Base64 mendukung teks besar",
@@ -1333,7 +1435,6 @@ async function aOpen(id){
 $("a-go").onclick = () => { if($("a-q").value.trim()) aLoad("search"); };
 $("a-q").onkeydown = e => { if(e.key === "Enter") $("a-go").click(); };
 $("a-air").onclick = () => aLoad("air"); $("a-fav").onclick = () => aLoad("fav");
-document.querySelector('#tabs [data-t="t-anime"]').addEventListener("click", () => { if(!aLoaded){ aLoaded = true; aLoad("air"); } else if(aMode === "fav") aLoad("fav"); });
 
 /* ===== PEMUTAR DALAM APLIKASI (tanpa membuka YouTube/aplikasi lain) ===== */
 const PSRC = u => { u = String(u || "").trim(); let m;
@@ -1373,11 +1474,189 @@ async function fLoad(){
 }
 $("f-go").onclick = fLoad; $("f-q").onkeydown = e => { if(e.key === "Enter") fLoad(); };
 $("f-play").onclick = () => { const s = PSRC($("f-u").value); if(!s){ toast("Link tidak dikenali. Pakai link YouTube, archive.org, .mp4 atau .m3u8"); return; } playIn(s, "Link kamu"); };
-let fLoaded = false; document.querySelector('#tabs [data-t="t-film"]').addEventListener("click", () => { if(!fLoaded){ fLoaded = true; fLoad(); } });
+let fLoaded = false;
+
+/* ===== v1.4: Stream, Semua Fitur, beranda, dan 5 tools siap jual ===== */
+const FT = [
+  {g:"Tools Link dan Web", n:"Bypass Link", d:"Lewati halaman perantara bicolink, sfile, dan sfl.gl untuk mendapat tautan asli.", ic:"link", ac:"#ff3d81", t:"t-bypass"},
+  {g:"Tools Link dan Web", n:"Bypass Web", d:"Untuk halaman yang menahan tautan di balik timer atau pengalihan.", ic:"globe", ac:"#f5a524", t:"t-web"},
+  {g:"Tools Link dan Web", n:"Video ke Link", d:"Unggah video (maks 50 MB) lalu dapat tautan permanen.", ic:"video", ac:"#22b8cf", t:"t-vid"},
+  {g:"Tools Link dan Web", n:"Foto ke Link", d:"Unggah foto lalu dapat tautan yang bisa dibagikan.", ic:"img", ac:"#2fbf71", t:"t-img"},
+  {g:"Tools Developer", n:"Obfuscate Lua", d:"Ubah kode Lua jadi loader yang sulit dibaca. Berjalan di browser kamu.", ic:"code", ac:"#8b5cf6", t:"t-obf"},
+  {g:"Tools Developer", n:"Base64, URL, JSON", d:"Encode dan decode teks, rapikan atau minify JSON.", ic:"lock", ac:"#ff7a45", t:"t-b64"},
+  {g:"Tools Developer", n:"Password dan SHA-256", d:"Buat password acak yang kuat dan hash teks SHA-256.", ic:"key", ac:"#e05bd0", t:"t-pw"},
+  {g:"Tools Developer", n:"Deploy Vercel", d:"Unggah HTML lalu website langsung online di domain vercel.app (khusus Owner).", ic:"rocket", ac:"#8a97ad", t:"t-deploy"},
+  {g:"Tools Developer", n:"Chat AI", d:"Tanya apa saja atau minta dibuatkan website dan kode.", ic:"braces", ac:"#7c5cff", t:"t-chat"},
+  {g:"Stream", n:"Anime", d:"Jadwal tayang, episode terbaru, trailer, dan tautan platform resmi. Tandai Pantau agar episode baru muncul otomatis.", ic:"play", ac:"#ff6b6b", s:"s-anime"},
+  {g:"Stream", n:"Film dan Video", d:"Film domain publik dari Internet Archive, diputar langsung di sini.", ic:"video", ac:"#4aa3ff", s:"s-film"},
+  {g:"Stream", n:"Playlist Saya", d:"Putar dan simpan link YouTube, archive.org, .mp4, atau .m3u8 milikmu.", ic:"play", ac:"#ffb02e", s:"s-link"},
+  {g:"Siap Jual", n:"Nota Maker", d:"Buat nota penjualan rapi dan unduh sebagai PNG.", ic:"receipt", ac:"#e8456b", t:"t-nota"},
+  {g:"Siap Jual", n:"WA Link dan QR", d:"Buat link chat WhatsApp dengan pesan otomatis dan QR code.", ic:"qr", ac:"#25d366", t:"t-qr"},
+  {g:"Siap Jual", n:"Watermark Foto", d:"Tempel watermark teks di foto produk atau karya.", ic:"stamp", ac:"#f59e0b", t:"t-wm"},
+  {g:"Siap Jual", n:"Key Generator", d:"Buat voucher dan key akses acak dalam jumlah banyak.", ic:"ticket", ac:"#a855f7", t:"t-key"},
+  {g:"Siap Jual", n:"Link-in-Bio Builder", d:"Buat halaman profil berisi link, siap di-deploy.", ic:"bio", ac:"#06b6d4", t:"t-bio"},
+  {g:"Modpack", n:"Modpack Free", d:"Daftar modpack gratis yang tinggal unduh.", ic:"gift", ac:"#ff3d81", p:"modfree"},
+  {g:"Modpack", n:"Share Modpack", d:"Bagikan modpackmu, langsung tampil untuk semua pengunjung.", ic:"plus", ac:"#8b5cf6", p:"share"},
+  {g:"Modpack", n:"Forsell Modpack", d:"Modpack premium, pesan lewat WhatsApp.", ic:"cart", ac:"#2fbf71", p:"modsell"},
+  {g:"Komunitas", n:"Rating dan Ulasan", d:"Beri bintang dan baca ulasan pengunjung lain.", ic:"star", ac:"#ffc64d", p:"rating"},
+  {g:"Komunitas", n:"Update Terbaru", d:"Catatan perubahan dan fitur baru.", ic:"bell", ac:"#ff3d81", p:"updates"},
+  {g:"Komunitas", n:"Bantuan dan Kontak", d:"FAQ, lapor bug, dan kontak developer.", ic:"help", ac:"#4c8dff", p:"help"}
+];
+function openTool(t){ go("tools"); const b = document.querySelector('#tabs [data-t="' + t + '"]'); if(b) b.click(); }
+function ftOpen(f){ if(f.t) openTool(f.t); else if(f.s){ go("stream"); sSeg(f.s); } else go(f.p); }
+function ftItem(f){
+  const d = mkel("div", "", "fi glass"); d.style.setProperty("--ac", f.ac);
+  d.innerHTML = '<span class="ic"><svg class="i"><use href="#' + f.ic + '"/></svg></span><span class="inf"><b></b><small></small></span><button class="btn" type="button">Buka</button>';
+  d.querySelector("b").textContent = f.n; d.querySelector("small").textContent = f.d; d.querySelector("button").onclick = () => ftOpen(f); return d;
+}
+(function(){
+  const box = $("ft-list"); let last = "";
+  FT.forEach(f => { if(f.g !== last){ last = f.g; box.appendChild(mkel("div", f.g, "fg")); } box.appendChild(ftItem(f)); });
+  FT.filter(f => f.g === "Siap Jual").forEach(f => {
+    const b = mkel("button", "", "hc glass"); b.type = "button"; b.style.setProperty("--ac", f.ac);
+    b.innerHTML = '<span class="ic"><svg class="i"><use href="#' + f.ic + '"/></svg></span><b></b><small></small>';
+    b.querySelector("b").textContent = f.n; b.querySelector("small").textContent = f.d; b.onclick = () => ftOpen(f); $("h-sell").appendChild(b);
+  });
+  const u = UPDATES[0], c = $("h-upd");
+  c.append(mkel("span", "v" + u.v + " - " + u.d, "tag"), mkel("h3", u.t), (() => { const ul = mkel("ul"); ul.style.cssText = "padding-left:18px;color:var(--mut);line-height:1.6;font-size:.88rem"; u.i.slice(0, 3).forEach(x => ul.appendChild(mkel("li", x))); return ul; })());
+  const m = mkel("button", "Lihat semua update", "btn"); m.type = "button"; m.style.cssText = "width:100%;margin-top:12px"; m.onclick = () => go("updates"); c.appendChild(m);
+  $("h-q").oninput = e => {
+    const q = e.target.value.trim().toLowerCase(), b = $("h-res"); b.textContent = ""; if(!q) return;
+    const r = FT.filter(f => (f.n + " " + f.d + " " + f.g).toLowerCase().includes(q)).slice(0, 6);
+    if(!r.length){ b.appendChild(mkel("p", "Tidak ada yang cocok.", "lead")); return; } r.forEach(f => b.appendChild(ftItem(f)));
+  };
+  document.querySelectorAll("#tabs [data-st]").forEach(b => b.onclick = () => { go("stream"); sSeg(b.dataset.st); });
+})();
+
+/* Stream */
+function sSeg(id){
+  window.CUR_SEG = id;
+  document.querySelectorAll("#stream .sp").forEach(p => p.classList.toggle("on", p.id === id));
+  document.querySelectorAll("#st-seg [data-s]").forEach(b => b.classList.toggle("on", b.dataset.s === id));
+  if(id === "s-anime"){ if(!aLoaded){ aLoaded = true; aLoad("air"); } else if(aMode === "fav") aLoad("fav"); }
+  if(id === "s-film" && !fLoaded){ fLoaded = true; fLoad(); }
+  if(id === "s-link") plRender();
+}
+document.querySelectorAll("#st-seg [data-s]").forEach(b => b.onclick = () => sSeg(b.dataset.s));
+const PLK = "secretly_pl_v1", plGet = () => { try{ return JSON.parse(localStorage.getItem(PLK) || "[]"); }catch(e){ return []; } };
+function plRender(){
+  const b = $("sl-list"), l = plGet(); b.textContent = "";
+  if(!l.length){ b.textContent = "Playlist kosong. Tempel link lalu tekan Simpan."; return; }
+  l.forEach((x, i) => {
+    const c = mkel("div", "", "ac"), t = mkel("div"), d = mkel("button", "\u00d7", "btn"); d.type = "button"; d.setAttribute("aria-label", "Hapus"); d.style.marginLeft = "auto";
+    t.append(mkel("b", x.t), mkel("small", x.u.slice(0, 48)));
+    d.onclick = e => { e.stopPropagation(); const g = plGet(); g.splice(i, 1); try{ localStorage.setItem(PLK, JSON.stringify(g)); }catch(_){} plRender(); };
+    c.onclick = () => { const s = PSRC(x.u); s ? playIn(s, x.t) : toast("Link tidak dikenali"); }; c.append(t, d); b.appendChild(c);
+  });
+}
+$("sl-go").onclick = () => { const s = PSRC($("sl-u").value); s ? playIn(s, $("sl-t").value.trim() || "Link kamu") : toast("Link tidak dikenali. Pakai YouTube, archive.org, .mp4 atau .m3u8"); };
+$("sl-save").onclick = () => {
+  const u = $("sl-u").value.trim(); if(!PSRC(u)) return toast("Link tidak dikenali. Pakai YouTube, archive.org, .mp4 atau .m3u8");
+  const g = plGet(); g.unshift({t: $("sl-t").value.trim().slice(0, 40) || "Tanpa judul", u});
+  try{ localStorage.setItem(PLK, JSON.stringify(g.slice(0, 30))); }catch(e){} $("sl-t").value = $("sl-u").value = ""; plRender(); toast("Disimpan ke playlist");
+};
+let hLoaded = false;
+async function homeLoad(){
+  if(hLoaded) return; hLoaded = true; const b = $("h-air");
+  try{
+    const d = await al("query{Page(perPage:12){media(type:ANIME,status:RELEASING,sort:TRENDING_DESC){id title{romaji english} coverImage{large}}}}", {}); b.textContent = "";
+    d.Page.media.forEach(m => { const c = mkel("div", "", "pc"), i = mkel("img"); i.src = m.coverImage.large; i.alt = ""; i.loading = "lazy";
+      c.append(i, mkel("span", m.title.english || m.title.romaji)); c.onclick = () => { aLoaded = true; go("stream"); sSeg("s-anime"); aOpen(m.id); }; b.appendChild(c); });
+  }catch(e){ hLoaded = false; b.textContent = "Gagal memuat: " + e.message; }
+}
+
+/* Helper unduhan */
+const rp = n => "Rp " + Math.round(n).toLocaleString("id-ID"), num = s => parseInt(String(s).replace(/\D/g, ""), 10) || 0;
+
+/* 1. Nota Maker */
+function nRow(){
+  const r = mkel("div", "", "rowi");
+  r.innerHTML = '<input type="text" placeholder="Item" maxlength="40"><input type="text" inputmode="numeric" placeholder="Qty" value="1"><input type="text" inputmode="numeric" placeholder="Harga"><button class="btn" type="button" aria-label="Hapus">&times;</button>';
+  r.lastChild.onclick = () => { if($("n-rows").children.length > 1) r.remove(); }; $("n-rows").appendChild(r);
+}
+nRow(); $("n-add").onclick = nRow;
+$("n-go").onclick = () => {
+  const items = [...$("n-rows").children].map(r => { const i = r.querySelectorAll("input"); return {n: i[0].value.trim(), q: num(i[1].value) || 1, p: num(i[2].value)}; }).filter(x => x.n);
+  if(!items.length) return toast("Isi minimal satu item");
+  const disc = num($("n-disc").value), sub = items.reduce((t, x) => t + x.q * x.p, 0), tot = Math.max(0, sub - disc), note = $("n-note").value.trim();
+  const c = $("n-cv"), W = 600, D = 2, H = 330 + items.length * 40 + (disc ? 36 : 0) + (note ? 50 : 0);
+  c.width = W * D; c.height = H * D; c.hidden = false; const x = c.getContext("2d"); x.scale(D, D);
+  x.fillStyle = "#fff"; x.fillRect(0, 0, W, H); x.fillStyle = "#c2185b"; x.fillRect(0, 0, W, 10); x.textBaseline = "top";
+  const T = (s, px, py, f, col, al) => { x.font = f; x.fillStyle = col; x.textAlign = al || "left"; x.fillText(s, px, py); };
+  T($("n-shop").value.trim() || "Toko Saya", 30, 34, "800 28px Outfit,Arial", "#111");
+  T("NOTA PENJUALAN", 30, 74, "700 14px Manrope,Arial", "#c2185b");
+  T(new Date().toLocaleString("id-ID", {dateStyle: "long", timeStyle: "short"}), 30, 96, "500 14px Manrope,Arial", "#555");
+  T("Pembeli: " + ($("n-buyer").value.trim() || "-"), 30, 118, "500 14px Manrope,Arial", "#555");
+  let y = 160; x.fillStyle = "#ddd"; x.fillRect(30, y - 10, 540, 1);
+  T("Item", 30, y, "700 14px Manrope,Arial", "#111"); T("Jumlah", 400, y, "700 14px Manrope,Arial", "#111", "right"); T("Total", 570, y, "700 14px Manrope,Arial", "#111", "right"); y += 34;
+  items.forEach(it => { T(it.n.slice(0, 24), 30, y, "500 15px Manrope,Arial", "#111"); T(it.q + " x " + it.p.toLocaleString("id-ID"), 400, y, "500 14px Manrope,Arial", "#555", "right"); T(rp(it.q * it.p), 570, y, "600 15px Manrope,Arial", "#111", "right"); y += 40; });
+  x.fillStyle = "#ddd"; x.fillRect(30, y - 8, 540, 1); y += 8;
+  T("Subtotal", 30, y, "500 15px Manrope,Arial", "#555"); T(rp(sub), 570, y, "500 15px Manrope,Arial", "#555", "right"); y += 36;
+  if(disc){ T("Diskon", 30, y, "500 15px Manrope,Arial", "#555"); T("- " + rp(disc), 570, y, "500 15px Manrope,Arial", "#555", "right"); y += 36; }
+  x.fillStyle = "#fdeaf1"; x.fillRect(30, y - 8, 540, 46); T("TOTAL", 42, y + 4, "800 18px Outfit,Arial", "#c2185b"); T(rp(tot), 558, y + 4, "800 20px Outfit,Arial", "#c2185b", "right"); y += 66;
+  if(note) T(note, 300, y, "500 14px Manrope,Arial", "#777", "center");
+  $("n-dl").hidden = false;
+};
+$("n-dl").onclick = () => { const a = $("n-dl"); a.href = $("n-cv").toDataURL("image/png"); a.download = "nota-" + Date.now() + ".png"; };
+
+/* 2. WA Link dan QR */
+function qrLoad(){ return window.QRCode ? Promise.resolve() : new Promise((ok, no) => { const s = document.createElement("script"); s.src = "https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"; s.onload = ok; s.onerror = () => no(new Error("Gagal memuat pembuat QR")); document.head.appendChild(s); }); }
+$("q-go").onclick = async () => {
+  let n = $("q-num").value.replace(/\D/g, ""), m = $("q-msg").value.trim(), t;
+  if(n){ n = n[0] === "0" ? "62" + n.slice(1) : n[0] === "8" ? "62" + n : n; t = "https://wa.me/" + n + (m ? "?text=" + encodeURIComponent(m) : ""); } else t = m;
+  if(!t) return show("q-out", "Isi nomor WhatsApp atau teks/URL dulu.", true);
+  show("q-out", t, false, true); const b = $("q-box"); b.innerHTML = ""; b.hidden = false; $("q-dl").hidden = true;
+  try{
+    await qrLoad(); new QRCode(b, {text: t, width: 240, height: 240, correctLevel: QRCode.CorrectLevel.M});
+    setTimeout(() => { const cv = b.querySelector("canvas"); if(cv) $("q-dl").hidden = false; }, 150);
+  }catch(e){ const im = new Image(); im.alt = "QR"; im.width = im.height = 240; im.src = "https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=" + encodeURIComponent(t); b.appendChild(im); }
+};
+$("q-dl").onclick = () => { const cv = $("q-box").querySelector("canvas"), a = $("q-dl"); if(cv){ a.href = cv.toDataURL("image/png"); a.download = "qr.png"; } };
+
+/* 3. Watermark Foto */
+let wmImg = null;
+function wmDraw(){
+  if(!wmImg) return; const c = $("wm-cv"), k = Math.min(1, 1600 / Math.max(wmImg.width, wmImg.height));
+  c.width = Math.round(wmImg.width * k); c.height = Math.round(wmImg.height * k); c.hidden = false; $("wm-dl").hidden = false;
+  const x = c.getContext("2d"), t = $("wm-t").value || "Secretly", fs = Math.max(14, c.width * $("wm-s").value / 100), p = $("wm-p").value;
+  x.drawImage(wmImg, 0, 0, c.width, c.height); x.globalAlpha = $("wm-o").value / 100; x.fillStyle = $("wm-c").value;
+  x.font = "800 " + fs + "px Outfit,Arial"; x.textBaseline = "middle"; x.shadowColor = "rgba(0,0,0,.35)"; x.shadowBlur = fs / 8;
+  if(p === "tile"){ x.textAlign = "center"; const w = x.measureText(t).width + fs * 2; x.rotate(-Math.PI / 6);
+    for(let yy = -c.height, r = 0; yy < c.height * 1.5; yy += fs * 3.2, r++) for(let xx = -c.width + (r % 2) * w / 2; xx < c.width * 1.5; xx += w) x.fillText(t, xx, yy); }
+  else{ const mg = fs * .6; x.textAlign = p === "br" ? "right" : p === "bl" ? "left" : "center"; x.fillText(t, p === "br" ? c.width - mg : p === "bl" ? mg : c.width / 2, p === "c" ? c.height / 2 : c.height - fs); }
+}
+const wmD = () => { clearTimeout(wmD.t); wmD.t = setTimeout(wmDraw, 120); };
+$("wm-f").onchange = e => { const f = e.target.files[0]; if(!f) return; $("wm-name").textContent = f.name; const im = new Image(); im.onload = () => { wmImg = im; wmDraw(); }; im.onerror = () => toast("Foto tidak bisa dibaca"); im.src = URL.createObjectURL(f); };
+["wm-t", "wm-s", "wm-o", "wm-c", "wm-p"].forEach(i => { $(i).oninput = wmD; $(i).onchange = wmD; });
+$("wm-dl").onclick = () => { const a = $("wm-dl"); a.href = $("wm-cv").toDataURL("image/png"); a.download = "watermark-" + Date.now() + ".png"; };
+
+/* 4. Key Generator */
+$("k-go").onclick = () => {
+  const pre = $("k-pre").value.trim().toUpperCase().replace(/[^A-Z0-9]/g, "").slice(0, 12), segs = Math.min(8, Math.max(1, num($("k-seg").value) || 3)), len = Math.min(12, Math.max(2, num($("k-len").value) || 4)), n = Math.min(200, Math.max(1, num($("k-n").value) || 10));
+  const cs = {a: "ABCDEFGHJKLMNPQRSTUVWXYZ23456789", d: "0123456789", l: "ABCDEFGHJKLMNPQRSTUVWXYZ"}[$("k-cs").value], out = new Set();
+  while(out.size < n){ const p = []; for(let s = 0; s < segs; s++) p.push(Array.from(crypto.getRandomValues(new Uint32Array(len)), v => cs[v % cs.length]).join("")); out.add((pre ? pre + "-" : "") + p.join("-")); if(cs.length ** (segs * len) < n) break; }
+  const txt = [...out].join("\n"); show("k-out", txt, false, true); $("k-out").style.whiteSpace = "pre-wrap";
+  const a = $("k-dl"); a.href = URL.createObjectURL(new Blob([txt], {type: "text/plain"})); a.download = "keys-" + Date.now() + ".txt"; a.hidden = false;
+};
+
+/* 5. Link-in-Bio Builder */
+function bioHtml(){
+  const e = s => String(s).replace(/[&<>"']/g, c => ({"&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"}[c]));
+  const nm = e($("b2-n").value.trim() || "Nama Kamu"), bio = e($("b2-b").value.trim()), img = $("b2-i").value.trim(), th = {g: ["#0a0408", "#ff3d81"], p: ["#1a0a12", "#ff7aa8"], b: ["#06101f", "#4aa3ff"], h: ["#0b1a12", "#2fbf71"]}[$("b2-t").value];
+  const ls = $("b2-l").value.split("\n").map(l => l.split("|").map(s => s.trim())).filter(a => a[0] && /^https?:\/\//i.test(a[1] || "")).slice(0, 12);
+  if(!ls.length) return null;
+  return '<!DOCTYPE html>\n<html lang="id"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>' + nm + '</title>\n<style>*{box-sizing:border-box;margin:0}body{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:44px 18px;background:' + th[0] + ';color:#fff;font-family:system-ui,sans-serif}img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin-bottom:14px;border:3px solid ' + th[1] + '}h1{font-size:1.5rem}p{opacity:.75;margin:6px 0 24px;text-align:center;max-width:420px}a{display:block;width:100%;max-width:420px;text-align:center;padding:15px;margin-bottom:12px;border-radius:14px;background:rgba(255,255,255,.08);border:1px solid ' + th[1] + ';color:#fff;text-decoration:none;font-weight:600}a:active{background:' + th[1] + '}</style></head>\n<body>' +
+    (/^https:\/\//i.test(img) ? '<img src="' + e(img) + '" alt="">' : "") + '<h1>' + nm + '</h1><p>' + bio + '</p>\n' + ls.map(a => '<a href="' + e(a[1]) + '" target="_blank" rel="noopener">' + e(a[0]) + '</a>').join("\n") + '\n</body></html>';
+}
+const bioDo = f => { const c = bioHtml(); if(!c) return show("b2-out", "Isi minimal 1 link dengan format: Label | https://...", true); $("b2-out").className = "out"; f(c); };
+$("b2-pv").onclick = () => bioDo(chatPreview);
+$("b2-cp").onclick = () => bioDo(c => navigator.clipboard.writeText(c).then(() => toast("HTML disalin")).catch(() => toast("Gagal menyalin")));
+$("b2-dl").onclick = () => bioDo(c => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([c], {type: "text/html"})); a.download = "index.html"; a.click(); });
+$("b2-dp").onclick = () => bioDo(c => { const t = document.querySelector('#tabs [data-t="t-deploy"]'); if(!t || t.style.display === "none") return toast("Deploy khusus Owner. Unduh HTML lalu upload sendiri."); $("d-code").value = c; openTool("t-deploy"); toast("Kode dikirim ke Deploy Vercel"); });
 
 /* Mulai */
 (async () => { await migrateLocal(); await loadShared(); })();
-loadRatings();
+loadRatings(); homeLoad();
 </script>
 </body>
 </html>
