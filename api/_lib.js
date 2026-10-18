@@ -86,7 +86,10 @@ function readTok(t) {
 async function requireRole(req, roles) {
   const m = /^Bearer (.+)$/.exec(req.headers.authorization || ""), p = m && readTok(m[1]);
   if (!p) return { code: 401 };
-  try { const r = await sb("app_users?select=username,display,role&username=eq." + encodeURIComponent(p.u)); if (!r.ok) return { code: 401 };
-    const u = (await r.json())[0]; if (!u) return { code: 401 }; if (roles && !roles.includes(u.role)) return { code: 403 }; return { user: u }; } catch (e) { return { code: 401 }; }
+  try { const r = await sb("app_users?select=*&username=eq." + encodeURIComponent(p.u)); if (!r.ok) return { code: 401 };
+    const u = (await r.json())[0]; if (!u) return { code: 401 };
+    if (u.expires_at && new Date(u.expires_at).getTime() <= Date.now()) return { code: 401, expired: true }; // akun expired: sesi ditolak
+    if (roles && !roles.includes(u.role)) return { code: 403 };
+    return { user: { username: u.username, display: u.display, role: u.role, expires_at: u.expires_at || null } }; } catch (e) { return { code: 401 }; }
 }
 module.exports = { crypto, sb, signTok, readTok, requireRole, GH, OWNER, VT, sleep, gh, vc, J, ipHash, log, usage };
