@@ -6,7 +6,7 @@
 const dns = require("dns").promises;
 const net = require("net");
 
-const VERSION = "v9-manual-flag";
+const VERSION = "v10-chromium-pkg";
 const UA = "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Mobile Safari/537.36";
 const MAX_HOPS = 8;
 const MAX_BYTES = 2000000;
@@ -210,7 +210,7 @@ async function browserResolve(start, ms, state) {
   const end = Date.now() + ms, startHost = new URL(start).hostname, okHost = new Map();
   let found = null, cfSince = 0;
   const browser = await puppeteer.launch({
-    args: chromium.args,
+    args: [...chromium.args, "--disable-blink-features=AutomationControlled", "--lang=id-ID"],
     executablePath: await chromium.executablePath(),
     headless: chromium.headless || "shell",
     defaultViewport: { width: 412, height: 800 }
@@ -218,7 +218,13 @@ async function browserResolve(start, ms, state) {
   try {
     const page = await browser.newPage();
     await page.setUserAgent(UA);
-    await page.evaluateOnNewDocument(() => { window.open = () => null; });
+    await page.setExtraHTTPHeaders({ "accept-language": "id-ID,id;q=0.9,en;q=0.8" });
+    await page.evaluateOnNewDocument(() => {
+      window.open = () => null;
+      try { Object.defineProperty(navigator, "webdriver", { get: () => undefined }); } catch (e) {}
+      try { Object.defineProperty(navigator, "languages", { get: () => ["id-ID", "id", "en-US"] }); } catch (e) {}
+      try { window.chrome = window.chrome || { runtime: {} }; } catch (e) {}
+    });
     await page.setRequestInterception(true);
     page.on("request", async rq => {
       try {
@@ -241,7 +247,7 @@ async function browserResolve(start, ms, state) {
       const capFrame = page.frames().some(f => /challenges\.cloudflare\.com|recaptcha|hcaptcha|turnstile|bicocaptcha/i.test(f.url()));
       if (CAPTCHA_RE.test(html) || capFrame || /Attention Required/i.test(html)) {
         cfSince = cfSince || Date.now();
-        if (Date.now() - cfSince > 6000) throw Object.assign(new Error(CAPTCHA_MSG), { captcha: true });
+        if (Date.now() - cfSince > 20000) throw Object.assign(new Error(CAPTCHA_MSG), { captcha: true });
       } else cfSince = 0;
       state.html = html; state.cur = cur;
       const n = findNext(html, cur);
@@ -287,21 +293,23 @@ module.exports = async (req, res) => {
     if (q.check === "1") { // cek kesehatan: /api/bypass?check=1
       const ok = await loadBrowser(); let exe = "";
       if (ok) { try { exe = await chromium.executablePath(); } catch (e) { exe = "ERROR: " + e.message; } }
-      return send(200, { node: process.version, browserModule: ok, loadErr, chromiumPath: exe, upstream: !!process.env.BYPASS_UPSTREAM });
+      return send(200, { node: process.version, browserModule: ok, loadErr, chromiumPath: exe, upstream: String(process.env.BYPASS_UPSTREAM || "").split(",").filter(Boolean).length });
     }
     const target = String(q.url || "").trim();
     const mode = q.mode === "web" ? "web" : "link";
     if (!/^https?:\/\//i.test(target) || target.length > 2000) return send(400, { ok: false, error: "Tautan tidak valid" });
     await assertPublic(target);
 
-    // Opsional: pakai API bypass lain (set env BYPASS_UPSTREAM di Vercel, contoh: https://api-kamu.com/bypass?url=)
-    if (process.env.BYPASS_UPSTREAM) {
+    // Opsional: API bypass lain. Isi env BYPASS_UPSTREAM di Vercel; boleh BANYAK, pisahkan dengan koma (dicoba berurutan).
+    // Contoh: https://api-a.com/bypass?url=,https://api-b.com/get?link=
+    const ups = String(process.env.BYPASS_UPSTREAM || "").split(",").map(x => x.trim()).filter(x => /^https?:\/\//i.test(x)).slice(0, 4);
+    for (const base of ups) {
       try {
-        const r = await fetch(process.env.BYPASS_UPSTREAM + encodeURIComponent(target), { signal: AbortSignal.timeout(6000) });
+        const r = await fetch(base + encodeURIComponent(target), { signal: AbortSignal.timeout(5000) });
         const j = await r.json();
         const v = j.result || j.url || j.data || j.link || j.destination;
         if (typeof v === "string" && /^https?:\/\//i.test(v)) return send(200, { ok: true, result: v, via: "upstream" });
-      } catch (e) { /* lanjut ke cara bawaan */ }
+      } catch (e) { /* coba berikutnya */ }
     }
 
     const dbg = { hops: [] };
