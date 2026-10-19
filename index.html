@@ -192,6 +192,20 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
   nav#topnav .btn:not(.on):not(.sq) .t{display:none}
   nav#topnav .btn.on{flex:1 1 auto;min-width:0}
 }
+/* ===== v1.6: tools baru, pengguna aktif, bot ===== */
+.out>div:first-child{white-space:pre-wrap;word-break:break-word}
+#tl-q{width:100%;margin:0 0 12px}
+.sw{height:46px;border-radius:12px;margin-top:10px;border:1px solid var(--line)}
+.lv-top{display:flex;justify-content:space-between;align-items:flex-end;gap:10px;margin-bottom:6px}
+#lv-n{font:800 2.5rem/1 Outfit}.lv-top small{color:var(--mut);margin-left:6px}
+#lv-ch{font:700 .85rem Manrope;text-align:right}
+#lv-cv{width:100%;height:150px;display:block}
+.lv-ft{display:flex;justify-content:space-between;gap:8px;color:var(--mut);font-size:.78rem;margin-top:8px;flex-wrap:wrap}.lv-ft b{color:#fff}
+.live{display:inline-block;font:700 .62rem Manrope;letter-spacing:.08em;padding:3px 8px;border-radius:8px;background:rgba(47,212,122,.18);color:#2fd47a;margin-left:8px;vertical-align:middle}
+.bigcode{font:800 2.2rem/1.2 Outfit;letter-spacing:.12em;text-align:center;padding:16px 8px;margin:10px 0;border-radius:14px;background:rgba(0,0,0,.35);border:1px dashed var(--line);user-select:all}
+.bimg{width:100%;border-radius:14px;display:block;margin-bottom:12px}
+.bst{display:inline-block;font:700 .7rem Manrope;padding:3px 9px;border-radius:8px;background:rgba(255,255,255,.1)}
+.bst.open{background:rgba(47,212,122,.2);color:#2fd47a}.bst.connecting{background:rgba(245,165,36,.2);color:#f5a524}
 </style>
 </head>
 <body>
@@ -260,6 +274,7 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
   <button class="mi" role="menuitem" data-page="dev"><svg class="i"><use href="#user"/></svg>Kontak</button>
   <hr>
   <div class="gh">Fitur</div>
+  <button class="mi" role="menuitem" data-page="bot"><svg class="i"><use href="#rocket"/></svg>Connection Bot (WhatsApp)</button>
   <button class="mi" role="menuitem" id="mi-acc"><svg class="i"><use href="#user"/></svg>Panel Akun (Owner / Reseller)</button>
   <button class="mi" role="menuitem" data-page="fitur"><svg class="i"><use href="#info"/></svg>Apa Itu Secretly (Semua Fitur)</button>
   <button class="mi" role="menuitem" data-page="rating"><svg class="i"><use href="#star"/></svg>Rating</button>
@@ -279,7 +294,7 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
   <div class="hs glass"><svg class="i"><use href="#search"/></svg><input id="h-q" type="text" placeholder="Cari tool atau fitur..." autocomplete="off" aria-label="Cari fitur"></div>
   <div id="h-res"></div>
   <div class="stats">
-    <div class="stat glass"><b>17</b><small>Tools</small></div>
+    <div class="stat glass"><b>37</b><small>Tools</small></div>
     <div class="stat glass"><b>5</b><small>Siap Jual</small></div>
     <div class="stat glass"><b>Free</b><small>Selamanya</small></div>
   </div>
@@ -288,6 +303,12 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
     <button class="btn" data-page="rating"><svg class="i"><use href="#star"/></svg><span id="h-rate">Rating</span></button>
     <button class="btn" data-page="updates"><svg class="i"><use href="#bell"/></svg>Update</button>
   </div>
+  <h2 class="sec">Pengguna aktif<span class="live">LIVE</span></h2>
+  <div class="card glass" id="h-live">
+    <div class="lv-top"><div><span id="lv-n">-</span><small>orang aktif</small></div><div id="lv-ch">menghubungkan...</div></div>
+    <canvas id="lv-cv" height="150" aria-label="Grafik pengguna aktif 30 menit terakhir"></canvas>
+    <div class="lv-ft"><span>Puncak <b id="lv-pk">-</b></span><span>Terendah <b id="lv-lo">-</b></span><span>30 menit terakhir</span></div>
+  </div>
   <h2 class="sec">Jalan pintas</h2>
   <div class="qg">
     <button class="btn" data-page="stream"><svg class="i"><use href="#play"/></svg>Stream</button>
@@ -295,6 +316,8 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
     <button class="btn" data-page="modfree"><svg class="i"><use href="#gift"/></svg>Modpack Free</button>
     <button class="btn" data-page="modsell"><svg class="i"><use href="#cart"/></svg>Forsell</button>
     <button class="btn" data-page="share"><svg class="i"><use href="#plus"/></svg>Share Mod</button>
+    <button class="btn" data-page="bot"><svg class="i"><use href="#rocket"/></svg>Bot WA</button>
+    <button class="btn" data-page="tools"><svg class="i"><use href="#tools"/></svg>Tools</button>
     <button class="btn" data-page="dev"><svg class="i"><use href="#user"/></svg>Kontak</button>
   </div>
   <h2 class="sec">Tools siap jual</h2>
@@ -307,6 +330,7 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
 
 <!-- TOOLS -->
 <section class="page pick" id="tools">
+  <input type="text" id="tl-q" placeholder="Cari tool... (mis. cuaca, kurs, nota)" autocomplete="off" aria-label="Cari tool">
   <div class="tabs" id="tabs">
     <button class="btn" data-t="t-bypass" style="--ac:#3d8bff"><span class="tk"><svg class="i"><use href="#link"/></svg></span><span class="bd">LINK</span><span class="nm">Bypass Link</span><span class="cs">bicolink, sfile, sfl.gl</span></button>
     <button class="btn" data-t="t-web" style="--ac:#f5a524"><span class="tk"><svg class="i"><use href="#globe"/></svg></span><span class="bd">WEB</span><span class="nm">Bypass Web</span><span class="cs">timer dan pengalihan</span></button>
@@ -539,6 +563,27 @@ canvas.pv{max-width:100%;border-radius:12px;margin:12px 0 8px;display:block}
     <p class="d" style="margin:0">1. Pilih fitur dari beranda, menu bawah, atau cari di kolom pencarian.<br>2. Isi data lalu tekan tombol proses.<br>3. Salin atau unduh hasilnya.</p>
   </div>
   <div id="ft-list"></div>
+</section>
+
+<!-- CONNECTION BOT -->
+<section class="page" id="bot">
+  <h1>Connection <span>Bot</span></h1>
+  <p class="lead">Pasang Secretly Bot di nomor WhatsApp-mu lewat Perangkat Tertaut. Bot berjalan di panel kami, kamu cukup memasukkan kode pairing.</p>
+  <div class="card glass">
+    <img class="bimg" src="bot-menu.jpg" alt="Tampilan menu Secretly Bot" loading="lazy">
+    <h2><svg class="i"><use href="#rocket"/></svg>Hubungkan nomor</h2>
+    <p class="d">1. Masukkan nomor WhatsApp (yang akan jadi bot).<br>2. Tekan <b>Minta kode</b>, tunggu kode 8 karakter.<br>3. Di WhatsApp: <b>Perangkat tertaut</b> &rarr; <b>Tautkan perangkat</b> &rarr; <b>Tautkan dengan nomor telepon</b>, lalu masukkan kodenya.<br>4. Kirim <b>.menu</b> ke bot untuk mulai.</p>
+    <input type="text" id="bt-num" inputmode="tel" placeholder="Nomor WhatsApp (mis. 0878xxxxxxx)" autocomplete="off">
+    <button class="btn go" id="bt-go" type="button" style="width:100%"><svg class="i"><use href="#rocket"/></svg>Minta kode pairing</button>
+    <div class="out" id="bt-out"></div>
+    <div id="bt-code"></div>
+    <h2 class="sec">Bot kamu</h2>
+    <div id="bt-list">Memuat...</div>
+  </div>
+  <div class="card glass" style="margin-top:12px">
+    <h2><svg class="i"><use href="#info"/></svg>Fitur bot</h2>
+    <p class="d" style="margin:0">Prefix <b>.</b> &bull; menu utama <b>.menu</b> (foto, info, dan tombol) &bull; <b>.alltools</b> menampilkan semua tools.<br>Tools harian (umur, satuan, kalkulator, kode, acak, QR, password), tools API (cuaca, kurs, crypto, sholat, Wikipedia, terjemah, info IP, pemendek link, kamus, GitHub, screenshot web), stiker, fitur grup (tagall, hidetag, kick, link grup), dan hiburan.</p>
+  </div>
 </section>
 
 <!-- KONTAK DEVELOPER -->
@@ -962,9 +1007,63 @@ function go(id){
   if(id === "rating") loadRatings();
   if(id === "updates") markSeen();
   if(id === "stream") sSeg(window.CUR_SEG || "s-anime");
+  if(id === "bot") btList();
+  if(id === "home" && window.liveDraw) window.liveDraw();
   if(id === "home") homeLoad();
 }
 document.querySelectorAll("[data-page]").forEach(b => b.onclick = () => go(b.dataset.page));
+/* ===== v1.6: 20 tools baru, pengguna aktif, Connection Bot ===== */
+const T2 = [
+  {id:"umur", n:"Kalkulator Umur", d:"Hitung umur tepat dan ulang tahun berikutnya.", ic:"user", ac:"#4aa3ff", f:[{k:"tgl", p:"Tanggal lahir (17-05-2008)"}, {k:"sampai", p:"Sampai tanggal (opsional, default hari ini)"}]},
+  {id:"satuan", n:"Konverter Satuan", d:"Panjang, berat, volume, data, luas, waktu, kecepatan, dan suhu. Ketik daftar untuk melihat semua satuan.", ic:"hash", ac:"#22b8cf", f:[{k:"nilai", p:"Nilai (mis. 10) atau ketik: daftar"}, {k:"dari", p:"Dari satuan (mis. km)"}, {k:"ke", p:"Ke satuan (mis. mil)"}]},
+  {id:"fancy", n:"Teks Gaya", d:"Ubah nickname jadi 10 gaya huruf keren untuk game dan bio.", ic:"stamp", ac:"#e05bd0", f:[{k:"teks", p:"Teks atau nickname (maks 60 karakter)"}]},
+  {id:"kata", n:"Penghitung Kata", d:"Hitung kata, karakter, kalimat, paragraf, dan waktu baca.", ic:"code", ac:"#7c5cff", f:[{k:"teks", t:"area", p:"Tempel teks di sini..."}]},
+  {id:"untung", n:"Kalkulator Untung", b:"JUAL", d:"Hitung untung per unit, margin, diskon, fee marketplace. Kosongkan harga jual dan isi target untuk mencari harga jualnya.", ic:"receipt", ac:"#2fbf71", f:[{k:"modal", p:"Modal per unit (mis. 10000)"}, {k:"jual", p:"Harga jual (opsional)"}, {k:"qty", p:"Jumlah unit", v:"1"}, {k:"diskon", p:"Diskon % (opsional)"}, {k:"fee", p:"Fee marketplace % (opsional)"}, {k:"target", p:"Target untung % (jika harga jual kosong)"}]},
+  {id:"bersih", n:"Pembersih Teks", d:"Hapus baris ganda, urutkan, ubah huruf, rapikan spasi, beri nomor.", ic:"braces", ac:"#8b5cf6", f:[{k:"mode", t:"sel", o:[["dedupe", "Hapus baris ganda"], ["az", "Urutkan A-Z"], ["za", "Urutkan Z-A"], ["besar", "HURUF BESAR"], ["kecil", "huruf kecil"], ["judul", "Huruf Judul"], ["rapikan", "Rapikan spasi"], ["balik", "Balik urutan baris"], ["nomor", "Beri nomor"], ["kosong", "Hapus baris kosong"]]}, {k:"teks", t:"area", p:"Tempel teks (satu item per baris)..."}]},
+  {id:"warna", n:"Konverter Warna", d:"Ubah HEX, RGB, HSL, atau nama warna. Dapat komplemen dan versi terang/gelap.", ic:"img", ac:"#ff7a45", sw:1, f:[{k:"warna", p:"#3d8bff, 61,139,255, hsl(217,100%,62%), atau: biru"}]},
+  {id:"acak", n:"Pengacak dan Undian", d:"Angka acak, dadu, koin, pilih satu, undian pemenang, acak urutan.", ic:"ticket", ac:"#a855f7", f:[{k:"mode", t:"sel", o:[["angka", "Angka acak"], ["dadu", "Dadu"], ["koin", "Lempar koin"], ["pilih", "Pilih satu"], ["undi", "Undian pemenang"], ["urut", "Acak urutan"]]}, {k:"isi", t:"area", p:"Angka: 1-100  |  Dadu: 2d6  |  Pilih/Undi/Urut: a, b, c (koma atau baris baru)"}, {k:"n", p:"Jumlah pemenang (khusus undian)"}]},
+  {id:"kode", n:"Morse, Biner, Hex, Base64", d:"Sandikan dan buka sandi teks ke morse, biner, hex, Base64, ROT13.", ic:"lock", ac:"#ff7a45", f:[{k:"mode", t:"sel", o:[["morse", "Teks → Morse"], ["demorse", "Morse → Teks"], ["biner", "Teks → Biner"], ["debiner", "Biner → Teks"], ["hex", "Teks → Hex"], ["dehex", "Hex → Teks"], ["b64", "Teks → Base64"], ["deb64", "Base64 → Teks"], ["rot13", "ROT13"], ["balik", "Balik teks"]]}, {k:"teks", t:"area", p:"Tempel teks..."}]},
+  {id:"waktu", n:"Waktu dan Timestamp", d:"Unix timestamp, tanggal, dan jam di 9 zona waktu.", ic:"bell", ac:"#f5a524", f:[{k:"isi", p:"Kosong = sekarang | timestamp | 17-05-2026 14:30"}]},
+  {id:"hitung", n:"Kalkulator", d:"Kurung, pangkat, akar, persen, sin/cos/tan, log, pi.", ic:"plus", ac:"#4c8dff", f:[{k:"expr", p:"(12+8)*3/4  |  2^10  |  sqrt(144)  |  200*15%"}]},
+  {id:"resize", n:"Resize dan Konversi Foto", d:"Perkecil ukuran foto dan ubah ke JPG, PNG, atau WebP. Diproses di browser.", ic:"img", ac:"#2fbf71", custom:1},
+  {id:"cuaca", n:"Cuaca", b:"API", d:"Cuaca sekarang dan prakiraan 3 hari untuk kota mana pun.", ic:"globe", ac:"#22b8cf", f:[{k:"kota", p:"Nama kota (mis. Bandung)"}]},
+  {id:"kurs", n:"Kurs Mata Uang", b:"API", d:"Kurs terbaru antar mata uang (USD, EUR, IDR, SGD, JPY, dll).", ic:"cart", ac:"#2fbf71", f:[{k:"jumlah", p:"Jumlah", v:"1"}, {k:"dari", p:"Dari (kode, mis. USD)", v:"USD"}, {k:"ke", p:"Ke (kode, mis. IDR)", v:"IDR"}]},
+  {id:"crypto", n:"Harga Crypto", b:"API", d:"Harga koin dalam USD dan Rupiah beserta perubahan 24 jam.", ic:"star", ac:"#f5a524", f:[{k:"koin", p:"Simbol atau nama (btc, eth, sol, doge)", v:"btc"}]},
+  {id:"sholat", n:"Jadwal Sholat", b:"API", d:"Jadwal sholat hari ini (metode Kemenag untuk Indonesia).", ic:"gift", ac:"#06b6d4", f:[{k:"kota", p:"Kota (mis. Bandung)", v:"Jakarta"}]},
+  {id:"wiki", n:"Wikipedia", b:"API", d:"Ringkasan artikel Wikipedia Indonesia (cadangan: Inggris).", ic:"help", ac:"#8a97ad", f:[{k:"kata", p:"Topik yang dicari"}]},
+  {id:"translate", n:"Penerjemah", b:"API", d:"Terjemahkan teks otomatis ke bahasa pilihanmu.", ic:"link", ac:"#7c5cff", f:[{k:"ke", t:"sel", o:[["id", "Indonesia"], ["en", "Inggris"], ["ja", "Jepang"], ["ko", "Korea"], ["ar", "Arab"], ["zh", "Mandarin"], ["es", "Spanyol"], ["fr", "Prancis"], ["de", "Jerman"], ["ms", "Melayu"]]}, {k:"teks", t:"area", p:"Teks yang diterjemahkan (maks 480 karakter)"}]},
+  {id:"ip", n:"Info IP", b:"API", d:"Lokasi, ISP, dan zona waktu dari alamat IP.", ic:"globe", ac:"#4aa3ff", f:[{k:"ip", p:"Alamat IP (kosong = IP kamu)"}]},
+  {id:"short", n:"Pemendek Link", b:"API", d:"Pendekkan link panjang jadi link singkat.", ic:"open", ac:"#e8456b", f:[{k:"url", p:"https://..."}]}
+];
+(function(){
+  const tabs = $("tabs");
+  T2.forEach(t => {
+    const b = mkel("button", "", "btn"); b.dataset.t = "t-" + t.id; b.style.setProperty("--ac", t.ac);
+    b.innerHTML = '<span class="tk"><svg class="i"><use href="#' + t.ic + '"/></svg></span><span class="bd"></span><span class="nm"></span><span class="cs"></span>';
+    b.querySelector(".bd").textContent = t.b || "BARU"; b.querySelector(".nm").textContent = t.n; b.querySelector(".cs").textContent = t.d.split(/[.]/)[0]; tabs.appendChild(b);
+    const c = mkel("div", "", "card glass tool"); c.id = "t-" + t.id; c.hidden = true;
+    c.innerHTML = '<h2><svg class="i"><use href="#' + t.ic + '"/></svg><span></span></h2><p class="d"></p>'; c.querySelector("h2 span").textContent = t.n; c.querySelector(".d").textContent = t.d; TOOLSPG.appendChild(c);
+    if(t.custom){ c.insertAdjacentHTML("beforeend", '<label class="drop"><svg class="i"><use href="#up"/></svg><span id="rz-name">Pilih foto</span><input type="file" id="rz-f" accept="image/*"></label><select class="sel" id="rz-fmt" aria-label="Format"><option value="image/jpeg">JPG (paling kecil)</option><option value="image/png">PNG</option><option value="image/webp">WebP</option></select><input type="text" id="rz-w" inputmode="numeric" placeholder="Lebar maksimal (px)" value="1080"><span class="lbl">Kualitas (JPG/WebP)</span><input type="range" id="rz-q" min="30" max="100" value="82"><div class="out" id="rz-out"></div><canvas id="rz-cv" class="pv" hidden></canvas><a class="btn go" id="rz-dl" hidden style="width:100%"><svg class="i"><use href="#dl"/></svg>Unduh hasil</a>'); return; }
+    const outId = "o-" + t.id, vals = () => { const a = {}; t.f.forEach(f => a[f.k] = $("f-" + t.id + "-" + f.k).value); return a; };
+    t.f.forEach(f => { const e = document.createElement(f.t === "area" ? "textarea" : f.t === "sel" ? "select" : "input"); e.id = "f-" + t.id + "-" + f.k;
+      if(f.t === "sel"){ e.className = "sel"; f.o.forEach(o => { const op = document.createElement("option"); op.value = o[0]; op.textContent = o[1]; e.appendChild(op); }); }
+      else { if(f.t === "area") e.style.minHeight = "110px"; else { e.type = "text"; e.autocomplete = "off"; } e.placeholder = f.p || ""; if(f.v) e.value = f.v; }
+      c.appendChild(e); });
+    const go = mkel("button", "", "btn go"); go.type = "button"; go.style.width = "100%"; go.innerHTML = '<svg class="i"><use href="#' + t.ic + '"/></svg>Jalankan'; c.appendChild(go);
+    const out = mkel("div", "", "out"); out.id = outId; c.appendChild(out); const sw = mkel("div", "", "sw"); sw.hidden = true; c.appendChild(sw);
+    const run = async () => {
+      sw.hidden = true; show(outId, "Memproses...");
+      try{
+        const r = await fetch("/api/tools", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({tool: t.id, args: vals()})}), j = await r.json().catch(() => ({}));
+        if(!r.ok || !j.ok) return show(outId, j.error || ("Gagal (" + r.status + ")"), true);
+        show(outId, j.text, false, true); const m = t.sw && /HEX: (#[0-9A-F]{6})/.exec(j.text); if(m){ sw.style.background = m[1]; sw.hidden = false; }
+      }catch(e){ show(outId, "Koneksi gagal. Periksa internet lalu coba lagi.", true); }
+    };
+    go.onclick = run; c.querySelectorAll("input").forEach(i => i.addEventListener("keydown", e => { if(e.key === "Enter") run(); }));
+  });
+  $("tl-q").oninput = e => { const q = e.target.value.trim().toLowerCase(); tabs.querySelectorAll(":scope > button").forEach(b => b.style.display = !q || b.textContent.toLowerCase().includes(q) ? "" : "none"); };
+})();
+
 /* Tab tools */
 document.querySelectorAll("#tabs [data-t]").forEach(b => b.onclick = () => {
   document.querySelectorAll(".tool").forEach(t => t.hidden = t.id !== b.dataset.t);
@@ -1209,6 +1308,12 @@ if(VID_OFF) applyVid(true);
 
 /* Update terbaru: edit daftar ini setiap kali ada pembaruan (yang terbaru paling atas) */
 const UPDATES = [
+  {v: "1.6", d: "19 Okt 2026", t: "20 tools baru, Pengguna Aktif, dan Connection Bot", i: [
+    "20 tools baru: 12 tools harian dan 8 tools API (cuaca, kurs, crypto, sholat, Wikipedia, terjemah, info IP, pemendek link)",
+    "Beranda: grafik Pengguna Aktif yang naik dan turun mengikuti jumlah orang yang memakai web",
+    "Menu Connection Bot: pairing nomor WhatsApp lewat Perangkat Tertaut, bot berjalan di panel",
+    "Secretly Bot: prefix titik, .menu berisi foto dan tombol, .alltools untuk semua tools",
+    "Kolom pencarian di halaman Tools"]},
   {v: "1.5", d: "18 Okt 2026", t: "Expired akun dan panel reseller", i: [
     "Semua akun (member, reseller, owner) bisa diberi masa aktif, kosong berarti permanen",
     "Owner bisa membuat akun owner, reseller, dan member; reseller membuat akun member dengan expired",
@@ -1520,6 +1625,8 @@ const FT = [
   {g:"Tools Developer", n:"Password dan SHA-256", d:"Buat password acak yang kuat dan hash teks SHA-256.", ic:"key", ac:"#e05bd0", t:"t-pw"},
   {g:"Tools Developer", n:"Deploy Vercel", d:"Unggah HTML lalu website langsung online di domain vercel.app (khusus Owner).", ic:"rocket", ac:"#8a97ad", t:"t-deploy"},
   {g:"Tools Developer", n:"Chat AI", d:"Tanya apa saja atau minta dibuatkan website dan kode.", ic:"braces", ac:"#7c5cff", t:"t-chat"},
+  ...T2.map(t => ({g: t.b === "API" ? "Tools API" : "Tools Harian", n: t.n, d: t.d, ic: t.ic, ac: t.ac, t: "t-" + t.id})),
+  {g:"Bot WhatsApp", n:"Connection Bot", d:"Pasang Secretly Bot di nomor WhatsApp-mu lewat pairing code. Bot berjalan di panel dengan 60 perintah.", ic:"rocket", ac:"#25d366", p:"bot"},
   {g:"Stream", n:"Anime", d:"Jadwal tayang, episode terbaru, trailer, dan tautan platform resmi. Tandai Pantau agar episode baru muncul otomatis.", ic:"play", ac:"#ff6b6b", s:"s-anime"},
   {g:"Stream", n:"Film dan Video", d:"Film domain publik dari Internet Archive, diputar langsung di sini.", ic:"video", ac:"#4aa3ff", s:"s-film"},
   {g:"Stream", n:"Playlist Saya", d:"Putar dan simpan link YouTube, archive.org, .mp4, atau .m3u8 milikmu.", ic:"play", ac:"#ffb02e", s:"s-link"},
@@ -1686,6 +1793,69 @@ $("b2-pv").onclick = () => bioDo(chatPreview);
 $("b2-cp").onclick = () => bioDo(c => navigator.clipboard.writeText(c).then(() => toast("HTML disalin")).catch(() => toast("Gagal menyalin")));
 $("b2-dl").onclick = () => bioDo(c => { const a = document.createElement("a"); a.href = URL.createObjectURL(new Blob([c], {type: "text/html"})); a.download = "index.html"; a.click(); });
 $("b2-dp").onclick = () => bioDo(c => { const t = document.querySelector('#tabs [data-t="t-deploy"]'); if(!t || t.style.display === "none") return toast("Deploy khusus Owner. Unduh HTML lalu upload sendiri."); $("d-code").value = c; openTool("t-deploy"); toast("Kode dikirim ke Deploy Vercel"); });
+
+let rzImg = null, rzFile = null;
+function rzDo(){
+  if(!rzImg) return; const mw = Math.max(16, Math.min(8000, parseInt($("rz-w").value, 10) || rzImg.width)), k = Math.min(1, mw / rzImg.width), cv = $("rz-cv"), x = cv.getContext("2d"), fm = $("rz-fmt").value;
+  cv.width = Math.round(rzImg.width * k); cv.height = Math.round(rzImg.height * k); if(fm === "image/jpeg"){ x.fillStyle = "#fff"; x.fillRect(0, 0, cv.width, cv.height); } x.drawImage(rzImg, 0, 0, cv.width, cv.height); cv.hidden = false;
+  cv.toBlob(b => { if(!b) return show("rz-out", "Format ini tidak didukung browser kamu", true); const a = $("rz-dl"); a.href = URL.createObjectURL(b); a.download = (rzFile.name.replace(/\.[^.]+$/, "") || "foto") + "-resized." + ({"image/jpeg": "jpg", "image/png": "png", "image/webp": "webp"})[fm]; a.hidden = false;
+    show("rz-out", rzImg.width + "x" + rzImg.height + " → " + cv.width + "x" + cv.height + " px  |  " + Math.round(rzFile.size / 1024) + " KB → " + Math.round(b.size / 1024) + " KB"); }, fm, $("rz-q").value / 100);
+}
+$("rz-f").onchange = e => { const f = e.target.files[0]; if(!f) return; rzFile = f; $("rz-name").textContent = f.name; const im = new Image(); im.onload = () => { rzImg = im; rzDo(); }; im.onerror = () => show("rz-out", "Foto tidak bisa dibaca", true); im.src = URL.createObjectURL(f); };
+["rz-fmt", "rz-w", "rz-q"].forEach(i => { $(i).onchange = rzDo; $(i).oninput = () => { clearTimeout(rzDo.t); rzDo.t = setTimeout(rzDo, 200); }; });
+
+/* Pengguna aktif (grafik ala crypto) */
+(function(){
+  let sid = null; try{ sid = sessionStorage.getItem("scr_sid"); }catch(e){}
+  if(!sid){ sid = Array.from(crypto.getRandomValues(new Uint8Array(10)), x => x.toString(36).padStart(2, "0")).join(""); try{ sessionStorage.setItem("scr_sid", sid); }catch(e){} }
+  let pts = [], cur = 0; const N = 60, STEP = 30000;
+  const bucket = s => { const a = new Array(N).fill(0), st = Date.now() - N * STEP; (s || []).forEach(p => { const i = Math.floor((new Date(p.ts).getTime() - st) / STEP); if(i >= 0 && i < N) a[i] = Math.max(a[i], p.n); }); a[N - 1] = cur; return a; };
+  function draw(){
+    const cv = $("lv-cv"); if(!cv || !pts.length) return; const W = cv.clientWidth || 320, H = 150, D = window.devicePixelRatio || 1; cv.width = W * D; cv.height = H * D; const x = cv.getContext("2d"); x.scale(D, D);
+    const mx = Math.max(4, ...pts), last = pts[N - 1], ref = pts[N - 11], up = last >= ref, col = up ? "#2fd47a" : "#ff5c6c", px = i => 4 + i * (W - 8) / (N - 1), py = v => H - 12 - v / mx * (H - 28);
+    x.strokeStyle = "rgba(255,255,255,.07)"; for(let i = 0; i < 4; i++){ const y = 10 + i * (H - 24) / 3; x.beginPath(); x.moveTo(0, y); x.lineTo(W, y); x.stroke(); }
+    const p = new Path2D(); pts.forEach((v, i) => { if(!i) p.moveTo(px(0), py(v)); else { const cx = (px(i - 1) + px(i)) / 2; p.bezierCurveTo(cx, py(pts[i - 1]), cx, py(v), px(i), py(v)); } });
+    const ar = new Path2D(p); ar.lineTo(px(N - 1), H - 12); ar.lineTo(px(0), H - 12); ar.closePath(); const g = x.createLinearGradient(0, 0, 0, H); g.addColorStop(0, col + "55"); g.addColorStop(1, col + "00"); x.fillStyle = g; x.fill(ar);
+    x.strokeStyle = col; x.lineWidth = 2.2; x.lineJoin = "round"; x.stroke(p); x.fillStyle = col; x.beginPath(); x.arc(px(N - 1), py(last), 4, 0, 7); x.fill(); x.lineWidth = 1; x.strokeStyle = col + "77"; x.beginPath(); x.arc(px(N - 1), py(last), 8, 0, 7); x.stroke();
+    $("lv-n").textContent = last; $("lv-n").style.color = col; const d = last - ref, el = $("lv-ch"); el.style.color = d === 0 ? "var(--mut)" : col;
+    el.textContent = d === 0 ? "● stabil (5 menit)" : (d > 0 ? "▲ +" : "▼ ") + d + (ref ? " (" + (d > 0 ? "+" : "") + Math.round(d / ref * 100) + "%)" : " (baru)");
+    $("lv-pk").textContent = Math.max(...pts); $("lv-lo").textContent = Math.min(...pts.slice(pts.findIndex(v => v > 0) < 0 ? 0 : pts.findIndex(v => v > 0)));
+  }
+  async function beat(){
+    if(document.visibilityState !== "visible" || !window.__acPanel) return;
+    try{ const r = await fetch("/api/online", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({sid})}), j = await r.json();
+      if(!j.ok){ $("lv-ch").textContent = j.error || "tidak tersedia"; return; } cur = j.now; pts = bucket(j.series); draw(); }catch(e){}
+  }
+  window.liveDraw = draw; setTimeout(beat, 2500); setInterval(beat, 20000); document.addEventListener("visibilitychange", () => { if(document.visibilityState === "visible") beat(); });
+})();
+
+/* Connection Bot */
+async function btCall(action, number){
+  const r = await fetch("/api/bot", {method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({action, number})}); let j = {}; try{ j = await r.json(); }catch(e){}
+  if(!r.ok || !j.ok) throw new Error(j.error || "Gagal (" + r.status + ")"); return j;
+}
+let btTimer = null;
+async function btList(){
+  const box = $("bt-list"); try{
+    const j = await btCall("list"); box.textContent = ""; if(!j.bots.length){ box.textContent = "Belum ada bot yang terhubung."; return; }
+    j.bots.forEach(b => { const r = mkel("div", "", "ac"), t = mkel("div"), s = mkel("span", b.status === "open" ? "Terhubung" : b.status === "connecting" ? "Menghubungkan" : "Terputus", "bst " + b.status), d = mkel("button", "Putuskan", "btn"); d.type = "button"; d.style.marginLeft = "auto";
+      t.append(mkel("b", "+" + b.number), mkel("small", b.name || "")); r.append(t, s, d); let arm = false;
+      d.onclick = async () => { if(!arm){ arm = true; d.textContent = "Yakin?"; return; } try{ await btCall("logout", b.number); toast("Bot diputuskan"); }catch(e){ toast(e.message); } btList(); }; box.appendChild(r); });
+  }catch(e){ box.textContent = e.message; }
+}
+function btPoll(n){
+  clearInterval(btTimer); let t = 0;
+  btTimer = setInterval(async () => { if(++t > 50) return clearInterval(btTimer);
+    try{ const j = await btCall("status", n); if(j.status === "open"){ clearInterval(btTimer); $("bt-code").textContent = ""; show("bt-out", "Terhubung! Kirim .menu ke bot untuk mulai."); btList(); } }catch(e){} }, 4000);
+}
+$("bt-go").onclick = async () => {
+  const n = $("bt-num").value; if(!n.replace(/\D/g, "")) return show("bt-out", "Isi nomor WhatsApp dulu", true); show("bt-out", "Meminta kode... tunggu beberapa detik"); $("bt-code").textContent = "";
+  try{
+    const j = await btCall("pair", n); if(j.connected){ show("bt-out", "Nomor ini sudah terhubung. Kirim .menu ke bot."); return btList(); }
+    show("bt-out", "Masukkan kode ini di WhatsApp (Perangkat tertaut > Tautkan dengan nomor telepon). Kode berlaku sekitar 1 menit."); const c = mkel("div", j.code, "bigcode"), cp = mkel("button", "Salin kode", "btn go"); cp.type = "button"; cp.style.width = "100%";
+    cp.onclick = () => navigator.clipboard.writeText(j.code.replace("-", "")).then(() => toast("Kode disalin")).catch(() => toast("Salin manual saja")); $("bt-code").append(c, cp); btPoll(n); btList();
+  }catch(e){ show("bt-out", e.message, true); }
+};
 
 /* Mulai */
 (async () => { await migrateLocal(); await loadShared(); })();

@@ -1,7 +1,20 @@
 {
   "functions": {
-    "api/bypass.js": { "maxDuration": 60, "includeFiles": "node_modules/@sparticuz/chromium/**" },
-    "api/deploy.js": { "maxDuration": 60 },
-    "api/chat.js": { "maxDuration": 60 }
+    "api/bypass.js": {
+      "maxDuration": 60,
+      "includeFiles": "node_modules/@sparticuz/chromium/**"
+    },
+    "api/deploy.js": {
+      "maxDuration": 60
+    },
+    "api/chat.js": {
+      "maxDuration": 60
+    },
+    "api/tools.js": {
+      "maxDuration": 30
+    },
+    "api/bot.js": {
+      "maxDuration": 30
+    }
   }
 }
