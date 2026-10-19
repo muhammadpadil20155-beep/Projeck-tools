@@ -29,7 +29,7 @@ module.exports = async (req, res) => {
       if (f.length >= 8) return send(res, 429, { ok: false, error: "Terlalu banyak percobaan, coba lagi 10 menit lagi" });
       const name = String(b.username || "").trim().toLowerCase(), pass = String(b.password || "");
       const r = await L.sb("app_users?select=*&username=eq." + enc(name));
-      if (!r.ok) return send(res, 500, { ok: false, error: "Database error. Sudah menjalankan supabase-auth.sql?" });
+      if (!r.ok) return send(res, 500, { ok: false, error: "Database error. Sudah menjalankan supabase-semua.sql?" });
       let u = (await r.json())[0];
       const ownerName = (process.env.OWNER_USER || "Jefri").trim();
       if (!u && process.env.OWNER_PASS && name === ownerName.toLowerCase() && pass === process.env.OWNER_PASS) {
@@ -54,7 +54,7 @@ module.exports = async (req, res) => {
       const exp = pd.days ? expIso(pd.days) : null;
       const r = await mk(name, String(b.username).trim(), pass, role, me.username, exp);
       if (r.status === 409) return send(res, 409, { ok: false, error: "Username sudah dipakai" });
-      if (!r.ok) return send(res, 500, { ok: false, error: exp ? "Gagal menyimpan akun. Sudah menjalankan supabase-expired.sql?" : "Gagal menyimpan akun" });
+      if (!r.ok) return send(res, 500, { ok: false, error: exp ? "Gagal menyimpan akun. Sudah menjalankan supabase-semua.sql?" : "Gagal menyimpan akun" });
       await L.log({ ev: "user_create", by: me.username, u: name, role, days: pd.days }); return send(res, 200, { ok: true });
     }
     if (b.action === "list") {
@@ -83,7 +83,7 @@ module.exports = async (req, res) => {
         exp = expIso(pd.days, base);
       } else if (b.mode === "add") return send(res, 400, { ok: false, error: "Isi jumlah hari lebih dari 0 untuk menambah" });
       const r = await L.sb("app_users?username=eq." + enc(t), "PATCH", { expires_at: exp }, "return=minimal");
-      if (!r.ok) return send(res, 500, { ok: false, error: "Gagal menyimpan. Sudah menjalankan supabase-expired.sql?" });
+      if (!r.ok) return send(res, 500, { ok: false, error: "Gagal menyimpan. Sudah menjalankan supabase-semua.sql?" });
       await L.log({ ev: "user_setexp", by: me.username, u: t, days: pd.days, mode: b.mode === "add" ? "add" : "set" }); return send(res, 200, { ok: true, exp });
     }
     if (b.action === "delete" || b.action === "setpass") {
