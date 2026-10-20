@@ -4,8 +4,16 @@ module.exports = async (req, res) => {
   const out = (c, o) => { res.statusCode = c; res.setHeader("Content-Type", "application/json"); res.setHeader("Cache-Control", "no-store"); res.end(JSON.stringify(o)); };
   if (req.method !== "POST") return out(405, { ok: false, error: "Metode tidak didukung" });
   const A = await L.requireRole(req); if (!A.user) return out(A.code || 401, { ok: false, error: "Login dulu" });
-  if (!URL_ || !KEY) return out(503, { ok: false, error: "Bot belum dikonfigurasi di server (isi BOT_URL dan BOT_KEY di Vercel)" });
   let b = req.body; if (typeof b === "string") { try { b = JSON.parse(b); } catch (e) { b = null; } } b = b || {};
+  if (b.action === "diag") { // khusus owner: tampilkan apakah variabel terbaca dan apakah panel bisa dihubungi dari Vercel
+    if (A.user.role !== "owner") return out(403, { ok: false, error: "Khusus owner" });
+    const d = { ok: true, urlSet: !!URL_, keySet: !!KEY, urlHost: null, env: process.env.VERCEL_ENV || "tidak diketahui", health: null };
+    if (URL_) { try { d.urlHost = new URL(URL_).host; const r = await fetch(URL_ + "/health", { signal: AbortSignal.timeout(8000) }); d.health = r.status + " " + (await r.text()).slice(0, 120); } catch (e) { d.health = "GAGAL dihubungi: " + e.message; } }
+    return out(200, d);
+  }
+  if (!URL_ && !KEY) return out(503, { ok: false, error: "BOT_URL dan BOT_KEY belum terbaca di server ini. Tambahkan di Vercel (project yang menjalankan situs ini), centang Production, lalu Redeploy." });
+  if (!URL_) return out(503, { ok: false, error: "BOT_URL belum terbaca di server (BOT_KEY sudah). Periksa nama variabelnya dan Redeploy." });
+  if (!KEY) return out(503, { ok: false, error: "BOT_KEY belum terbaca di server (BOT_URL sudah). Periksa nama variabelnya dan Redeploy." });
   let n = String(b.number || "").replace(/\D/g, ""); if (n.startsWith("0")) n = "62" + n.slice(1); else if (n.startsWith("8")) n = "62" + n;
   const who = "user=" + encodeURIComponent(A.user.username) + "&admin=" + (A.user.role === "owner" ? "1" : "0"), admin = A.user.role === "owner";
   const call = async (path, method, body) => { const r = await fetch(URL_ + path, { method, headers: { "x-bot-key": KEY, "content-type": "application/json" }, body: body ? JSON.stringify(body) : undefined, signal: AbortSignal.timeout(25000) }); let j = {}; try { j = await r.json(); } catch (e) {} return out(r.ok ? 200 : (r.status >= 400 && r.status < 600 ? r.status : 502), r.ok ? j : { ok: false, error: j.error || "Bot menolak permintaan" }); };
